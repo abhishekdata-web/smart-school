@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0,user-scalable=0" />
+    <title>Gvn Ems</title>
+    <link rel="manifest" href="/manifest.json" />
+    <link rel="shortcut icon" href="/img/favicon.png" />
+    <script>
+        //check cookie w_auth
+        let w_auth = document.cookie.indexOf('w_auth');
+        if (w_auth != -1) {
+            if (localStorage.getItem('role') != 10 && localStorage.getItem('role') != 1 && localStorage.getItem('role') != 3 && localStorage.getItem('role') != 2) {
+                location.href = "/dashboard";
+            }
+        } else {
+            location.href = "/login";
+        }
+    </script>
+    <link rel="stylesheet" href="/css/main.min.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #1f2946;
+        }
+
+        input::placeholder {
+            color: #c2c6dc;
+        }
+
+        .bottomscrollbar::-webkit-scrollbar {
+            /* Hide scrollbar for Chrome, Safari and Opera */
+            height: 9px;
+            background: #262C49;
+        }
+
+        .bottomscrollbar::-webkit-scrollbar-thumb {
+            background: #6158CF;
+            border-radius: 25px;
+        }
+    </style>
+</head>
+
+<body>
+    <section style="display: flex;justify-content:space-between;">
+        {{> _sidebar}}
+        <section id="main-content">
+            {{> _header}}
+
+            <div style="margin-top:29px;display:flex;align-items:center;justify-content:space-between;">
+                <div style="display:flex;align-items:center;">
+                    <div
+                        style="font-weight:600;color: #fff;font-size:23.5px;border-right:1px solid #fff;padding-right:15px;margin-right:15px;">
+                        Batch</div>
+                    <a href="/dashboard">
+                        <svg width="19px" height="19px" style="stroke: #7367F0;margin-right:12px;">
+                            <use href="/img/sprite.svg#icon-home"></use>
+                        </svg>
+                    </a>
+                    <svg width="15px" height="15px" style="stroke: #fff;margin-right:12px;">
+                        <use href="/img/sprite.svg#icon-anglelefttwo"></use>
+                    </svg>
+                    <div style="color: #fff;font-size:14.5px;">Classes</div>
+                </div>
+
+                <div style="background: #6a719c;width:35px;height:35px;padding:10px;border-radius:50%;">
+                    <svg width="16px" height="16px" style="stroke: #fff;margin-right:12px;">
+                        <use href="/img/sprite.svg#icon-cog"></use>
+                    </svg>
+                </div>
+            </div>
+
+            <div style="background: #121729;box-shadow: 0 0 10px 0 rgba(4,2,2,.2);margin-top:29px;padding:20px;border-radius:8px;">
+                <div style="display: flex;justify-content:space-between;align-items:center;">
+                    <button
+                        style="background:none;border:1px solid #414561;color:#c2c6dc;padding:13px;border-radius:7px;font-size:13px;"><span
+                            id="total-result">--</span> Results</button>
+                    <input type="text" placeholder="Search..." id="search-input"
+                        style="background: #262C49;border:none;border-radius:5px;padding:13px;width:240px;color:#fff;margin-left:15px;">
+                </div>
+
+                <div id="classes-wrapper" class="classes-row"
+                    style="display: flex;justify-content:space-between;flex-wrap:wrap;">
+
+                </div>
+            </div>
+
+            <div class="footer-dashboard"
+                style="background: #121729;box-shadow: 0 0 10px 0 rgba(4,2,2,.2);border-radius:8px;margin:25px 0;color:#ebeefd;font-size:12px;">
+                © COPYRIGHT 2077 | X-TREME EMS
+            </div>
+        </section>
+    </section>
+
+    <script src="/script/script.js"></script>
+
+    <script>
+        let classesArr = [
+            {
+                "url": "/classroom?standard=11%20(G1)%20Science&date=today",
+                "name": "11 G1 Science",
+                "totalstudents": "51"
+            },
+            {
+                "url": "/classroom?standard=11%20(G2)%20Science&date=today",
+                "name": "11 G2 Science",
+                "totalstudents": "18"
+            },
+            {
+                "url": "/classroom?standard=11%20(G1)%20Management&date=today",
+                "name": "11 G1 Management",
+                "totalstudents": "16"
+            },
+            {
+                "url": "/classroom?standard=11%20(G2)%20Management&date=today",
+                "name": "11 G2 Management",
+                "totalstudents": "70"
+            },
+            {
+                "url": "/classroom?standard=11%20(G3)%20Management&date=today",
+                "name": "11 G3 Management",
+                "totalstudents": "141"
+            },
+            {
+                "url": "/classroom?standard=11%20(G4)%20Management&date=today",
+                "name": "11 G4 Management",
+                "totalstudents": "43"
+            },
+            {
+                "url": "/classroom?standard=11%20(G5)%20Management&date=today",
+                "name": "11 G5 Management",
+                "totalstudents": "35"
+            },
+            {
+                "url": "/classroom?standard=11%20(G6)%20Management&date=today",
+                "name": "11 G6 Management",
+                "totalstudents": "26"
+            },
+            {
+                "url": "/classroom?standard=11%20(G7)%20Management&date=today",
+                "name": "11 G7 Management",
+                "totalstudents": "1"
+            },
+            {
+                "url": "/classroom?standard=11%20(G1)%20Education&date=today",
+                "name": "11 G1 Education",
+                "totalstudents": "22"
+            },
+            {
+                "url": "/classroom?standard=11%20(G1)%20Law&date=today",
+                "name": "11 G1 Law",
+                "totalstudents": "23"
+            },
+            {
+                "url": "/classroom?standard=12%20(G1)%20Science&date=today",
+                "name": "12 G1 Science",
+                "totalstudents": "--"
+            },
+            {
+                "url": "/classroom?standard=12%20(G2)%20Science&date=today",
+                "name": "12 G2 Science",
+                "totalstudents": "27"
+            },
+            {
+                "url": "/classroom?standard=12%20(G1)%20Management&date=today",
+                "name": "12 G1 Management",
+                "totalstudents": "35"
+            },
+            {
+                "url": "/classroom?standard=12%20(G2)%20Management&date=today",
+                "name": "12 G2 Management",
+                "totalstudents": "37"
+            },
+            {
+                "url": "/classroom?standard=12%20(G3)%20Management&date=today",
+                "name": "12 G3 Management",
+                "totalstudents": "43"
+            },
+            {
+                "url": "/classroom?standard=12%20(G4)%20Management&date=today",
+                "name": "12 G4 Management",
+                "totalstudents": "53"
+            },
+            {
+                "url": "/classroom?standard=12%20(G5)%20Management&date=today",
+                "name": "12 G5 Management",
+                "totalstudents": "52"
+            },
+            {
+                "url": "/classroom?standard=12%20(G6)%20Management&date=today",
+                "name": "12 G6 Management",
+                "totalstudents": "7"
+            },
+            {
+                "url": "/classroom?standard=12%20(G7)%20Management&date=today",
+                "name": "12 G7 Management",
+                "totalstudents": "37"
+            },
+            {
+                "url": "/classroom?standard=12%20(G1)%20Education&date=today",
+                "name": "12 G1 Education",
+                "totalstudents": "36"
+            },
+            {
+                "url": "/classroom?standard=12%20(G1)%20Law&date=today",
+                "name": "12 G1 Law",
+                "totalstudents": "40"
+            }
+        ];
+        let newClassesArr = classesArr;
+
+        const renderClasses = () => {
+            document.getElementById("total-result").innerHTML = classesArr.length;
+            classesArr.forEach(item => {
+                document.getElementById("classes-wrapper").insertAdjacentHTML('beforeend', `
+                    <a href="${item.url}" class="col"
+                        style="color: #c2c6dc;background: #262C49;box-shadow: 0 4px 20px 0 rgba(0,0,0,.05);padding:15px;border-radius:8px;margin-top:17px;">
+                        <div style="display: flex;justify-content:space-between;align-items:center;">
+                            <svg width="33px" height="33px" style="fill: #fff;">
+                                <use href="/img/sprite.svg#icon-hat"></use>
+                            </svg>
+                            <div style="background: #4D8AF0;width:24px;height:24px;padding:5px;border-radius:50%;">
+                                <svg width="15px" height="15px" style="stroke: #fff;margin-right:12px;">
+                                    <use href="/img/sprite.svg#icon-angleleft"></use>
+                                </svg>
+                            </div>
+                        </div>
+                        <center>
+                            <img src="/img/classgif.gif" style="width:120px;height:120px;object-fit:cover;border-radius:50%;">
+                        </center>
+                        <div style="display: flex;justify-content:space-between;font-size:13px;">
+                            <div>
+                                <div>
+                                    <svg width="11px" height="11px" style="stroke: #fff;margin-right:12px;">
+                                        <use href="/img/sprite.svg#icon-dot"></use>
+                                    </svg>
+                                    Class
+                                </div>
+                            </div>
+                            <div style="text-align: right;">
+                                <div>${item.name}</div>
+                            </div>
+                        </div>
+                        <div style="display: flex;justify-content:space-between;font-size:13px;">
+                            <div>
+                                <div style="margin-top: 18px;">
+                                    <svg width="11px" height="11px" style="stroke: #fff;margin-right:12px;">
+                                        <use href="/img/sprite.svg#icon-dot"></use>
+                                    </svg>
+                                    Total Students
+                                </div>
+                            </div>
+                            <div style="text-align: right;">
+                                <div style="margin-top: 18px;">${item.totalstudents}</div>
+                            </div>
+                        </div>
+                        <div style="display: flex;justify-content:space-between;font-size:13px;">
+                            <div>
+                                <div style="margin-top: 18px;">
+                                    <svg width="11px" height="11px" style="stroke: #fff;margin-right:12px;">
+                                        <use href="/img/sprite.svg#icon-dot"></use>
+                                    </svg>
+                                    Class Teacher
+                                </div>
+                            </div>
+                            <div style="text-align: right;">
+                                <div style="margin-top: 18px;">Not Set</div>
+                            </div>
+                        </div>
+                    </a>
+                `);
+            })
+        }
+        renderClasses();
+
+        //search class
+        document.getElementById("search-input").onkeyup = function () {
+            document.getElementById("classes-wrapper").innerHTML = "";
+
+            classesArr = searchStudent(this.value, newClassesArr);
+            renderClasses();
+        };
+
+        function searchStudent(value, data) {
+            let filteredData = [];
+
+            for (let i = 0; i < data.length; i++) {
+                value = value.toLowerCase();
+                let name = data[i].name.toLowerCase();
+
+                if (name.includes(value)) {
+                    filteredData.push(data[i])
+                }
+            }
+
+            return filteredData;
+        }
+    </script>
+</body>
+
+</html>

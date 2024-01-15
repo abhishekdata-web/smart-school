@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0,user-scalable=0" />
+    <title>Gvn Ems</title>
+    <link rel="manifest" href="/manifest.json" />
+    <link rel="shortcut icon" href="/img/favicon.png" />
+    <script>
+        //check cookie w_auth
+        let w_auth = document.cookie.indexOf('w_auth');
+        if (w_auth != -1) {
+            if (localStorage.getItem('role') != 10 && localStorage.getItem('role') != 3) {
+                location.href = "/dashboard";
+            }
+        } else {
+            location.href = "/login";
+        }
+    </script>
+    <link rel="stylesheet" href="/css/main.min.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #1F2946;
+        }
+
+        input::placeholder {
+            color: #c2c6dc;
+        }
+
+        ::-webkit-calendar-picker-indicator {
+            filter: invert(1);
+        }
+    </style>
+</head>
+
+<body>
+    <section style="display: flex;justify-content:space-between;">
+        {{> _sidebar}}
+        <div id="main-content">
+            <form id="newuser-form">
+                {{> _header}}
+
+                <div style="margin-top:29px;display:flex;align-items:center;justify-content:space-between;">
+                    <div style="display:flex;align-items:center;">
+                        <div
+                            style="font-weight:600;color: #fff;font-size:23.5px;border-right:1px solid #fff;padding-right:15px;margin-right:15px;">
+                            Library</div>
+                        <a href="/dashboard">
+                            <svg width="19px" height="19px" style="stroke: #7367F0;margin-right:12px;">
+                                <use href="/img/sprite.svg#icon-home"></use>
+                            </svg>
+                        </a>
+                        <svg width="15px" height="15px" style="stroke: #fff;margin-right:12px;">
+                            <use href="/img/sprite.svg#icon-anglelefttwo"></use>
+                        </svg>
+                        <div style="color: #fff;font-size:14.5px;">Book</div>
+                    </div>
+
+                    <div style="background: #6a719c;width:35px;height:35px;padding:10px;border-radius:50%;">
+                        <svg width="16px" height="16px" style="stroke: #fff;margin-right:12px;">
+                            <use href="/img/sprite.svg#icon-cog"></use>
+                        </svg>
+                    </div>
+                </div>
+
+                <div style="margin-top: 25px;display:flex;">
+                    <button type="button"
+                        style="font-size:12px;background:#4d8af0;box-shadow: 0 0 10px 1px rgba(97, 173, 223, 0.7);color:#fff;border:1px solid #4d8af0;padding:10px 33px;border-radius:7px;display:flex;margin-right:15px;">
+                        In Library
+                    </button>
+                    <button type="button"
+                        style="font-size:12px;background:none;color:#1A76CA;border:1px solid #1A76CA;padding:10px 33px;border-radius:7px;display:flex;">
+                        Booked
+                    </button>
+                </div>
+
+                <div style="display:flex;flex-wrap:wrap;justify-content:space-between;">
+                    <div class="newuser-col"
+                        style="background: #121729;box-shadow: 0 0 10px 0 rgba(4,2,2,.2);border-radius:8px;">
+                        <div style="font-size:19px;color: #ebeefd;font-weight:600;">Book Info</div>
+                        <div
+                            style="display: flex;flex-wrap:wrap;align-items:center;justify-content:space-between;margin-top:10px;font-size:14px;color: #c2c6dc;">
+                            <div style="width:48%;margin-top: 21px;">
+                                <div>Title</div>
+                                <input type="text" name="title" required
+                                    style="background: #1D2542;border:none;color:#fff;padding:10px;border-radius:2px;border-top:1px solid #10163A;width:100%;">
+                            </div>
+                            <div style="width:48%;margin-top: 21px;">
+                                <div>Author</div>
+                                <input type="text" name="author"
+                                    style="background: #1D2542;border:none;color:#fff;padding:10px;border-radius:2px;border-top:1px solid #10163A;width:100%;">
+                            </div>
+                            <div style="width:48%;margin-top: 21px;">
+                                <div>Standard</div>
+                                <div class="dropdown">
+                                    <input type="hidden" id="maininput-myDropdown2" name="standard">
+                                    <button type="button" onclick="myFunction('myDropdown2')" class="dropbtn input-err"
+                                        id="btn-shift">
+                                        <div id="chosen-myDropdown2"></div>
+                                        <svg width="15px" height="15px" style="stroke: #fff;margin-left:auto;">
+                                            <use href="/img/sprite.svg#icon-anglelefttwo"></use>
+                                        </svg>
+                                    </button>
+                                    <div class="myDropdown dropdown-content hidescrollbar" data-dropdown="myDropdown2"
+                                        id="myDropdown2">
+                                        <div
+                                            style="display: flex;align-items:center;padding-left:10px;background:#10163A;">
+                                            <svg width="16px" height="16px" style="stroke: #fff;margin-right:5px;">
+                                                <use href="/img/sprite.svg#icon-search"></use>
+                                            </svg>
+                                            <input type="text" class="myInput" id="myInput-myDropdown2"
+                                                onkeyup="filterFunction('myDropdown2')">
+                                        </div>
+                                        <a onclick="dropdownChosen('11 Science', 'myDropdown2')">11 Science</a>
+                                        <a onclick="dropdownChosen('11 Management', 'myDropdown2')">11 Management</a>
+                                        <a onclick="dropdownChosen('11 Law', 'myDropdown2')">11 Law</a>
+                                        <a onclick="dropdownChosen('11 Education', 'myDropdown2')">11 Education</a>
+                                        <a onclick="dropdownChosen('12 Science', 'myDropdown2')">12 Science</a>
+                                        <a onclick="dropdownChosen('12 Management', 'myDropdown2')">12 Management</a>
+                                        <a onclick="dropdownChosen('12 Law', 'myDropdown2')">12 Law</a>
+                                        <a onclick="dropdownChosen('12 Education', 'myDropdown2')">12 Education</a>
+                                        <a onclick="dropdownChosen('Other Books', 'myDropdown2')">Other Books</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="width:48%;margin-top: 21px;">
+                                <div>Quantity</div>
+                                <input type="number" name="quantity"
+                                    style="background: #1D2542;border:none;color:#fff;padding:10px;border-radius:2px;border-top:1px solid #10163A;width:100%;">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="newuser-col" style="background: #121729;border-radius:8px;pointer-events:none;opacity:0.5;">
+                        <div style="font-size:19px;color: #ebeefd;font-weight:600;">Issue Info</div>
+                        <div style="width:48%;margin-top: 21px;color:#c2c6dc;font-size:14px;">
+                            <div>Mobile</div>
+                            <input type="text"
+                                style="background: #1D2542;border:none;color:#fff;padding:10px;border-radius:2px;border-top:1px solid #10163A;width:100%;">
+                        </div>
+                    </div>
+                </div>
+
+                <button id="newuser-btn"
+                    style="position:fixed;bottom:50px;right:50px;box-shadow: 0 1px 20px 1px #fb434f;background:#fb434f;color:#fff;border:none;padding:11px 34px;border-radius:7px;display:flex;display:flex;align-items:center;font-size:12px;">
+                    <svg width="17px" height="17px" style="stroke: #fff;margin-right:5px;">
+                        <use href="/img/sprite.svg#icon-add"></use>
+                    </svg>
+                    <span id="newuser-btn-text">Add Book</span>
+                </button>
+
+                <div class="footer-dashboard"
+                    style="background: #121729;box-shadow: 0 0 10px 0 rgba(4,2,2,.2);border-radius:8px;margin:25px 0;color:#ebeefd;font-size:12px;">
+                    © COPYRIGHT 2077 | XTREME EMS
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <script src="/script/script.js"></script>
+
+    <script>
+        const addBook = (e) => {
+            e.preventDefault();
+
+            document.getElementById("newuser-btn").disabled = true;
+            document.getElementById("newuser-btn-text").innerHTML = `
+                    <div class="spinner" style="height:7px;">
+                        <div class="rect1"></div>
+                        <div class="rect2"></div>
+                        <div class="rect3"></div>
+                        <div class="rect4"></div>
+                        <div class="rect5"></div>
+                    </div>
+                `
+
+            var myform = document.getElementById("newuser-form");
+            let formData = new FormData(myform);
+
+            axios.post('/add-book', formData)
+                .then(function (resp) {
+                    if (resp.data.success == true) {
+                        location.reload();
+                    }
+                })
+        }
+        document.getElementById("newuser-form").addEventListener("submit", addBook);
+    </script>
+</body>
+
+</html>

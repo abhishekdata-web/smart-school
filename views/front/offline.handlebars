@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0,user-scalable=0" />
+    <title>Gvn Ems</title>
+    <link rel="manifest" href="/manifest.json" />
+    <link rel="shortcut icon" href="/img/favicon.png" />
+    <link rel="stylesheet" href="/css/main.min.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #262C48;
+        }
+    </style>
+</head>
+
+<body>
+    <center style="margin: 15px;margin-top:24vh;">
+        <svg height="90" viewBox="0 0 510.39 510.39" width="90" fill="#FE3F80" style="margin-bottom: 30px;">
+            <g>
+                <path
+                    d="m303.8 337.422c-26.8-26.801-70.408-26.799-97.21 0l-21.213-21.213c18.915-18.914 43.658-28.513 68.501-28.841l-48.632-48.632c-21.957 7.406-42.58 19.832-60.046 37.297l-21.213-21.213c17.189-17.189 36.942-30.286 58.036-39.307l-44.073-44.073c-19.984 10.907-38.762 24.792-55.657 41.686l-21.213-21.213c16.644-16.644 35.056-30.873 54.801-42.542l-57.101-57.101c-36.705 44.199-58.78 100.982-58.78 162.925 0 140.94 114.255 255.195 255.195 255.195 61.943 0 118.726-22.075 162.926-58.78l-114.255-114.254zm-48.563 74.768c-8.409 0-14.636-6.873-15-15-.363-8.101 7.154-15 15-15 8.409 0 14.636 6.873 15 15 .363 8.101-7.154 15-15 15z" />
+                <path
+                    d="m255.195 111.508c73.327 0 142.265 28.556 194.114 80.405l-21.213 21.213c-70.48-70.48-173.63-88.841-261.149-55.115l47.133 47.133c60.081-13.554 125.644 2.997 172.322 49.675l-21.213 21.213c-34.136-34.135-80.32-49.058-124.99-44.769l199.857 199.857c43.581-45.78 70.334-107.728 70.334-175.926 0-140.939-114.255-255.194-255.195-255.194-68.197 0-130.145 26.753-175.925 70.334l64.6 64.6c34.595-15.353 72.34-23.426 111.325-23.426z" />
+            </g>
+        </svg>
+
+
+        <div style="color:#fff;font-weight:600;font-size:19px;">NO INTERNET CONNECTION</div>
+        <div style="color:#fff;font-size:16px;margin-top:10px;">You have turned on the airplane mode in your device</div>
+        <div style="color:#fff;font-weight:600;font-size:19px;margin-top:20px;">PLEASE TURN ON</div>
+        <button onclick="refresh()"
+            style="border:none;background:#FE3F80;color:#fff;padding:13px;margin-top:10px;border-radius:25px;">Click To
+            Refresh</button>
+    </center>
+
+    <script>
+        const refresh = () => {
+            location.reload();
+        }
+    </script>
+</body>
+
+</html>

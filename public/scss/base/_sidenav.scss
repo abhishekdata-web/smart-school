@@ -1,0 +1,57 @@
+.hidescrollbar {
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
+}
+
+.hidescrollbar::-webkit-scrollbar {
+    /* Hide scrollbar for Chrome, Safari and Opera */
+    width: 6px;
+}
+
+.hidescrollbar::-webkit-scrollbar-track {
+    background: none;
+}
+
+.hidescrollbar::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.226);
+}
+
+.hidescrollbar::-webkit-scrollbar-thumb:hover {
+    background: #FB7FAC;
+}
+
+// collapse====================
+.sidebar-collapse {
+    max-height: 0;
+    visibility: hidden;
+    overflow: hidden;
+}
+.sidebar-show {
+    animation: collapsesidebar 0.7s forwards;
+}
+@keyframes collapsesidebar {
+    from {
+        max-height: 0;
+        visibility: hidden;
+    }
+    to {
+        max-height: 1000px;
+        visibility: visible;
+    }
+}
+
+// hide links for localstorage
+.sidenav-only10{
+    display: none;
+}
+.sidenav-only3{
+    display: none;
+}
+.sidenav-only1{
+    display: none;
+}
+.sidenav-only2{
+    display: none;
+}

@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0,user-scalable=0" />
+    <title>Gvn Ems</title>
+    <link rel="manifest" href="/manifest.json" />
+    <link rel="shortcut icon" href="/img/favicon.png" />
+    <script>
+        //check cookie w_auth
+        let w_auth = document.cookie.indexOf('w_auth');
+        if (w_auth != -1) {
+
+        } else {
+            location.href = "/login";
+        }
+    </script>
+    <link rel="stylesheet" href="/css/main.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #1F2946;
+        }
+    </style>
+</head>
+
+<body>
+    <section style="display: flex;justify-content:space-between;">
+        {{> _sidebar}}
+        <section id="main-content">
+            <div style="position: relative;z-index:60;">
+                {{> _header}}
+            </div>
+
+            {{!-- remove later when dashboard is functional --}}
+            {{!-- <div
+                style="background:rgba(22, 23, 32, 0.493);height:100%;width:100%;position:fixed;top:0;left:0;z-index:40;">
+                <center><img src="/img/underconstruction.png" style="width: 225px;margin-top:28vh;"></center>
+            </div> --}}
+            {{!-- remove later when dashboard is functional --}}
+
+            <div class="dashbord-row1"
+                style="display: flex;justify-content:space-between;flex-wrap:wrap;margin-top:25px;">
+                <div class="col1"
+                    style="padding:10px 28px;border-radius:8px;background:#6939ED;color:#fff;text-align:center;position:relative;">
+                    <img src="/img/celebrate.png" style="position:absolute;left:0;top:0;width:35%;">
+                    <img src="https://www.flaticon.com/svg/static/icons/svg/3011/3011270.svg"
+                        style="position:relative;z-index:20;width:84px;height:84px;background:#8157f5;border-radius:50%;padding:7px;box-shadow: 0 2px 4px 0 rgba(0,0,0,.1)!important;">
+                    <div style="font-size: 23px;font-weight:600;letter-spacing:1.5px;margin-top:25px;">Welcome
+                        <span id="dashboard-name"></span>,</div>
+                    <div style="margin-top: 20px;font-size:14px;line-height:23px;">Hello user! welcome to the admin
+                        panel, here you can view the statistics & feel free to route to the other sections.</div>
+                </div>
+                <div class="col2" style="background: #121729;box-shadow: 0 0 10px 0 rgba(4,2,2,.2);border-radius:8px;">
+                    <div style="padding:20px 20px 0;">
+                        <button onclick="getIncome()"
+                            style="float:right;padding:2px 7px;background:#03a76d;color:#fff;border:2px solid #03c480;border-radius:15px;">Calc</button>
+                        <span style="background: #1F2255;border-radius:50%;padding:16px 9px 6px;">
+                            <svg width="22px" height="22px" style="stroke: #7367F0;">
+                                <use href="/img/sprite.svg#icon-users"></use>
+                            </svg>
+                        </span>
+                        <div style="font-weight:600;margin-top:19px;color:#fff;font-size:24px;"
+                            id="dashboard-income-text">Rs. ####</div>
+                        <div style="color: #c2c6dc;margin-top:7px;font-size:14px;">Income - Total For 2021</div>
+                    </div>
+                    <div id="chart2" style="overflow: hidden;"></div>
+                    <div style="height: 8px;background:#303554;border-radius:0 0 8px 8px;"></div>
+                </div>
+                <div class="col2" style="background: #121729;box-shadow: 0 0 10px 0 rgba(4,2,2,.2);border-radius:8px;">
+                    <div style="padding:20px 20px 0;">
+                        <span style="background: #342B3B;border-radius:50%;padding:16px 9px 6px;">
+                            <svg width="22px" height="22px" style="stroke: #FF9F43;">
+                                <use href="/img/sprite.svg#icon-shopbag"></use>
+                            </svg>
+                        </span>
+                        <div style="font-weight:600;margin-top:19px;color:#fff;font-size:24px;">Rs. ####</div>
+                        <div style="color: #c2c6dc;margin-top:7px;font-size:14px;">Expense - Total For 2021</div>
+                    </div>
+                    <div id="chart3" style="overflow: hidden;"></div>
+                    <div style="height: 8px;background:#303554;border-radius:0 0 8px 8px;"></div>
+                </div>
+            </div>
+
+            <div class="dashbord-row2"
+                style="display: flex;justify-content:space-between;flex-wrap:wrap;margin-top:25px;">
+                <div class="col1">
+                    <div
+                        style="background: #121729;box-shadow: 0 0 10px 0 rgba(4,2,2,.2);border-radius:8px;padding:20px 20px 5px;">
+                        <button onclick="getIncomeByMoth()"
+                            style="float:right;padding:2px 7px;background:#4D8AEF;color:#fff;border:2px solid #4D8AEF;border-radius:15px;">Calc</button>
+                        <div style="color: #ebeefd;font-weight:600;margin-bottom:15px;font-size:15px;">Fees Collection &
+                            Expenses For
+                            November 2020</div>
+                        <div id="chart"></div>
+                    </div>
+                </div>
+                <div class="col2" style="background: #121729;box-shadow: 0 0 10px 0 rgba(4,2,2,.2);border-radius:8px;">
+                    <div style="padding:20px 20px 5px;float:right;">
+                        <button onclick="getDashboardOverview()"
+                            style="padding:2px 7px;background:#6939ED;color:#fff;border:2px solid #6939ED;border-radius:15px;">Calc</button>
+                    </div>
+                    <div style="padding:20px 20px 5px;color: #ebeefd;font-weight:600;font-size:15px;">Dashboard Overview
+                    </div>
+                    <div style="font-weight:800;padding:10px 0 0 20px;color:#fff;font-size:35px;" id="overview-total">##
+                    </div>
+                    <div style="padding:3px 0 0 27px;color:#c2c6dc;font-size:13px;">Total User</div>
+                    <div id="chart4" style="margin-top: -60px;"></div>
+                    <div style="padding:0 20px 20px;display:flex;justify-content:space-between;">
+                        <div>
+                            <div style="color: #c2c6dc;font-size:14px;">Students</div>
+                            <div id="overview-student"
+                                style="color: #fff;text-align:center;font-size:18px;margin-top:5px;font-weight:800;">
+                                ##</div>
+                        </div>
+                        <div>
+                            <div style="color: #c2c6dc;font-size:14px;">Teachers</div>
+                            <div id="overview-teacher"
+                                style="color: #fff;text-align:center;font-size:18px;margin-top:5px;font-weight:800;">
+                                ##</div>
+                        </div>
+                        <div>
+                            <div style="color: #c2c6dc;font-size:14px;">Enquiry</div>
+                            <div id="overview-enquiry"
+                                style="color: #fff;text-align:center;font-size:18px;margin-top:5px;font-weight:800;">
+                                ##</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div
+                style="background: #121729;box-shadow: 0 0 10px 0 rgba(4,2,2,.2);border-radius:8px;margin:25px 0;padding:20px;color:#ebeefd;font-size:12px;">
+                © COPYRIGHT 2077 | XTREME EMS
+            </div>
+        </section>
+    </section>
+
+    <div id="dash-loader"
+        style="position: fixed;top:0;left:0;width:100%;height:100%;z-index:100;background:rgba(22, 23, 32, 0.938);">
+        <div class="spinner" style="height:35px;position:fixed;top:50%;left:50%;transform:translate(-50%, -50%);">
+            <div class="rect1"></div>
+            <div class="rect2"></div>
+            <div class="rect3"></div>
+            <div class="rect4"></div>
+            <div class="rect5"></div>
+        </div>
+    </div>
+
+    {{!-- apex chart --}}
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <script src="/script/script.js"></script>
+
+    <script>
+        window.addEventListener("load", () => {
+            document.getElementById("dashboard-name").innerHTML = localStorage.getItem("firstname");
+            document.getElementById("dash-loader").style.display = "none";
+        })
+
+        const getIncome = () => {
+            document.getElementById("dash-loader").style.display = "block";
+
+            axios.get("/api/statistics").then(function (resp) {
+                document.getElementById("dashboard-income-text").innerHTML = "Rs. " + resp.data.income;
+                document.getElementById("dash-loader").style.display = "none";
+            })
+        }
+    </script>
+
+    <script>
+        //ajax
+        let incomeByMonth = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+        let expenseByMonth = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+        const getIncomeByMoth = () => {
+            document.getElementById("dash-loader").style.display = "block";
+
+            axios.get("/api/statistics/bymonth").then(function (resp) {
+                incomeByMonth = [];
+
+                document.getElementById("dash-loader").style.display = "none";
+                incomeByMonth.push(resp.data.incomeJan, resp.data.incomeFeb, resp.data.incomeMar, resp.data.incomeApr, resp.data.incomeMay, resp.data.incomeJun, resp.data.incomeJul, resp.data.incomeAug, resp.data.incomeSep, resp.data.incomeOct, resp.data.incomeNov, resp.data.incomeDec)
+
+                chart.updateSeries([{
+                    name: 'Net Income',
+                    data: incomeByMonth
+                }, {
+                    name: 'Expense',
+                    data: expenseByMonth
+                }])
+            })
+        }
+        //chart
+        var options = {
+            series: [{
+                name: 'Net Income',
+                data: incomeByMonth
+            }, {
+                name: 'Expense',
+                data: expenseByMonth
+            }],
+            chart: {
+                type: 'bar',
+                height: 280,
+                foreColor: '#fff'
+            },
+            plotOptions: {
+                bar: {
+                    horizontal: false,
+                    columnWidth: '55%',
+                    endingShape: 'rounded'
+                },
+            },
+            dataLabels: {
+                enabled: false
+            },
+            stroke: {
+                show: true,
+                width: 2,
+                colors: ['transparent']
+            },
+            xaxis: {
+                categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+            },
+            yaxis: {
+                title: {
+                    text: '$ (thousands)'
+                }
+            },
+            fill: {
+                opacity: 1
+            },
+            tooltip: {
+                y: {
+                    formatter: function (val) {
+                        return "Rs " + val + " thousands"
+                    }
+                }
+            }
+        };
+
+        var chart = new ApexCharts(document.querySelector("#chart"), options);
+        chart.render();
+    </script>
+
+    <script>
+        var options2 = {
+            series: [{
+                name: 'series1',
+                data: [31, 40, 28, 51, 42, 109, 100]
+            }],
+            chart: {
+                height: 100,
+                type: 'area',
+                sparkline: {
+                    enabled: true
+                }
+            },
+            dataLabels: {
+                enabled: false
+            },
+            stroke: {
+                curve: 'smooth'
+            },
+            xaxis: {
+                categories: ["Book Sale", "Donation", "2018-09-19T02:30:00.000Z", "2018-09-19T03:30:00.000Z", "2018-09-19T04:30:00.000Z", "2018-09-19T05:30:00.000Z", "2018-09-19T06:30:00.000Z"]
+            },
+            tooltip: {
+                x: {
+                    format: 'dd/MM/yy HH:mm'
+                },
+            },
+            fill: {
+                colors: ['#232645']
+            },
+            colors: ['#2D92FE']
+        };
+
+        var chart2 = new ApexCharts(document.querySelector("#chart2"), options2);
+        chart2.render();
+    </script>
+
+    <script>
+        var options3 = {
+            series: [{
+                name: 'series1',
+                data: [31, 40, 42, 20, 100, 28, 51]
+            }],
+            chart: {
+                height: 100,
+                type: 'area',
+                sparkline: {
+                    enabled: true
+                }
+            },
+            dataLabels: {
+                enabled: false
+            },
+            stroke: {
+                curve: 'smooth'
+            },
+            xaxis: {
+                categories: ["Book Sale", "Donation", "2018-09-19T02:30:00.000Z", "2018-09-19T03:30:00.000Z", "2018-09-19T04:30:00.000Z", "2018-09-19T05:30:00.000Z", "2018-09-19T06:30:00.000Z"]
+            },
+            tooltip: {
+                x: {
+                    format: 'dd/MM/yy HH:mm'
+                },
+            },
+            fill: {
+                colors: ['#232645']
+            },
+            colors: ['#FF9F43']
+        };
+
+        var chart3 = new ApexCharts(document.querySelector("#chart3"), options3);
+        chart3.render();
+    </script>
+    <script>
+        //ajax
+        let studentCount = 0;
+        let teacherCount = 0;
+        let userCount = 0;
+        let otherCount = 0;
+        let studentPercent = 0;
+        let teacherPercent = 0;
+        const getDashboardOverview = () => {
+            document.getElementById("dash-loader").style.display = "block";
+
+            axios.get("/api/dashboard/attendance").then(function (resp) {
+                document.getElementById("dash-loader").style.display = "none";
+                resp.data.val.forEach(val => {
+                    console.log(val)
+                    if (val.name == "student") {
+                        document.getElementById("overview-student").innerHTML = val.val;
+                        studentCount = val.val;
+                    } else if (val.name == "teacher") {
+                        document.getElementById("overview-teacher").innerHTML = val.val;
+                        teacherCount = val.val;
+                    } else if (val.name == "enquiry") {
+                        document.getElementById("overview-enquiry").innerHTML = val.val;
+                    } else if (val.name == "user") {
+                        document.getElementById("overview-total").innerHTML = val.val;
+                        userCount = val.val;
+                    } else if (val.name == "other") {
+                        otherCount = val.val;
+                    }
+                })
+
+                studentPercent = (studentCount / userCount) * 100;
+                teacherPercent = (teacherCount / userCount) * 100;
+                otherCount = (otherCount / userCount) * 100;
+
+                chart4.updateSeries([studentPercent, teacherPercent, otherCount])
+            })
+        }
+
+        //chart
+        var options4 = {
+            series: [0, 0, 0],
+            chart: {
+                height: 300,
+                type: 'radialBar',
+                foreColor: '#fff'
+            },
+            plotOptions: {
+                radialBar: {
+                    dataLabels: {
+                        name: {
+                            fontSize: '22px',
+                        },
+                        value: {
+                            fontSize: '16px',
+                        },
+                        total: {
+                            show: true,
+                            label: 'Total',
+                            formatter: function (w) {
+                                // By default this function returns the average of all series. The below is just an example to show the use of custom formatter function
+                                return "100 %"
+                            }
+                        }
+                    }
+                }
+            },
+            labels: ['Students', 'Teachers', 'Other'],
+            fill: {
+                colors: ['#7C63F9', '#FFA54F', '#EE6D6E']
+            }
+        };
+
+        var chart4 = new ApexCharts(document.querySelector("#chart4"), options4);
+        chart4.render();
+    </script>
+</body>
+
+</html>

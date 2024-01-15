@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0,user-scalable=0" />
+    <title>Gvn Ems</title>
+    <link rel="manifest" href="/manifest.json" />
+    <link rel="shortcut icon" href="/img/favicon.png" />
+    <script>
+        //check cookie w_auth
+        let w_auth = document.cookie.indexOf('w_auth');
+        if (w_auth != -1) {
+            if (localStorage.getItem('role') != 10 && localStorage.getItem('role') != 1 && localStorage.getItem('role') != 3 && localStorage.getItem('role') != 2) {
+                location.href = "/dashboard";
+            }
+        } else {
+            location.href = "/login";
+        }
+    </script>
+    <link rel="stylesheet" href="/css/main.min.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #1F2946;
+        }
+
+        input::placeholder {
+            color: #c2c6dc;
+        }
+
+        table {
+            border-collapse: separate;
+            width: 100%;
+            color: #c2c6dc;
+            font-size: 13px;
+            white-space: nowrap;
+            margin-bottom: 22px;
+        }
+
+        th {
+            color: #fff;
+            font-weight: 600;
+        }
+
+        th,
+        td {
+            padding: 16px;
+            box-shadow: 0 4px 20px 0 rgba(0, 0, 0, .1);
+        }
+
+        tr {
+            background: #262C49;
+        }
+
+        tr:hover {
+            background: #212744;
+        }
+
+        .bottomscrollbar {
+            -ms-overflow-style: none;
+            /* IE and Edge */
+            scrollbar-width: none;
+            /* Firefox */
+        }
+
+        .bottomscrollbar::-webkit-scrollbar {
+            /* Hide scrollbar for Chrome, Safari and Opera */
+            height: 5px;
+            width: 3px;
+            background: #262C49;
+        }
+
+        .bottomscrollbar::-webkit-scrollbar-thumb {
+            background: #4D8AF0;
+            border-radius: 25px;
+        }
+    </style>
+</head>
+
+<body>
+    <section style="display: flex;justify-content:space-between;">
+        {{> _sidebar}}
+        <section id="main-content">
+            {{> _header}}
+
+            <div style="margin-top:29px;display:flex;align-items:center;justify-content:space-between;">
+                <div style="display:flex;align-items:center;">
+                    <div
+                        style="font-weight:600;color: #fff;font-size:23.5px;border-right:1px solid #fff;padding-right:15px;margin-right:15px;">
+                        Class</div>
+                    <a href="/dashboard">
+                        <svg width="19px" height="19px" style="stroke: #7367F0;margin-right:12px;">
+                            <use href="/img/sprite.svg#icon-home"></use>
+                        </svg>
+                    </a>
+                    <svg width="15px" height="15px" style="stroke: #fff;margin-right:12px;">
+                        <use href="/img/sprite.svg#icon-anglelefttwo"></use>
+                    </svg>
+                    <div style="color: #fff;font-size:14.5px;"><span id="total-students">--</span> Users</div>
+                </div>
+
+                <div style="background: #6A719C;width:40px;height:40px;padding:12px;border-radius:50%;">
+                    <svg width="17px" height="17px" style="stroke: #fff;margin-right:12px;">
+                        <use href="/img/sprite.svg#icon-cog"></use>
+                    </svg>
+                </div>
+            </div>
+
+            <center style="margin-top:15px;">
+                <input type="text" id="attendance-datepicker"
+                    style="border-radius: 25px;border:none;width:150px;padding:10px 0;background:#009184;color:#fff;text-align:center;">
+            </center>
+
+            <div style="background: #121729;box-shadow: 0 0 10px 0 rgba(4,2,2,.2);margin-top:29px;padding:15px;border-radius:8px;">
+                <div style="display: flex;justify-content:space-between;align-items:center;">
+                    <button
+                        style="background:none;border:1px solid #414561;color:#c2c6dc;padding:13px;border-radius:7px;font-size:13px;"><span
+                            id="total-students2">--</span> Students</button>
+                    <input type="text" placeholder="Search..." id="search-input"
+                        style="background: #262C49;border:none;border-radius:5px;padding:13px;width:240px;color:#fff;margin-left:15px;">
+                </div>
+
+                <div class="bottomscrollbar" style="margin-top:40px;overflow-x:auto;">
+                    <table id="classroom-wrapper">
+
+                    </table>
+                </div>
+
+                <center id="ajaxload-img">
+                    <img src="/img/preloader.gif" style="width: 220px;">
+                </center>
+
+                <div style="display: flex;margin-top:20px;">
+                    <button id="attendance-btn" onclick="attendanceHandler()"
+                        style="margin-left:auto;background: #4D8AF0;color:#fff;width:85px;height:40px;border-radius:25px;border:none;">
+                        Save
+                    </button>
+                </div>
+            </div>
+
+            <div class="footer-dashboard"
+                style="background: #121729;box-shadow: 0 0 10px 0 rgba(4,2,2,.2);border-radius:8px;margin:25px 0;color:#ebeefd;font-size:12px;">
+                © COPYRIGHT 2077 | XTREME EMS
+            </div>
+        </section>
+    </section>
+    
+    <script src="/script/script.js"></script>
+
+    <script>
+        // query params from the url
+        const urlParams = new URLSearchParams(window.location.search);
+        const standardParam = urlParams.get('standard');
+        const dateParam = urlParams.get('date');
+    </script>
+
+    <script>
+        let crrDate = dateParam == "today" ? new Date().toLocaleDateString('pt-br').split('/').reverse().join('-') : dateParam;
+        let currentDate = new Date(crrDate).toLocaleDateString('default', { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' });
+
+        flatpickr("#attendance-datepicker", {
+            disableMobile: "true",
+            defaultDate: crrDate,
+            onChange: function (selectedDates, dateStr, instance) {
+                document.getElementById("classroom-wrapper").innerHTML = "";
+                crrDate = dateStr;
+                currentDate = new Date(dateStr).toLocaleDateString('default', { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' });
+                getUpdatedDateStudents();
+            }
+        });
+    </script>
+
+    <script>
+        let allClassStudents = [];
+        let newAllClassStudents = [];
+
+        const getUpdatedDateStudents = () => {
+            document.getElementById("ajaxload-img").style.display = "none";
+            document.getElementById("total-students").innerHTML = allClassStudents.length;
+            document.getElementById("total-students2").innerHTML = allClassStudents.length;
+
+            document.getElementById("classroom-wrapper").innerHTML = `
+                <tr>
+                    <th style="text-align: left;"><input type="checkbox" style="zoom: 1.25;"
+                            onclick="toggleAllCheckbox(this)"></th>
+                    <th>Name</th>
+                    <th>Mobile</th>
+                    <th>Shift</th>
+                    <th>Gender</th>
+                    <th>Standard</th>
+                    <th>Details</th>
+                </tr>
+            `;
+
+            allClassStudents.forEach(user => {
+                //check attendance with current date
+                let attendanceDates = user.attendance;
+                let currentDateExist = false;
+                if (attendanceDates.some(attendance => attendance.date === currentDate)) {
+                    currentDateExist = true;
+                }
+                // display html data
+                document.getElementById("classroom-wrapper").insertAdjacentHTML('beforeend', `
+                    <tr>
+                        <td><input type="checkbox" value="${user._id}" name="mycheckboxes" style="zoom: 1.2;" ${currentDateExist == true ? "checked" : ""}></td>
+                        </td>
+                        <td style="display: flex;align-items:center;"><img
+                                src="/img/gvnlogo.jpg"
+                                style="width: 35px;height:35px;object-fit:cover;border:2px solid #fff;border-radius:50%;margin-right:14px;"> ${user.firstname} ${user.lastname}</td>
+                        <td>+977 - ${user.mobile}</td>
+                        <td><span
+                                style="background: #1BA057;color:#fff;padding:6px 10px;border-radius:25px;">${user.shift}</span>
+                        </td>
+                        <td>
+                            ${user.gender == "" ? "Not Specified" : user.gender}
+                        </td>
+                        <td>${user.standard}</td>
+                        <td>
+                            <svg viewBox="0 0 612 612" style="width:20px;height:20px;fill:#fff;">
+                                <path d="M609.608,315.426c3.19-5.874,3.19-12.979,0-18.853c-58.464-107.643-172.5-180.72-303.607-180.72
+                                    S60.857,188.931,2.393,296.573c-3.19,5.874-3.19,12.979,0,18.853C60.858,423.069,174.892,496.147,306,496.147
+                                    S551.143,423.069,609.608,315.426z M306,451.855c-80.554,0-145.855-65.302-145.855-145.855S225.446,160.144,306,160.144
+                                    S451.856,225.446,451.856,306S386.554,451.855,306,451.855z"/>
+                                <path d="M306,231.67c-6.136,0-12.095,0.749-17.798,2.15c5.841,6.76,9.383,15.563,9.383,25.198c0,21.3-17.267,38.568-38.568,38.568
+                                    c-9.635,0-18.438-3.541-25.198-9.383c-1.401,5.703-2.15,11.662-2.15,17.798c0,41.052,33.279,74.33,74.33,74.33
+                                    s74.33-33.279,74.33-74.33S347.052,231.67,306,231.67z"/>
+                            </svg>
+                        </td>
+                    </tr>
+                `);
+            })
+        }
+
+        const getAllStudents = () => {
+            axios.get(`/api/classroom?standardParam=${standardParam}`)
+                .then(function (resp) {
+                    allClassStudents = resp.data.users;
+                    newAllClassStudents = resp.data.users;
+                    getUpdatedDateStudents();
+                })
+        }
+        getAllStudents();
+
+        //search students
+        document.getElementById("search-input").onkeyup = function () {
+            document.getElementById("classroom-wrapper").innerHTML = "";
+
+            allClassStudents = searchStudent(this.value, newAllClassStudents);
+            getUpdatedDateStudents();
+        };
+
+        function searchStudent(value, data) {
+            let filteredData = [];
+
+            for (let i = 0; i < data.length; i++) {
+                value = value.toLowerCase();
+                let firstname = data[i].firstname.toLowerCase();
+
+                if (firstname.includes(value)) {
+                    filteredData.push(data[i])
+                }
+            }
+
+            return filteredData;
+        }
+    </script>
+
+    <script>
+        function toggleAllCheckbox(source) {
+            let chkbx = document.querySelectorAll('input[type="checkbox"]');
+            for (let i = 0; i < chkbx.length; i++) {
+                if (chkbx[i] != source)
+                    chkbx[i].checked = source.checked;
+            }
+        }
+
+        function getCheckedBoxes(chkboxName) {
+            let checkboxes = document.getElementsByName(chkboxName);
+            let checkboxesChecked = [];
+            // loop over them all
+            for (let i = 0; i < checkboxes.length; i++) {
+                // And stick the checked ones onto an array...
+                if (checkboxes[i].checked) {
+                    checkboxesChecked.push({
+                        userId: checkboxes[i].value,
+                        status: "present"
+                    });
+                } else {
+                    checkboxesChecked.push({
+                        userId: checkboxes[i].value,
+                        status: "absent"
+                    });
+                }
+            }
+            // Return the array if it is non-empty, or valu will be null
+            return checkboxesChecked;
+        }
+
+        const attendanceHandler = () => {
+            let checkedBoxes = getCheckedBoxes("mycheckboxes");
+
+            document.getElementById("attendance-btn").disabled = true;
+            document.getElementById("attendance-btn").innerHTML = `
+                <div class="spinner" style="height:7px;">
+                    <div class="rect1"></div>
+                    <div class="rect2"></div>
+                    <div class="rect3"></div>
+                    <div class="rect4"></div>
+                    <div class="rect5"></div>
+                </div>
+            `
+            document.getElementById("classroom-wrapper").innerHTML = "";
+            document.getElementById("ajaxload-img").style.display = "block";
+
+            axios.post("/api/attendance", {
+                checkedBoxes,
+                currentDate
+            }).then(function (resp) {
+                location.replace(`/classroom?standard=${standardParam}&date=${crrDate}`)
+            })
+        }
+    </script>
+</body>
+
+</html>

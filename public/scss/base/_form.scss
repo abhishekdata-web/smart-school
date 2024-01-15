@@ -1,0 +1,81 @@
+// dark theme ===================
+// searchable drop down
+.dropbtn {
+    background: #1D2542;
+    width: 100%;
+    color: white;
+    padding: 10px;
+    font-size: 13.3px;
+    border: none;
+    border-top:1px solid #10163A;
+    cursor: pointer;
+    text-align: left;
+    display: flex;
+}
+
+.dropbtn:hover {
+    background-color: rgb(104, 158, 250);
+}
+
+.myInput {
+    font-size: 13.3px;
+    padding: 14px 10px 12px;
+    border: none;
+    width: 100%;
+    background: #10163A;
+    color:#fff;
+}
+
+.dropdown {
+    position: relative;
+    display: block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #1D2542;
+    width: 100%;
+    overflow: auto;
+    z-index: 1;
+    border-left: 3px solid #262C49;
+    min-height: auto;
+    max-height: 223px;
+}
+
+.dropdown-content a {
+    color: #fff;
+    padding: 12px 10px;
+    text-decoration: none;
+    display: block;
+    font-size: 13.1px;
+    font-weight: 600;
+}
+
+.dropdown a:hover {
+    background-color:  rgb(104, 158, 250);
+}
+
+.show {
+    display: block;
+}
+
+// white theme ===================
+// searchable drop down
+.dropbtn-white {
+    background: #fff;
+    width: 100%;
+    color: #190a32;
+    padding: 15px;
+    font-size: 13.3px;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    display: flex;
+    border-radius: 10px;
+    margin-top:24px;
+}
+
+.dropbtn-white:hover {
+    background-color:#eee !important;
+}

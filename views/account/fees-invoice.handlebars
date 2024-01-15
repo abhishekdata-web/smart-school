@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0,user-scalable=0" />
+    <title>Gvn Ems</title>
+    <link rel="manifest" href="/manifest.json" />
+    <link rel="shortcut icon" href="/img/favicon.png" />
+    <script>
+        //check cookie w_auth
+        let w_auth = document.cookie.indexOf('w_auth');
+        if (w_auth != -1) {
+            if (localStorage.getItem('role') != 10 && localStorage.getItem('role') != 2) {
+                location.href = "/dashboard";
+            }
+        } else {
+            location.href = "/login";
+        }
+    </script>
+    <link rel="stylesheet" href="/css/main.min.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #1F2946;
+        }
+
+        input::placeholder {
+            color: #c2c6dc;
+        }
+
+        #printing-section {
+            width: 900px;
+        }
+    </style>
+</head>
+
+<body>
+    <section style="display: flex;justify-content:space-between;">
+        {{> _sidebar}}
+        <div id="main-content">
+            {{> _header}}
+
+            <div style="margin-top:29px;display:flex;align-items:center;justify-content:space-between;">
+                <div style="display:flex;align-items:center;">
+                    <div
+                        style="font-weight:600;color: #fff;font-size:23.5px;border-right:1px solid #fff;padding-right:15px;margin-right:15px;">
+                        Invoive</div>
+                    <a href="/dashboard">
+                        <svg width="19px" height="19px" style="stroke: #7367F0;margin-right:12px;">
+                            <use href="/img/sprite.svg#icon-home"></use>
+                        </svg>
+                    </a>
+                    <svg width="15px" height="15px" style="stroke: #fff;margin-right:12px;">
+                        <use href="/img/sprite.svg#icon-anglelefttwo"></use>
+                    </svg>
+                    <div style="color: #fff;font-size:14.5px;">Preview</div>
+                </div>
+
+                <div style="background: #6a719c;width:35px;height:35px;padding:10px;border-radius:50%;">
+                    <svg width="16px" height="16px" style="stroke: #fff;margin-right:12px;">
+                        <use href="/img/sprite.svg#icon-cog"></use>
+                    </svg>
+                </div>
+            </div>
+
+            <div id="mobile-hidden" style="margin: 10px 0 25px;">
+                <button onclick="cancelBill()"
+                    style="box-shadow: 0 1px 20px 1px #e43b46;background:#fb434f;color:#fff;border:none;padding:11px 20px;border-radius:4px;display:inline-flex;align-items:center;font-size:12px;">
+                    <svg width="17px" height="17px" style="stroke: #fff;margin-right:5px;">
+                        <use href="/img/sprite.svg#icon-del"></use>
+                    </svg>
+                    <span>Cancel Bill</span>
+                </button>
+                <button onclick="printPage()"
+                    style="box-shadow: 0 1px 20px 1px #01c581;background:#03ca85;color:#fff;border:none;padding:11px 20px;border-radius:4px;display:inline-flex;align-items:center;font-size:12px;margin-left:10px;">
+                    <svg width="17px" height="17px" style="stroke: #fff;margin-right:5px;">
+                        <use href="/img/sprite.svg#icon-add"></use>
+                    </svg>
+                    <span>Print Invoice</span>
+                </button>
+            </div>
+
+            <center>
+                <div id="printing-section" style="background:#fff;margin-top:12px;">
+                    <div style="padding:15px 10px;border-bottom: 1px solid #4145618e;">
+                        <center>
+                            <div style="font-weight: bold;font-size:29px;">GVN COLLEGE</div>
+                            <div style="margin-top: 15px;">BP Chowk, Nepalgunj</div>
+                            <div style="margin-top: 9px;">Contact: 081527570, 9858057570</div>
+                        </center>
+                        <div style="display: flex;align-items:center;margin-top:10px;">
+                            <div style="font-size: 13.5px;margin-left:20px;">PAN NO:</div>
+                            <div style="border:1px solid #444;padding:3px;margin-left:4px;">3</div>
+                            <div style="border:1px solid #444;padding:3px;margin-left:4px;">4</div>
+                            <div style="border:1px solid #444;padding:3px;margin-left:4px;">5</div>
+                            <div style="border:1px solid #444;padding:3px;margin-left:4px;">6</div>
+                            <div style="border:1px solid #444;padding:3px;margin-left:4px;">9</div>
+                            <div style="border:1px solid #444;padding:3px;margin-left:4px;">8</div>
+                            <div style="border:1px solid #444;padding:3px;margin-left:4px;">9</div>
+                            <div style="border:1px solid #444;padding:3px;margin-left:4px;">9</div>
+                            <div style="border:1px solid #444;padding:3px;margin-left:4px;">3</div>
+                        </div>
+                    </div>
+                    <div style="padding:15px 10px;display:flex;justify-content:space-between;flex-wrap:wrap;">
+                        <div style="font-size: 13.5px;width:48%;">RECEIPT ID : <strong id="rec-id"></strong></div>
+                        <div style="font-size: 13.5px;width:48%;">TRANSACTION DATE : <strong id="rec-date"></strong>
+                        </div>
+                        <div style="font-size: 13.5px;width:48%;margin-top:8px;">STUDENT : <strong
+                                id="rec-name"></strong>
+                        </div>
+                        <div style="font-size: 13.5px;width:48%;margin-top:8px;">Standard : <strong
+                                id="rec-standard"></strong>
+                        </div>
+                        <div style="font-size: 13.5px;width:48%;margin-top:8px;">STUDENT ID :
+                            <strong id="rec-student-id"></strong></div>
+                    </div>
+                    <div id="display-receipt">
+                        <div style="display: flex;justify-content:space-between;text-align:left;">
+                            <div style="border: 1px solid #4145618e;width:10%;padding:8px;font-weight:bold;">
+                                S</div>
+                            <div style="border: 1px solid #4145618e;width:40%;padding:8px;font-weight:bold;">
+                                Description</div>
+                            <div style="border: 1px solid #4145618e;width:25%;padding:8px;font-weight:bold;">
+                                Amount</div>
+                            <div style="border: 1px solid #4145618e;width:25%;padding:8px;font-weight:bold;">
+                                Total</div>
+                        </div>
+                    </div>
+                    <div style="display: flex;justify-content:space-between;text-align:left;">
+                        <div style="border: 1px solid #4145618e;width:10%;padding:15px 8px;"></div>
+                        <div style="border: 1px solid #4145618e;width:40%;padding:15px 8px;"></div>
+                        <div style="border: 1px solid #4145618e;width:25%;padding:15px 8px;"></div>
+                        <div style="border: 1px solid #4145618e;width:25%;padding:15px 8px;"></div>
+                    </div>
+                    <div style="display: flex;justify-content:space-between;text-align:left;">
+                        <div style="border: 1px solid #4145618e;width:10%;padding:15px 8px;"></div>
+                        <div style="border: 1px solid #4145618e;width:40%;padding:15px 8px;"></div>
+                        <div style="border: 1px solid #4145618e;width:25%;padding:15px 8px;"></div>
+                        <div style="border: 1px solid #4145618e;width:25%;padding:15px 8px;"></div>
+                    </div>
+                    <div style="display: flex;justify-content:space-between;text-align:left;">
+                        <div style="border: 1px solid #4145618e;width:10%;padding:8px;font-weight:bold;">
+                        </div>
+                        <div style="border: 1px solid #4145618e;width:40%;padding:8px;font-weight:bold;">
+                            Total Amount</div>
+                        <div style="border: 1px solid #4145618e;width:25%;padding:8px;font-weight:bold;">
+                        </div>
+                        <div id="total-amount"
+                            style="border: 1px solid #4145618e;width:25%;padding:8px;font-weight:bold;">
+                            0</div>
+                    </div>
+                </div>
+            </center>
+
+            <div id="only-mobile"></div>
+
+            <div class="footer-dashboard"
+                style="background: #121729;box-shadow: 0 0 10px 0 rgba(4,2,2,.2);border-radius:8px;margin:25px 0;color:#ebeefd;font-size:12px;">
+                © COPYRIGHT 2077 | XTREME EMS
+            </div>
+        </div>
+    </section>
+
+    <script src="/script/script.js"></script>
+
+    <div id="fees-loader"
+        style="position: fixed;top:0;left:0;width:100%;height:100%;z-index:100;background:rgba(22, 23, 32, 0.938);">
+        <div class="spinner" style="height:35px;position:fixed;top:50%;left:50%;transform:translate(-50%, -50%);">
+            <div class="rect1"></div>
+            <div class="rect2"></div>
+            <div class="rect3"></div>
+            <div class="rect4"></div>
+            <div class="rect5"></div>
+        </div>
+    </div>
+
+    <script>
+        var mq = window.matchMedia("(max-width: 800px)")
+        if (mq.matches) {
+            document.getElementById("printing-section").style.display = "none";
+            document.getElementById("mobile-hidden").style.display = "none";
+            document.getElementById("only-mobile").innerHTML = `
+                <div style="margin:30px 0;text-align:center;">
+                   <button style="background:#FB434F;border:none;color:#fff;font-size:17px;padding:8px;">Open in pc</button>
+                </div>
+            `;
+        }
+
+        // query params from the url
+        const urlParams = new URLSearchParams(window.location.search);
+        const idParam = urlParams.get('id');
+
+        //student mobile
+        let studentMobile = 0;
+
+        const getInvoice = () => {
+            axios.get(`/api/invoice?_id=${idParam}`).then(function (resp) {
+                document.getElementById("fees-loader").style.display = "none";
+                document.getElementById("rec-id").innerHTML = resp.data.docs._id;
+                document.getElementById("rec-name").innerHTML = resp.data.user.firstname + " " + resp.data.user.lastname;
+                document.getElementById("rec-standard").innerHTML = resp.data.user.standard;
+                document.getElementById("rec-student-id").innerHTML = resp.data.docs.mobile;
+                studentMobile = resp.data.docs.mobile;
+                document.getElementById("rec-date").innerHTML = new Date(resp.data.docs.date).toLocaleDateString('default', { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' });
+                let totalAmount = 0;
+                resp.data.docs.data.forEach(data => {
+                    totalAmount = totalAmount + parseInt(data.amount);
+                    document.getElementById("display-receipt").insertAdjacentHTML("beforeend", `
+                         <div style="display: flex;justify-content:space-between;text-align:left;color:#444;">
+                            <div style="border: 1px solid #4145618e;width:10%;padding:8px;">
+                                #</div>
+                            <div style="border: 1px solid #4145618e;width:40%;padding:8px;">
+                                ${data.particular}</div>
+                            <div style="border: 1px solid #4145618e;width:25%;padding:8px;">
+                               Rs. ${data.amount}</div>
+                            <div style="border: 1px solid #4145618e;width:25%;padding:8px;">
+                               Rs. ${data.amount}</div>
+                        </div>
+                    `);
+
+                    document.getElementById("total-amount").innerHTML = "Rs. " + totalAmount;
+                })
+            })
+        }
+        getInvoice()
+
+        const printPage = () => {
+            let printContents = document.getElementById("printing-section").innerHTML;
+            let originalContents = document.body.innerHTML;
+            document.body.innerHTML = printContents;
+            window.print();
+            document.body.innerHTML = originalContents;
+        }
+    </script>
+
+    <script>
+        const cancelBill = () => {
+            let result = confirm("Are You Sure, You Want To Cancel?");
+            if (result) {
+                document.getElementById("fees-loader").style.display = "block";
+                axios.get(`/api/delete/invoice?_id=${idParam}`).then(function (resp) {
+                    location.replace(`/collectfees?mobile=${studentMobile}`);
+                })
+            }
+        }
+    </script>
+</body>
+
+</html>

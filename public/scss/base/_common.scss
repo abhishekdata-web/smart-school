@@ -1,0 +1,40 @@
+html{
+    //remove 300sec delay on mobile
+    touch-action: manipulation;
+}
+
+body{
+    overflow-x: hidden;
+}
+
+a{
+    text-decoration: none;
+}
+
+input {
+    outline: none;
+}
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+    border: 1px solid #262c49;
+    -webkit-text-fill-color: #c2c6dc;
+    -webkit-box-shadow: 0 0 0px 1000px #262c49 inset;
+    box-shadow: 0 0 0px 1000px #262c49 inset;
+    transition: background-color 5000s ease-in-out 0s;
+}
+
+.footer-dashboard{
+    padding:20px;
+}
+@media only screen and (max-width: 600px) {
+    .footer-dashboard{
+        padding:15px;
+    }
+}

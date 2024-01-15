@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0,user-scalable=0" />
+    <title>Gvn Ems</title>
+    <link rel="manifest" href="/manifest.json" />
+    <link rel="shortcut icon" href="/img/favicon.png" />
+    <script>
+        //check cookie w_auth
+        let w_auth = document.cookie.indexOf('w_auth');
+        if (w_auth != -1) {
+            if (localStorage.getItem('role') != 10 && localStorage.getItem('role') != 3) {
+                location.href = "/dashboard";
+            }
+        } else {
+            location.href = "/login";
+        }
+    </script>
+    <link rel="stylesheet" href="/css/main.min.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #1F2946;
+        }
+
+        .user-container {
+            padding: 20px;
+        }
+
+        .user-col {
+            width: 23%;
+        }
+
+        @media only screen and (max-width: 600px) {
+            .user-container {
+                padding: 15px;
+            }
+
+            .user-col {
+                width: 48%;
+            }
+        }
+
+        .dropbtn {
+            border-radius: 5px;
+            margin-top: 5px;
+        }
+
+        input::placeholder {
+            color: #c2c6dc;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            color: #c2c6dc;
+            font-size: 13px;
+            white-space: nowrap;
+            margin-bottom: 22px;
+        }
+
+        th {
+            color: #fff;
+            font-weight: 600;
+        }
+
+        th,
+        td {
+            padding: 13px;
+        }
+
+        tr:hover {
+            background: #262C49;
+        }
+
+        tr {
+            border-bottom: 1px solid #414561;
+        }
+
+        .bottomscrollbar::-webkit-scrollbar {
+            /* Hide scrollbar for Chrome, Safari and Opera */
+            height: 9px;
+            background: #262C49;
+        }
+
+        .bottomscrollbar::-webkit-scrollbar-thumb {
+            background: #4D8AF0;
+            border-radius: 25px;
+        }
+    </style>
+</head>
+
+<body>
+    <section style="display: flex;justify-content:space-between;">
+        {{> _sidebar}}
+        <section id="main-content">
+            {{> _header}}
+
+            <div style="margin-top:29px;display:flex;align-items:center;justify-content:space-between;">
+                <div style="display:flex;align-items:center;">
+                    <div
+                        style="font-weight:600;color: #fff;font-size:23.5px;border-right:1px solid #fff;padding-right:15px;margin-right:15px;">
+                        Library</div>
+                    <a href="/dashboard">
+                        <svg width="19px" height="19px" style="stroke: #7367F0;margin-right:12px;">
+                            <use href="/img/sprite.svg#icon-home"></use>
+                        </svg>
+                    </a>
+                    <svg width="15px" height="15px" style="stroke: #fff;margin-right:12px;">
+                        <use href="/img/sprite.svg#icon-anglelefttwo"></use>
+                    </svg>
+                    <div style="color: #fff;font-size:14.5px;">Book</div>
+                </div>
+
+                <div style="background: #6A719C;width:40px;height:40px;padding:12px;border-radius:50%;">
+                    <svg width="17px" height="17px" style="stroke: #fff;margin-right:12px;">
+                        <use href="/img/sprite.svg#icon-cog"></use>
+                    </svg>
+                </div>
+            </div>
+
+            <div class="user-container"
+                style="background: #121729;box-shadow: 0 0 10px 0 rgba(4,2,2,.2);margin-top:29px;border-radius:8px;">
+                <div style="color: #FF3494;font-size:13px;font-weight:600;">SELECT-STANDARD</div>
+                <div class="dropdown" style="margin-top:5px;">
+                    <button type="button" onclick="myFunction('myDropdown')" class="dropbtn input-err"
+                        id="btn-standard">
+                        <div id="chosen-myDropdown"></div>
+                        <svg width="15px" height="15px" style="stroke: #fff;margin-left:auto;">
+                            <use href="/img/sprite.svg#icon-anglelefttwo"></use>
+                        </svg>
+                    </button>
+                    <div class="myDropdown dropdown-content hidescrollbar" data-dropdown="myDropdown" id="myDropdown">
+                        <div style="display: flex;align-items:center;padding-left:10px;background:#10163A;">
+                            <svg width="16px" height="16px" style="stroke: #fff;margin-right:5px;">
+                                <use href="/img/sprite.svg#icon-search"></use>
+                            </svg>
+                            <input type="text" class="myInput" id="myInput-myDropdown"
+                                onkeyup="filterFunction('myDropdown')">
+                        </div>
+                        <a onclick="filterHandler('11 Science', 'myDropdown', 'standard')">11 Science</a>
+                        <a onclick="filterHandler('11 Management', 'myDropdown', 'standard')">11 Management</a>
+                        <a onclick="filterHandler('11 Law', 'myDropdown', 'standard')">11 Law</a>
+                        <a onclick="filterHandler('11 Education', 'myDropdown', 'standard')">11 Education</a>
+                        <a onclick="filterHandler('12 Science', 'myDropdown', 'standard')">12 Science</a>
+                        <a onclick="filterHandler('12 Management', 'myDropdown', 'standard')">12 Management</a>
+                        <a onclick="filterHandler('12 Law', 'myDropdown', 'standard')">12 Law</a>
+                        <a onclick="filterHandler('12 Education', 'myDropdown', 'standard')">12 Education</a>
+                        <a onclick="filterHandler('Other Books', 'myDropdown', 'standard')">Other Books</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="user-container"
+                style="background: #121729;box-shadow: 0 0 10px 0 rgba(4,2,2,.2);margin-top:29px;border-radius:8px;">
+                <div style="display: flex;align-items:center;">
+                    <form id="search-form" style="width:240px;">
+                        <input type="text" placeholder="Search..." id="search-input"
+                            style="background: #1D2542;border:none;padding:10px;width:100%;color:#fff;border-radius:5px 0 0 5px;">
+                    </form>
+                    <div class="dropdown" style="width: 120px;margin-left:10px;">
+                        <button type="button" onclick="myFunction('myDropdown5')" class="dropbtn input-err"
+                            id="btn-searchtype" style="margin-top:0;border-radius:0 5px 5px 0;">
+                            <div id="chosen-myDropdown5">title</div>
+                            <svg width="15px" height="15px" style="stroke: #fff;margin-left:auto;">
+                                <use href="/img/sprite.svg#icon-anglelefttwo"></use>
+                            </svg>
+                        </button>
+                        <div class="myDropdown dropdown-content hidescrollbar" data-dropdown="myDropdown5"
+                            id="myDropdown5">
+                            <div style="display: flex;align-items:center;padding-left:10px;background:#10163A;">
+                                <svg width="16px" height="16px" style="stroke: #fff;margin-right:5px;">
+                                    <use href="/img/sprite.svg#icon-search"></use>
+                                </svg>
+                                <input type="text" class="myInput" id="myInput-myDropdown5"
+                                    onkeyup="filterFunction('myDropdown5')">
+                            </div>
+                            <a href="#about" onclick="searchTypeHandler('title', 'myDropdown5')">Title</a>
+                            <a href="#about" onclick="searchTypeHandler('author', 'myDropdown5')">Author</a>
+                            <a href="#about" onclick="searchTypeHandler('user-num', 'myDropdown5')">Mobile</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bottomscrollbar" style="margin-top:40px;overflow-x:auto;">
+                    <table id="users-wrapper">
+
+                    </table>
+                </div>
+
+                <center id="ajaxload-img">
+                    <img src="/img/preloader.gif" style="width: 220px;">
+                </center>
+
+                <div id="ajax-loadmore" style="display: flex;">
+
+                </div>
+            </div>
+
+            <div class="footer-dashboard"
+                style="background: #121729;box-shadow: 0 0 10px 0 rgba(4,2,2,.2);border-radius:8px;margin:25px 0;color:#ebeefd;font-size:12px;">
+                © COPYRIGHT 2077 | XTREME EMS
+            </div>
+        </section>
+    </section>
+
+    <script src="/script/script.js"></script>
+
+    <script>
+        // ajax settings
+        let limit = 20;
+        let skip = 0;
+        let standard = "";
+        let search = "";
+        let searchtype = "title";
+
+        const loadBooks = () => {
+            axios.get(`/api/issued-books?limit=${limit}&skip=${skip}&standard=${standard}&search=${search}&searchtype=${searchtype}`).then(function (resp) {
+                document.getElementById("ajaxload-img").style.display = "none";
+                document.body.style.pointerEvents = "auto";
+                if (resp.data.length >= limit) {
+                    document.getElementById('ajax-loadmore').innerHTML = ` <button id="btn-loadmore" onclick="loadMoreUser()"
+                        style="margin-left:auto;background: #6B61DF;color:#fff;width:110px;height:40px;border-radius:20px;border:none;margin-top:20px;">
+                        Load More
+                    </button>`
+                } else {
+                    document.getElementById('ajax-loadmore').innerHTML = '';
+                }
+
+                document.getElementById("users-wrapper").innerHTML = `
+                    <tr>
+                        <th style="text-align: left;">Issue</th>
+                        <th>Name (Title)</th>
+                        <th>Author</th>
+                        <th>Standard</th>
+                        <th>Status</th>
+                        <th>Quantity</th>
+                        <th>Actions</th>
+                    </tr>
+                `
+
+                resp.data.forEach(book => {
+                    document.getElementById("users-wrapper").insertAdjacentHTML("beforeend", `
+                        <tr id="tr-${book._id}">
+                            <td>
+                                 <svg width="17px" height="17px" style="stroke: #fff;">
+                                    <use href="/img/sprite.svg#icon-anglelefttwo"></use>
+                                </svg>
+                            </td>
+                            <td>
+                                <a href="/book-edit?id=${book._id}" style="color:#c2c6dc;text-transform:uppercase;font-size:12.5px;text-decoration:underline;">${book.title}</a>
+                            </td>
+                            <td>${book.author}</td>
+                            <td>${book.standard}</td>
+                            <td><span
+                                    style="width: 14px;height:14px;border-radius:50%;background:#7367F0;display:inline-block;"></span>
+                            </td>
+                            <td>${book.quantity} in stock</td>
+                            <td>
+                                <a href="/book-edit?id=${book._id}">
+                                    <svg width="17px" height="17px" style="stroke: #fff;">
+                                        <use href="/img/sprite.svg#icon-edit"></use>
+                                    </svg>
+                                </a>
+                                <svg onclick="deleteUser('${book._id}')" width="17px" height="17px" style="stroke: #fff;margin-left:10px;cursor:pointer;">
+                                    <use href="/img/sprite.svg#icon-del"></use>
+                                </svg>
+                            </td>
+                        </tr>
+                    `);
+                })
+            })
+        }
+        loadBooks();
+
+        const loadMoreUser = () => {
+            document.getElementById("btn-loadmore").disabled = true;
+            document.getElementById("btn-loadmore").innerHTML = `
+                <div class="spinner" style="height:10px;">
+                    <div class="rect1"></div>
+                    <div class="rect2"></div>
+                    <div class="rect3"></div>
+                    <div class="rect4"></div>
+                    <div class="rect5"></div>
+                </div>
+            `
+
+            skip = skip + limit;
+            loadBooks();
+        }
+
+        const filterHandler = (value, dropdown, key) => {
+            let allDropDown = document.getElementsByClassName("myDropdown");
+            for (var i = 0; i < allDropDown.length; i++) {
+                if (document.getElementById(allDropDown.item(i).getAttribute('id')).classList.contains("show")) {
+                    document.getElementById(allDropDown.item(i).getAttribute('id')).classList.toggle("show");
+                }
+            }
+            document.getElementById("chosen-" + dropdown).innerHTML = value;
+
+            //handler
+            document.body.style.pointerEvents = "none";
+            document.getElementById("users-wrapper").innerHTML = "";
+            document.getElementById("ajaxload-img").style.display = "block";
+            skip = 0;
+            if (key == "role") {
+                role = value;
+            } else if (key == "status") {
+                status = value;
+            } else if (key == "shift") {
+                shift = value;
+            } else if (key == "standard") {
+                standard = value;
+            }
+            loadBooks();
+        }
+
+        const searchTypeHandler = (value, dropdown) => {
+            let allDropDown = document.getElementsByClassName("myDropdown");
+            for (var i = 0; i < allDropDown.length; i++) {
+                if (document.getElementById(allDropDown.item(i).getAttribute('id')).classList.contains("show")) {
+                    document.getElementById(allDropDown.item(i).getAttribute('id')).classList.toggle("show");
+                }
+            }
+            document.getElementById("chosen-" + dropdown).innerHTML = value;
+
+            //handler
+            searchtype = value;
+        }
+
+        const searchHandler = (e) => {
+            e.preventDefault();
+
+            document.body.style.pointerEvents = "none";
+            document.getElementById("users-wrapper").innerHTML = "";
+            document.getElementById("ajaxload-img").style.display = "block";
+            skip = 0;
+            search = document.getElementById("search-input").value;
+            loadBooks();
+        }
+        document.getElementById("search-form").addEventListener("submit", searchHandler);
+    </script>
+
+    <div id="delete-loader"
+        style="display:none;position: fixed;top:0;left:0;width:100%;height:100%;z-index:100;background:rgba(22, 23, 32, 0.75);">
+        <div class="spinner" style="height:35px;position:fixed;top:50%;left:50%;transform:translate(-50%, -50%);">
+            <div class="rect1"></div>
+            <div class="rect2"></div>
+            <div class="rect3"></div>
+            <div class="rect4"></div>
+            <div class="rect5"></div>
+        </div>
+    </div>
+    <script>
+        const deleteUser = (id, role) => {
+            var person = prompt('Please Enter "Confirm" To Delete');
+
+            if (person.toUpperCase() == "CONFIRM" && role != 10) {
+                document.getElementById("delete-loader").style.display = "block";
+
+                axios.get(`/api/delete/book?_id=${id}`)
+                    .then(function (resp) {
+                        document.getElementById("tr-" + id).style.display = "none";
+                        document.getElementById("delete-loader").style.display = "none";
+                    })
+            }
+        }
+    </script>
+</body>
+
+</html>

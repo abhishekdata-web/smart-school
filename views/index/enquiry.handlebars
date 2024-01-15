@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0,user-scalable=0" />
+    <title>Gvn Ems</title>
+    <link rel="manifest" href="/manifest.json" />
+    <link rel="shortcut icon" href="/img/favicon.png" />
+    <script>
+        //check cookie w_auth
+        let w_auth = document.cookie.indexOf('w_auth');
+        if (w_auth != -1) {
+            if (localStorage.getItem('role') != 10 && localStorage.getItem('role') != 3) {
+                location.href = "/dashboard";
+            }
+        } else {
+            location.href = "/login";
+        }
+    </script>
+    <link rel="stylesheet" href="/css/main.min.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #1F2946;
+        }
+    </style>
+</head>
+
+<body>
+    <section style="display: flex;justify-content:space-between;">
+        {{> _sidebar}}
+        <section id="main-content">
+            {{> _header}}
+
+            <div style="margin-top:29px;display:flex;align-items:center;justify-content:space-between;">
+                <div style="display:flex;align-items:center;">
+                    <div
+                        style="font-weight:600;color: #fff;font-size:23.5px;border-right:1px solid #fff;padding-right:15px;margin-right:15px;">
+                        Enquiry</div>
+                    <a href="/dashboard">
+                        <svg width="19px" height="19px" style="stroke: #7367F0;margin-right:12px;">
+                            <use href="/img/sprite.svg#icon-home"></use>
+                        </svg>
+                    </a>
+                    <svg width="15px" height="15px" style="stroke: #fff;margin-right:12px;">
+                        <use href="/img/sprite.svg#icon-anglelefttwo"></use>
+                    </svg>
+                    <div style="color: #fff;font-size:14.5px;">View All</div>
+                </div>
+
+                <div onclick="openAddEnquiry()"
+                    style="background: #4D8AF0;width:35px;height:35px;padding:10px;border-radius:50%;cursor:pointer;">
+                    <svg width="16px" height="16px" style="stroke: #fff;margin-right:12px;">
+                        <use href="/img/sprite.svg#icon-add"></use>
+                    </svg>
+                </div>
+            </div>
+
+            <div style="margin-top: 25px;display:flex;">
+                <button id="0-statusbtn" onclick="changeStatus('0')"
+                    style="font-size:12px;background:#4d8af0;color:#fff;border:1px solid #4d8af0;padding:10px 33px;border-radius:7px;display:flex;margin-right:15px;">
+                    Website
+                </button>
+                <button id="1-statusbtn" onclick="changeStatus('1')"
+                    style="font-size:12px;background:none;color:#1A76CA;border:1px solid #1A76CA;padding:10px 33px;border-radius:7px;display:flex;margin-right:15px;">
+                    Dashboard
+                </button>
+            </div>
+
+            <div style="color: #c2c6dc;">
+                <div id="enquiry-wrapper" style="display: flex;justify-content:space-between;flex-wrap:wrap;">
+
+                </div>
+            </div>
+
+            <center id="ajaxload-img">
+                <img src="/img/preloader.gif" style="width: 220px;">
+            </center>
+
+            <center id="ajax-loadmore">
+
+            </center>
+
+            <div class="footer-dashboard"
+                style="background: #121729;box-shadow: 0 0 10px 0 rgba(4,2,2,.2);border-radius:8px;margin:25px 0;color:#ebeefd;font-size:12px;">
+                © COPYRIGHT 2077 | XTREME EMS
+            </div>
+        </section>
+    </section>
+
+    <section id="enquirymodal-back" onclick="closeEnquiry()"
+        style="position: fixed;z-index:150;top:0;left:0;width:0;height:0;background:rgba(0,0,0,.4);">
+    </section>
+    <section id="enquiry-modal"
+        style="transition:0.2s;border-radius:10px;padding:20px;width:290px;position: fixed;z-index:155;top:-200%;left:50%;transform: translate(-50%, -50%);box-shadow: 0 1px 15px 1px #fb434f;background:#fb434f;color:#fff;font-size:14px;">
+        <div style="font-weight:600;">Are You Sure You Want To Delete?</div>
+        <div style="margin-top:13px;display:flex;justify-content:space-between;">
+            <button onclick="closeEnquiry()"
+                style="width: 48%;background:#fff;border:none;padding:9px 0;border-radius:4px;color:#fb434f;font-weight:600;">No</button>
+            <button onclick="deleteEnquiry()" id="enquirydelete-btn"
+                style="width: 48%;background:#fff;border:none;padding:9px 0;border-radius:4px;color:#fb434f;font-weight:600;">Yes</button>
+            <input type="hidden" id="modal-hiddeninput">
+        </div>
+    </section>
+
+    <section id="addenquirymodal-back" onclick="closeAddEnquiry()"
+        style="position: fixed;z-index:150;top:0;left:0;width:0;height:0;background:rgba(0,0,0,.4);">
+    </section>
+    <section id="addenquiry-modal">
+        <form id="enquiry-form">
+            <div style="width: 100%;font-weight: bold;font-size:27px;margin-bottom:15px;color:#fff;">Enquiry Form
+            </div>
+            <div style="font-size:14px;color:#fff;">You can add questions and queries here regarding any topic</div>
+            <input type="text" placeholder="Full Name" id="name" required
+                style="width: 100%;border-radius:10px;border:none;box-shadow: 3px 4px 15px #0000001A;padding:15px;margin-top:30px;">
+            <input type="number" placeholder="Mobile Number" id="mobile" required
+                style="width: 100%;border-radius:10px;border:none;box-shadow: 3px 4px 15px #0000001A;padding:15px;margin-top:24px;">
+            <input type="email" placeholder="Email Address" id="email" required
+                style="width: 100%;border-radius:10px;border:none;box-shadow: 3px 4px 15px #0000001A;padding:15px;margin-top:24px;">
+            <div class="dropdown">
+                <input type="hidden" id="maininput-myDropdown2">
+                <button type="button" onclick="myFunction('myDropdown2')" class="dropbtn-white" id="btn-myDropdown2">
+                    <div id="chosen-myDropdown2"></div>
+                    <svg width="15px" height="15px" style="stroke: #190a32;margin-left:auto;">
+                        <use href="/img/sprite.svg#icon-anglelefttwo"></use>
+                    </svg>
+                </button>
+                <div class="myDropdown dropdown-content hidescrollbar" data-dropdown="myDropdown2" id="myDropdown2"
+                    style="border-radius: 10px;margin-top:10px;">
+                    <div style="display: flex;align-items:center;padding-left:10px;background:#10163A;">
+                        <svg width="16px" height="16px" style="stroke: #fff;margin-right:5px;">
+                            <use href="/img/sprite.svg#icon-search"></use>
+                        </svg>
+                        <input type="text" class="myInput" id="myInput-myDropdown2"
+                            onkeyup="filterFunction('myDropdown2')">
+                    </div>
+                    <a href="#about" onclick="dropdownChosen('Science', 'myDropdown2')">Science</a>
+                    <a href="#base" onclick="dropdownChosen('Management', 'myDropdown2')">Management</a>
+                    <a href="#base" onclick="dropdownChosen('Law', 'myDropdown2')">Law</a>
+                    <a href="#base" onclick="dropdownChosen('Education', 'myDropdown2')">Education</a>
+                    <a href="#base" onclick="dropdownChosen('Humanities', 'myDropdown2')">Humanities</a>
+                </div>
+            </div>
+            <div id="err-myDropdown2" style="font-size:11px;color:red;font-weight:800;">
+
+            </div>
+            <textarea rows="10" id="message" required
+                style="width: 100%;border-radius:10px;border:none;box-shadow: 3px 4px 15px #0000001A;padding:15px;margin-top:24px;">Your Message To The College</textarea>
+            <button id="enquiry-btn"
+                style="font-weight:bold;background: #4D8AF0;box-shadow:  20px 20px 20px #3d81f7, -20px -20px 20px #689bf5;border:none;color:#fff;padding:15px 0;width:200px;margin-top:15px;border-radius:25px;">
+                Add Message</button>
+        </form>
+    </section>
+
+    <script src="/script/script.js"></script>
+
+    <script>
+        // ajax setting
+        let limit = 16;
+        let skip = 0;
+        let showNotFound = 0;
+        let enquirystatus = 0;
+
+        const getEnquiry = () => {
+            axios.get(`/api/get/enquiry?limit=${limit}&skip=${skip}&who=${enquirystatus}`)
+                .then(function (resp) {
+                    document.getElementById("ajaxload-img").style.display = "none";
+                    //load more btn
+                    if (resp.data.length >= limit) {
+                        document.getElementById('ajax-loadmore').innerHTML = `<button id="btn-loadmore" onclick="loadMoreEnquiries()"
+                        style="margin-top:20px;font-size:14px;background: #6B61DF;color: #fff;border: none;border-radius: 20px;padding: 11px 27px;">
+                        See more +</button>`
+                    } else {
+                        document.getElementById('ajax-loadmore').innerHTML = '';
+                    }
+
+                    if (resp.data.length > 0) {
+                        //show not fouund
+                        showNotFound = 1;
+
+                        resp.data.forEach(enquiry => {
+                            let enquirydate = new Date(enquiry.date).toLocaleDateString('default', { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' });
+                            let enquirytime = new Date(enquiry.date).toLocaleTimeString();
+
+                            document.getElementById("enquiry-wrapper").insertAdjacentHTML('beforeend', `
+                                <div id="${enquiry._id}" class="enquiry-col"
+                                    style="background: #121729;box-shadow: 0 0 10px 0 rgba(4,2,2,.2);padding:15px;border-radius:25px;margin-top:35px;">
+                                    <div style="margin:10px 0;font-size:12.5px;line-height:22px;">
+                                        ${enquirydate}, ${enquirytime}
+                                    </div>
+                                    <div style="display: flex;align-items:center;">
+                                        <div style="font-size:11px;font-weight:600;color:#fff;background:#28C76F;padding:5px 8px;border-radius:15px;">
+                                            ${enquiry.mobile}
+                                        </div>
+                                        <div style="font-size:11px;font-weight:600;color:#FF9F43;background:none;border:1px solid #FF9F43;padding:5px 8px;border-radius:15px;margin:0 10px;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">
+                                            ${enquiry.email}
+                                        </div>
+                                        <div onclick="openEnquiry('${enquiry._id}')" style="background: #D24D52;width:27px;height:27px;padding:5.5px;border-radius:50%;margin-left:auto;cursor:pointer;">
+                                            <svg width="15px" height="15px" style="stroke: #fff;margin-right:12px;">
+                                                <use href="/img/sprite.svg#icon-del"></use>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    <div style="display:inline-block;font-size:11px;font-weight:600;color:#fff;background:#10163A;padding:5px 8px;border-radius:15px;margin-top:10px;">
+                                            Intrested in ${enquiry.course}
+                                        </div>
+                                    <div style="margin:10px 0;font-size:12.5px;line-height:22px;">
+                                        ${enquiry.message}
+                                    </div>
+                                    <div
+                                        style="background: #212744;padding:12px;border-radius:25px;margin-top:15px;display:flex;align-items:center;">
+                                        <svg width="20px" height="20px" style="stroke: #ebeefd;">
+                                            <use href="/img/sprite.svg#icon-chat"></use>
+                                        </svg>
+                                        <div style="margin-left: 12px;font-size: 13.5px;color:#ebeefd;">${enquiry.name}</div>
+                                    </div>
+                                </div>
+                            `);
+                        })
+                    } else {
+                        if (showNotFound == 0) {
+                            document.getElementById("enquiry-wrapper").innerHTML = `<img src="/img/no-message.png" style="width:100%;height:500px;object-fit:cover;margin-top:30px;border-radius:8px;">`
+                        }
+                    }
+                })
+        }
+        getEnquiry();
+
+        const loadMoreEnquiries = () => {
+            document.getElementById("btn-loadmore").disabled = true;
+            document.getElementById("btn-loadmore").innerHTML = `
+                <div class="spinner" style="height:10px;">
+                    <div class="rect1"></div>
+                    <div class="rect2"></div>
+                    <div class="rect3"></div>
+                    <div class="rect4"></div>
+                    <div class="rect5"></div>
+                </div>
+            `
+
+            skip = skip + limit;
+            getEnquiry();
+        }
+    </script>
+
+    <script>
+        const changeStatus = (status) => {
+            document.getElementById("0-statusbtn").style.background = "none";
+            document.getElementById("0-statusbtn").style.color = "#1A76CA";
+            document.getElementById("0-statusbtn").style.border = "1px solid #1A76CA";
+            document.getElementById("1-statusbtn").style.background = "none";
+            document.getElementById("1-statusbtn").style.color = "#1A76CA";
+            document.getElementById("1-statusbtn").style.border = "1px solid #1A76CA";
+
+            document.getElementById(status + "-statusbtn").style.background = "#4d8af0";
+            document.getElementById(status + "-statusbtn").style.color = "#fff";
+            document.getElementById(status + "-statusbtn").style.border = "none";
+
+            enquirystatus = status;
+            showNotFound = 0;
+
+            document.getElementById("enquiry-wrapper").innerHTML = "";
+            document.getElementById("ajaxload-img").style.display = "block";
+            getEnquiry();
+        }
+    </script>
+
+    <script>
+        const openEnquiry = (enquiryId) => {
+            document.getElementById('enquiry-modal').style.top = "50%";
+            document.getElementById('enquirymodal-back').style.width = "100%";
+            document.getElementById('enquirymodal-back').style.height = "100%";
+
+            document.getElementById("modal-hiddeninput").value = enquiryId;
+        }
+        const closeEnquiry = () => {
+            document.getElementById('enquiry-modal').style.top = "-200%";
+            document.getElementById('enquirymodal-back').style.width = "0";
+            document.getElementById('enquirymodal-back').style.height = "0";
+        }
+
+        const deleteEnquiry = () => {
+            document.getElementById("enquirydelete-btn").disabled = true;
+            document.getElementById("enquirydelete-btn").style.background = "none";
+            document.getElementById("enquirydelete-btn").style.border = "2px solid #fff";
+            document.getElementById("enquirydelete-btn").innerHTML = `
+                <div class="spinner" style="height:8px;">
+                    <div class="rect1"></div>
+                    <div class="rect2"></div>
+                    <div class="rect3"></div>
+                    <div class="rect4"></div>
+                    <div class="rect5"></div>
+                </div>
+            `
+
+            let enquiryid = document.getElementById("modal-hiddeninput").value;
+
+            document.getElementById(enquiryid).style.display = "none";
+            document.getElementById(enquiryid).innerHTML = "";
+
+            axios.get(`/api/delete/enquiry?_id=${enquiryid}`)
+                .then(function (resp) {
+                    document.getElementById("enquirydelete-btn").disabled = false;
+                    document.getElementById("enquirydelete-btn").style.background = "#fff";
+                    document.getElementById("enquirydelete-btn").style.border = "none";
+                    document.getElementById("enquirydelete-btn").innerHTML = "Yes";
+                    closeEnquiry();
+                })
+        }
+    </script>
+
+    <script>
+        const closeAddEnquiry = () => {
+            document.getElementById('addenquiry-modal').style.top = "-200%";
+            document.getElementById('addenquirymodal-back').style.width = "0";
+            document.getElementById('addenquirymodal-back').style.height = "0";
+        }
+        const openAddEnquiry = () => {
+            document.getElementById('addenquiry-modal').style.top = "20px";
+            document.getElementById('addenquirymodal-back').style.width = "100%";
+            document.getElementById('addenquirymodal-back').style.height = "100%";
+        }
+    </script>
+
+    <script>
+        const sendEnquiry = (e) => {
+            e.preventDefault();
+            document.getElementById("enquiry-btn").disabled = true;
+            document.getElementById("enquiry-btn").innerHTML = `
+                <div class="spinner" style="height:7px;">
+                    <div class="rect1"></div>
+                    <div class="rect2"></div>
+                    <div class="rect3"></div>
+                    <div class="rect4"></div>
+                    <div class="rect5"></div>
+                </div>
+            `
+
+            if (document.getElementById("maininput-myDropdown2").value == "") {
+                document.getElementById("btn-myDropdown2").style.border = "1px solid red";
+                document.getElementById("err-myDropdown2").innerHTML = `<div style="margin-top: 8px;">PLEASE CHOOSE A COURSE</div>`;
+                document.getElementById("enquiry-btn").disabled = false;
+                document.getElementById("enquiry-btn").innerHTML = 'Add Message';
+            } else {
+                axios.post("/api/send/enquiry", {
+                    name: document.getElementById("name").value,
+                    mobile: document.getElementById("mobile").value,
+                    message: document.getElementById("message").value,
+                    email: document.getElementById("email").value,
+                    course: document.getElementById("maininput-myDropdown2").value,
+                    who: 1
+                })
+                    .then(function (resp) {
+                        document.getElementById("enquiry-form").reset();
+                        document.getElementById("enquiry-btn").disabled = false;
+                        document.getElementById("enquiry-btn").innerHTML = 'Add Message';
+                        document.getElementById("btn-myDropdown2").style.border = "none";
+                        document.getElementById("err-myDropdown2").innerHTML = "";
+                    })
+            }
+        }
+        document.getElementById("enquiry-form").addEventListener("submit", sendEnquiry);
+    </script>
+</body>
+
+</html>

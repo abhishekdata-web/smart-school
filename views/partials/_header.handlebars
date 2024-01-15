@@ -1,0 +1,66 @@
+<style>
+    #header svg {
+        margin-right: 18px;
+        cursor: pointer;
+        stroke: #6a719c;
+    }
+
+    #header {
+        padding: 11px 20px;
+    }
+
+    @media only screen and (max-width: 600px) {
+        #header {
+            padding: 11px 15px;
+        }
+    }
+</style>
+
+<div id="header" style="display:flex;align-items:center;background: #121729;box-shadow: 0 0 10px 0 rgba(4,2,2,.2);border-radius:8px;margin-top:20px;">
+    <div style="display:flex;">
+        <svg onclick="openMainSidebar()" width="21px" height="21px" style="fill: #c2c6dc;">
+            <use href="/img/sprite.svg#icon-menu"></use>
+        </svg>
+        <a href="/">
+            <svg width="21px" height="21px" style="stroke: #FF9F43;">
+                <use href="/img/sprite.svg#icon-home"></use>
+            </svg>
+        </a>
+        <svg class="header-big-part" width="21px" height="21px">
+            <use href="/img/sprite.svg#icon-chat"></use>
+        </svg>
+        <svg class="header-big-part" width="21px" height="21px">
+            <use href="/img/sprite.svg#icon-message"></use>
+        </svg>
+        <svg class="header-big-part" width="21px" height="21px">
+            <use href="/img/sprite.svg#icon-calender"></use>
+        </svg>
+        <svg class="header-big-part" width="21px" height="21px">
+            <use href="/img/sprite.svg#icon-star"></use>
+        </svg>
+    </div>
+    <div style="margin-left: auto;display:flex;align-items:center;">
+        <svg class="header-big-part" width="21px" height="21px" style="stroke: #00E093;">
+            <use href="/img/sprite.svg#icon-bell"></use>
+        </svg>
+        <svg onclick="logoutHandler()" width="21px" height="21px" style="stroke: #c2c6dc;">
+            <use href="/img/sprite.svg#icon-logout"></use>
+        </svg>
+        <div style="color: #c2c6dc;margin-right:12px;">
+            <div style="font-weight: 600;font-size:15px;" id="header-firstname"></div>
+            <div style="font-size: 12.5px;text-align:right;color:#6a719c;">@see</div>
+        </div>
+        <img id="header-img" src="/img/gvnlogo.jpg"
+            style="width: 42px;height:42px;border-radius:0 50% 50% 50%;object-fit:cover;border:2px solid #4d8af0;">
+    </div>
+</div>
+
+<script>
+    document.getElementById("header-firstname").innerHTML = localStorage.getItem("firstname");
+
+    const logoutHandler = () => {
+        document.cookie = "w_auth=; expires=Thu, 18 Dec 2013 12:00:00 UTC";
+        localStorage.clear();
+        location.href = "/login";
+    }
+</script>

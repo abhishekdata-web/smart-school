@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0,user-scalable=0" />
+    <title>Gvn College Articles</title>
+    <link rel="manifest" href="/manifest.json" />
+    <link rel="shortcut icon" href="/img/favicon.png" />
+    <link rel="stylesheet" href="/css/main.min.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .container {
+            width: calc(100% - 260px);
+            margin: 0 auto;
+        }
+
+        #home-header {
+            padding: 11px 0;
+            position: fixed;
+            background: #fff;
+            box-shadow: 0 2px 4px 2px rgba(0, 0, 0, .05);
+            transition: 0.2s;
+            width: 100%;
+            top: 0;
+            z-index: 99;
+        }
+
+        #home-header nav a {
+            font-weight: bold;
+            text-decoration: none;
+            color: #666;
+            margin-right: 55px;
+            font-size: 13.8px;
+        }
+
+        .blog-title {
+            font-size: 34px;
+        }
+
+        .blog-col {
+            width: 30%;
+        }
+
+        /*hide in pc*/
+        .display-mobile {
+            display: none;
+        }
+
+        @media only screen and (max-width: 1200px) {
+            .container {
+                width: calc(100% - 70px);
+                margin: 0 auto;
+            }
+
+            #home-header nav a {
+                margin-right: 45px;
+                font-size: 12.8px;
+            }
+        }
+
+        @media only screen and (max-width: 800px) {
+            .display-pc {
+                display: none;
+            }
+
+            .display-mobile {
+                display: block;
+            }
+
+            .container {
+                width: calc(100% - 50px);
+                margin: 0 auto;
+            }
+
+            .blog-title {
+                font-size: 28px;
+            }
+
+            .blog-col {
+                width: 47%;
+            }
+        }
+
+        @media only screen and (max-width: 600px) {
+            .container {
+                width: calc(100% - 25px);
+                margin: 0 auto;
+            }
+
+            .blog-col {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header style="padding-bottom: 77px;">
+        <div id="home-header">
+            <div class="container" style="display: flex;align-items:center;justify-content:space-between;">
+                <div style="display: flex;align-items:center;">
+                    <img src="/img/gvnlogo.jpg" style="width: 53px;height:53px;">
+                    <a href="/" style="font-weight: 800;color:#0E8EF2;font-size:16px;margin-left:10px;">
+                        GVN COLLEGE
+                        <div
+                            style="font-size:13px;color:#fff;background:#0E8EF2;padding:0 2px;border-radius:10px 0 10px 0;">
+                            Step Towards Success</div>
+                    </a>
+                </div>
+                <nav class="display-pc" style="margin-left: auto;">
+                    <a href="/">Home</a>
+                    <a href="/articles?q=all" style="border-bottom:2px solid #0E8EF2;">News & Notice</a>
+                    <a href="/gallery">Gallery</a>
+                    <a href="/about">About Us</a>
+                </nav>
+                <div>
+                    <a id="home-login-btn" href="#"
+                        style="display:flex;align-items:center;font-size: 12.5px; background: linear-gradient(to right, #52A0FD 0%, #00e2fa 80%, #00e2fa 100%);color:#fff;padding:10px 12px;border-radius:25px;text-decoration: none;">
+                        <svg width="16px" height="16px" style="stroke: #fff;margin-right:5px;">
+                            <use href="/img/sprite.svg#icon-user"></use>
+                        </svg>
+                        Login
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section style="background: url('/img/gallery/6.JPG');background-position:center;">
+        <div style="background: rgba(0, 0, 0, 0.5);padding:45px 0;">
+            <div class="container">
+                <div class="display-mobile" style="margin-bottom: 40px;">
+                    <a href="/" style="border:1px solid #fff;color:#fff;font-size:13px;padding:5px 8px;">Home</a>
+                    <a href="/articles?q=all"
+                        style="border:1px solid #fff;color:#fff;font-size:13px;padding:5px 8px;">News &
+                        Notice</a>
+                    <a href="/gallery"
+                        style="border:1px solid #fff;color:#fff;font-size:13px;padding:5px 8px;">Gallery</a>
+                    <a href="/about" style="border:1px solid #fff;color:#fff;font-size:13px;padding:5px 8px;">About</a>
+                </div>
+                <div class="blog-title" style="color: #fff;font-weight:600;">
+                    Our latest news & updates.
+                </div>
+                <div style="margin-top: 30px;">
+                    <span class="lineone"
+                        style="background: #fff;height:14px;width:50px;display: inline-block;border-radius: 25px;"></span>
+                    <span
+                        style="background: #fff;height:14px;width:50px;display: inline-block;margin-left:8px;border-radius: 25px;"></span>
+                    <span class="linethree"
+                        style="background: #fff;height:14px;width:50px;display: inline-block;margin-left:8px;border-radius: 25px;"></span>
+                </div>
+                <div style="color: #eee;font-size:15px;margin-top:20px;line-height:28px;">
+                    Read through our latest blog posts and learn more about us and get the latest news and updates.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <form action="/articles" class="container" style="margin-top:30px;">
+        <input type="text" placeholder="Search" name="q"
+            style="padding:11px 13px;width:250px;max-width:100%;border-radius:25px;border:2px dashed #0E8EF2;">
+    </form>
+
+    <div class="container">
+        <div style="font-weight: bold;font-size:32px;margin:25px 0 17px;text-align:center;color:#0E8EF2;">
+            News & Updates
+        </div>
+        <div style="font-size:14px;color:#092054;line-height:20px;text-align:center;margin-bottom:30px;">Gvn college
+            is always empowering students for the betterment of their future and providing the nation with greater
+            skills</div>
+    </div>
+
+    <center id="ajaxload-img" style="height:350px;margin-top:30px;">
+        <img src="/img/preloader.gif" style="width: 220px;">
+    </center>
+
+    <section id="home-main" class="container"
+        style="margin-top:50px;display:flex;justify-content:space-between;flex-wrap:wrap;">
+
+    </section>
+
+    <center id="ajax-loadmore">
+
+    </center>
+
+    <div style="background: #F4F5FA;padding:15px 0;font-weight:bold;">
+        <div class="container">
+            <a href="/" style="color: #092054;font-size:13.5px;text-decoration:underline;">Gvn Home</a>
+            <a href="/articles?q=all"
+                style="color: #092054;font-size:13.5px;text-decoration:underline;margin-left:15px;">News & Notice</a>
+        </div>
+    </div>
+
+    <script src="/script/script.js"></script>
+
+    <script>
+        //check cookie w_auth
+        let w_auth = document.cookie.indexOf('w_auth');
+        if (w_auth != -1) {
+            document.getElementById("home-login-btn").setAttribute("href", "/dashboard");
+        } else {
+            document.getElementById("home-login-btn").setAttribute("href", "/login");
+        }
+
+        // query params from the url
+        const urlParams = new URLSearchParams(window.location.search);
+        const searchParam = urlParams.get('q');
+    </script>
+
+    <script>
+        //lazyload initialize
+        var lazyLoadInstance = new LazyLoad({
+            elements_selector: ".verlok-lazy",
+            threshold: 100
+        });
+
+        let limit = 12;
+        let skip = 0;
+        let showNotFound = 0;
+
+        const getArticles = () => {
+            axios.get(`/api/articles?limit=${limit}&skip=${skip}&search=${searchParam}`)
+                .then(function (resp) {
+                    document.getElementById("ajaxload-img").style.display = "none";
+                    //load more btn
+                    if (resp.data.length >= limit) {
+                        document.getElementById('ajax-loadmore').innerHTML = `<button id="btn-loadmore" onclick="loadMoreArticles()"
+                    style="margin-bottom: 40px;margin-top:-40px;font-size:13.5px;font-weight:600;background: #5BCBBD;color:#fff;border:none;padding:12px 30px;border-radius:25px;">Show
+                    More</button>`
+                    } else {
+                        document.getElementById('ajax-loadmore').innerHTML = '';
+                    }
+
+                    if (resp.data.length > 0) {
+                        //show not fouund
+                        showNotFound = 1;
+
+                        resp.data.forEach(blog => {
+                            let blogDate = new Date(blog.date).toLocaleDateString('default', { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' });
+
+                            document.getElementById("home-main").insertAdjacentHTML("beforeend", `
+                                <div class="blog-col" style="margin-bottom: 90px;">
+                                    <img class="blog-col" src="https://www.squarebird.co.uk/wp-content/uploads/Yellow-Blob.png"
+                                        style="height:250px;position:absolute;margin-top:-21px;">
+                                    <img class="verlok-lazy" data-src="blog_images/${blog._id}/${blog.image}"
+                                        style="width: 100%;height:210px;object-fit:cover;position:relative;padding-left:15px;border-radius:25px;">
+                                    <div style="margin-top:30px;color:#092054;">
+                                        <button
+                                            style="font-size:11px;font-weight:600;background: #5BCBBD;color:#fff;border:none;padding:6px 12px;border-radius:5px;">${blogDate}</button>
+                                        <div style="font-size:14px;font-weight:600;line-height:24px;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;margin-top:10px;">
+                                            ${blog.title}
+                                        </div>
+                                        <a href="/articles-detail?id=${blog._id}">
+                                            <button
+                                            style="font-size:13.5px;font-weight:600;background: #0E8EF2;box-shadow: 0 0 10px 1px rgba(97, 173, 223, 0.7);color:#fff;border:none;padding:12px 35px;border-radius:25px;margin-top:10px;">Read
+                                            More</button>
+                                        </a>
+                                    </div>
+                                </div>
+                            `);
+
+                            //lazyload reinitialize
+                            lazyLoadInstance.update();
+                        })
+                    } else {
+                        if (showNotFound == 0) {
+                            document.getElementById("home-main").innerHTML = `<div style="margin-bottom:50px;color:#FB434F;font-weight:bold;font-size:23px;font-style:italic;">No Post Found</div>`
+                        }
+                    }
+                })
+        }
+        getArticles();
+
+        const loadMoreArticles = () => {
+            document.getElementById("btn-loadmore").disabled = true;
+            document.getElementById("btn-loadmore").innerHTML = `
+                <div class="spinner" style="height:10px;">
+                    <div class="rect1"></div>
+                    <div class="rect2"></div>
+                    <div class="rect3"></div>
+                    <div class="rect4"></div>
+                    <div class="rect5"></div>
+                </div>
+            `
+
+            skip = skip + limit;
+            getArticles();
+        }
+    </script>
+</body>
+
+</html>

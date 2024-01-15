@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0,user-scalable=0" />
+    <title>Gvn College</title>
+    <link rel="manifest" href="/manifest.json" />
+    <link rel="shortcut icon" href="/img/favicon.png" />
+    <link rel="stylesheet" href="/css/main.min.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        .container {
+            width: calc(100% - 460px);
+            margin: 0 auto;
+        }
+
+        #home-header {
+            padding: 14px 0;
+            position: fixed;
+            background-image: linear-gradient(225deg, #2ec2ff, #0063ff);
+            transition: 0.2s;
+            width: 100%;
+            top: 0;
+            z-index: 99;
+        }
+
+        #home-header nav a {
+            text-decoration: none;
+            color: #ffffffb3;
+            margin-right: 50px;
+            font-size: 13px;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        #home-main .first-col {
+            width: 50%;
+            z-index: 20;
+        }
+
+        #home-main .title {
+            font-size: 40px;
+        }
+
+        #home-main .second-col {
+            width: 34%;
+            z-index: 20;
+        }
+
+        #about-wrapper .subheader {
+            width: 48%;
+        }
+
+        #about-wrapper img {
+            width: 48%;
+        }
+
+        #home-enroll {
+            padding-top: 30px;
+        }
+
+        #home-enroll .col1 {
+            width: 50%;
+        }
+
+        #home-enroll .col2 {
+            width: 50%;
+        }
+
+        input {
+            outline: none;
+        }
+
+        textarea {
+            outline: none;
+        }
+
+        input::placeholder {
+            color: #898989;
+        }
+
+        /*hide in pc*/
+        .display-mobile {
+            display: none;
+        }
+
+        @media only screen and (max-width: 1200px) {
+            .container {
+                width: calc(100% - 100px);
+            }
+
+            #home-header nav a {
+                margin-right: 45px;
+                font-size: 12.8px;
+            }
+
+        }
+
+        @media only screen and (max-width: 800px) {
+            .container {
+                width: calc(100% - 260px);
+            }
+
+            .display-mobile {
+                display: block;
+            }
+
+            .display-pc {
+                display: none;
+            }
+
+            #home-main .first-col {
+                width: 100%;
+            }
+
+            #home-main .second-col {
+                width: 100%;
+                margin: 60px auto 0;
+            }
+
+            #about-wrapper .subheader {
+                width: 100%;
+            }
+
+            #about-wrapper img {
+                width: 100%;
+            }
+
+            #home-enroll {
+                padding-top: 20px;
+            }
+
+            #home-enroll .col1 {
+                width: 100%;
+            }
+
+            #home-enroll .col2 {
+                width: 100%;
+                margin-top: 40px;
+            }
+
+        }
+
+        @media only screen and (max-width: 600px) {
+            .container {
+                width: calc(100% - 29px);
+            }
+
+            #home-main .title {
+                font-size: 33px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header style="padding-bottom: 58px;">
+        <div id="home-header" style="border-bottom:1px solid rgba(255, 255, 255, 0.432);">
+            <div class="container" style="display: flex;align-items:center;justify-content:space-between;">
+               <div style="display: flex;align-items:center;">
+                    <a href="/articles?q=all"
+                        style="background:#fff;padding:6px 8px;border-radius:50%;margin-right:10px;">
+                        <svg viewBox="0 0 512.00095 512" style="fill:#333;width:21px;height:21px;">
+                            <path
+                                d="m255 202c11.046875 0 20 8.953125 20 20s-8.953125 20-20 20-20-8.953125-20-20 8.953125-20 20-20zm70 20c0 11.046875 8.953125 20 20 20s20-8.953125 20-20-8.953125-20-20-20-20 8.953125-20 20zm-180 0c0 11.046875 8.953125 20 20 20s20-8.953125 20-20-8.953125-20-20-20-20 8.953125-20 20zm349.414062 187.5625c23.40625 23.40625 23.40625 61.46875.011719 84.863281-11.695312 11.695313-27.0625 17.546875-42.425781 17.546875s-30.730469-5.851562-42.425781-17.546875l-109.789063-109.542969c-2.332031-2.328124-4.050781-5.191406-5.007812-8.347656l-23.914063-78.722656c-2.121093-6.980469-.273437-14.558594 4.820313-19.78125 5.09375-5.21875 12.625-7.25 19.65625-5.304688l80.722656 22.359376c3.324219.921874 6.351562 2.683593 8.792969 5.121093zm-162.824218-49.453125 74.089844 73.925781 28.289062-28.289062-73.652344-73.511719-40.609375-11.25zm134.550781 77.75-3.859375-3.855469-28.285156 28.285156 3.847656 3.835938c7.8125 7.816406 20.5 7.816406 28.296875.015625 7.800781-7.796875 7.800781-20.484375 0-28.28125zm-199.015625-23.40625c-3.695312.160156-7.4375.242187-11.125.242187-32.160156 0-63.121094-5.988281-92.019531-17.796874-4.921875-2.007813-10.445313-1.976563-15.34375.089843l-91.066407 38.441407 30.683594-72.683594c3-7.105469 1.644532-15.308594-3.488281-21.074219-29.285156-32.898437-44.765625-72.261719-44.765625-113.824219 0-103.578125 96.898438-187.847656 216-187.847656s216 84.269531 216 187.847656c0 24.5625-6.03125 49.222656-17.929688 73.289063-4.894531 9.902343-.835937 21.898437 9.066407 26.792969 9.902343 4.894531 21.898437.835937 26.792969-9.066407 14.644531-29.628906 22.070312-60.25 22.070312-91.015625 0-125.636718-114.839844-227.847656-256-227.847656-141.15625 0-256 102.210938-256 227.847656 0 47.421875 16.078125 92.332032 46.636719 130.632813l-45.0625 106.742187c-3.164063 7.496094-1.46875 16.164063 4.285156 21.917969 3.828125 3.828125 8.941406 5.859375 14.144531 5.859375 2.621094 0 5.265625-.515625 7.773438-1.574219l128.929687-54.425781c31.445313 11.746094 64.808594 17.695312 99.292969 17.695312 4.265625 0 8.597656-.097656 12.875-.28125 11.035156-.484374 19.589844-9.820312 19.105469-20.855468-.480469-11.035156-9.835938-19.617188-20.855469-19.105469zm0 0" />
+                        </svg>
+                    </a>
+                    <a href="/" style="color:#fff;font-weight: bold;font-size:18.5px;">
+                        Gvn-College
+                    </a>
+                </div>
+                <nav class="display-pc" style="margin-left: auto;">
+                    <a href="/">Home</a>
+
+                    <a href="/about" style="color:#fff;border-bottom:2px solid #fff;padding-bottom:22px;">About Us</a>
+                    <a href="/gallery">Album</a>
+                    <a href="/articles?q=all">News & Notice</a>
+                </nav>
+                <div>
+                    <a id="home-login-btn" href="#"
+                        style="display:flex;align-items:center;font-size: 12.5px; background:#FFFFFF;color:#343434;padding:10px 12px;border-radius:8px;text-decoration: none;font-weight:bold;">
+                        <svg width="16px" height="16px" style="stroke: #333;margin-right:8px;">
+                            <use href="/img/sprite.svg#icon-cog"></use>
+                        </svg>
+                        Login
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section
+        style="background:url('https://i.pinimg.com/474x/02/4b/a8/024ba86c5dcd46eabd4575ff0979a06a.jpg');">
+        <section style="background-image: linear-gradient(225deg,#2ec0fff5,#0063fff5);">
+            <section id="home-main" class="container"
+                style="text-align:center;padding: 100px 0 250px;color:#fff;display:flex;flex-wrap:wrap;justify-content:space-between;">
+                <div class="first-col">
+                    <div class="title" style="font-weight:bold;">Our Gvn <span id="typewriter-title"
+                            style="border-right:1px solid rgba(230, 226, 226, 0.726);border-bottom:2px solid #f3f3f3c5;"></span>
+                    </div>
+                    <script>
+                        var i = 0;
+                        var txt = 'College'; /* The text */
+                        var speed = 280; /* The speed/duration of the effect in milliseconds */
+
+                        function typeWriter() {
+                            if (i < txt.length) {
+                                document.getElementById("typewriter-title").innerHTML += txt.charAt(i);
+                                i++;
+                                setTimeout(typeWriter, speed);
+                            } else {
+                                if (txt == "College") {
+                                    txt = "Vision";
+                                } else {
+                                    txt = "College";
+                                }
+                                document.getElementById("typewriter-title").innerHTML = "";
+                                i = 0;
+                                setTimeout(typeWriter, speed);
+                            }
+                        }
+                        typeWriter();
+                    </script>
+                    <div style="margin-top: 35px;">
+                        <span class="lineone"
+                            style="background:#fff;height:14px;width:50px;display: inline-block;border-radius: 25px;"></span>
+                        <span
+                            style="background:#fff;height:14px;width:50px;display: inline-block;margin-left:8px;border-radius: 25px;"></span>
+                        <span class="linethree"
+                            style="background:#fff;height:14px;width:50px;display: inline-block;margin-left:8px;border-radius: 25px;"></span>
+                    </div>
+                    <div style="margin-top: 25px;line-height:28px;font-size:18px;color:#fff;">
+                        Join with us and be a part of the Success. We belive that
+                        student
+                        with quality education can help the
+                        Nation get stronger.
+                    </div>
+                    <a href="/#home-enroll"
+                        style="display:inline-block;text-decoration:none;font-size:12px;background:#fff;color:#343434;padding:14px 21px;margin-top:35px;border-radius:4px;font-size:17px;font-weight:bold;">
+                        <div style="display:flex;align-items:center;">
+                            Get Started
+                            <svg width="22px" height="22px" style="stroke: #333;margin-left:7px;">
+                                <use href="/img/sprite.svg#icon-angleleft"></use>
+                            </svg>
+                        </div>
+                    </a>
+                </div>
+                <img class="second-col" src="/img/featured/7.jpg" style="border-radius:25px;">
+            </section>
+        </section>
+    </section>
+
+    <div id="home-college-jump"></div>
+    <div class="ocean">
+        <div class="wave" style="background: url(/img/wave3.svg) repeat-x;"></div>
+        <div class="wave" style="background: url(/img/wave3.svg) repeat-x;"></div>
+    </div>
+
+    <section style="background:#F5F8FC;position:relative;z-index:50;padding-bottom:80px;">
+        <div class="container">
+            <div
+                style="width: 100%;font-weight: bold;font-size:30px;margin-bottom:20px;text-align:center;color:#0E8EF2;">
+                GANESH BHANDARI - C.E.O
+            </div>
+            <div style="font-size:14px;color:#092054;line-height:20px;text-align:center;margin-bottom:30px;">Gvn college
+                is always empowering students for the betterment of their future and providing the nation with greater
+                skills</div>
+            <div id="about-wrapper" style="display: flex;justify-content:space-between;flex-wrap:wrap;">
+                <div class="subheader"
+                    style="line-height:28px;text-align: center;font-size:15px;color:#092054;margin-bottom:20px;">
+                    <center>
+                        <img src="/img/students/ceo.jpg"
+                            style="width: 150px;height:150px;border-radius:50%;margin-bottom:20px;">
+                    </center>
+                    Gvn College, setup with a mission of imparting education to all sections of society,
+                    was
+                    established in the year 2014 to render highest standards of academic achievement with moral and
+                    social
+                    commitments. Converting the idea of providing high quality education combined with excellent
+                    infrastructure into a reality in Nepali context.
+                    <br>
+                    <br>
+                    Generating a synergistic relationship with the industry with a long term view where the college and
+                    the
+                    industry could have a mutually beneficial relationship, it aims a rigorous, relevant and rewarding
+                    education with a special the emphasis on practical and technical inputs. Ideally located in the
+                    heart of Nepalgunj city.
+                </div>
+                <img src="/img/featured/7.jpg" style="object-fit:cover;border-radius:15px;height:380px;">
+            </div>
+        </div>
+    </section>
+
+    <section id="home-testimonials" class="container" style="padding:75px 0 45px;">
+        <div style="font-size:30px;color:#313131;font-weight:bold;">
+            Testimonials
+        </div>
+        <div class="siema2" style="margin-top: 50px;">
+            <div style="padding: 10px;position:relative;">
+                <div
+                    style="border-radius:3px;text-align:center;margin-right:20px;background:#fff;box-shadow: 2px 4px 15px rgb(8 21 66 / 6%);padding:20px;">
+                    ⭐⭐⭐⭐⭐
+                    <div style="font-size: 14px;line-height:25px;margin-top:20px;color:#4a4a4ad0;">"You
+                        shall have
+                        great
+                        experience from
+                        Gvn
+                        college. You get a lot of opportunities. Work hard to get it. Be prepared for everything.
+                        Maintain attendance."</div>
+                    <img class="verlok-lazy" data-src="/img/students/ceo.jpg"
+                        style="width: 65px;height:65px;border-radius:50%;object-fit:cover;position:absolute;left:0;top:0;">
+                    <br>
+                    <div style="font-weight:bold;font-size: 17px;margin-top:5px;color:#4a4a4a;text-align:right;">
+                        # Ceo</div>
+                </div>
+            </div>
+            <div style="padding: 10px;position:relative;">
+                <div
+                    style="border-radius:3px;text-align:center;margin-right:20px;background:#fff;box-shadow: 2px 4px 15px rgb(8 21 66 / 6%);padding:20px;">
+                    ⭐⭐⭐⭐⭐
+                    <div style="font-size: 14px;line-height:25px;margin-top:20px;color:#4a4a4ad0;">
+                        "Since the moment I
+                        was
+                        in Gvn College I felt like part of a family. Staff here work together to make
+                        sure students are getting the best quality of educatioy"</div>
+                    <img class="verlok-lazy" data-src="/img/students/cordi.jpg"
+                        style="width: 65px;height:65px;border-radius:50%;object-fit:cover;position:absolute;left:0;top:0;">
+                    <br>
+                    <div style="font-weight:bold;font-size: 17px;margin-top:5px;color:#4a4a4a;text-align:right;">
+                        # Coordinator</div>
+                </div>
+            </div>
+            <div style="padding: 10px;position:relative;">
+                <div
+                    style="border-radius:3px;text-align:center;margin-right:20px;background:#fff;box-shadow: 2px 4px 15px rgb(8 21 66 / 6%);padding:20px;">
+                    ⭐⭐⭐⭐⭐
+                    <div style="font-size: 14px;line-height:25px;margin-top:20px;color:#4a4a4ad0;">"My experience at
+                        Gvn
+                        college is great and memorable. The teachers are really helpful and helped me to improve my
+                        academic & learning habits."</div>
+                    <img class="verlok-lazy" data-src="/img/students/Ashika Dhakal SCIENCE(18).JPG"
+                        style="width: 65px;height:65px;border-radius:50%;object-fit:cover;position:absolute;left:0;top:0;">
+                    <br>
+                    <div
+                        style="text-align:right;font-size: 14px;margin-top:5px;font-weight:bold;background:#fff;color:#4a4a4a;">
+                        SCIENCE STUDENT</div>
+                    <div style="font-size: 13px;margin-top:5px;color:#a8afb3;text-align:right;letter-spacing:0.5px;">
+                        ASHIKA DHAKAL</div>
+                </div>
+            </div>
+            <div style="padding: 10px;position:relative;">
+                <div
+                    style="border-radius:3px;text-align:center;margin-right:20px;background:#fff;box-shadow: 2px 4px 15px rgb(8 21 66 / 6%);padding:20px;">
+                    ⭐⭐⭐⭐⭐
+                    <div style="font-size: 14px;line-height:25px;margin-top:20px;color:#4a4a4ad0;">"It was my immense
+                        luck
+                        to
+                        be the part of Gvn college where I can grow & improve myself. The faculty leaves no stone
+                        unturned to shape
+                        one\'s future."</div>
+                    <img class="verlok-lazy" data-src="/img/students/Niraj Tharu(G) 13.JPG"
+                        style="width: 65px;height:65px;border-radius:50%;object-fit:cover;position:absolute;left:0;top:0;">
+                    <br>
+                    <div
+                        style="text-align:right;font-size: 14px;margin-top:5px;font-weight:bold;background:#fff;color:#4a4a4a;">
+                        STUDENT</div>
+                    <div style="font-size: 13px;margin-top:5px;color:#a8afb3;text-align:right;letter-spacing:0.5px;">
+                        NIRAJ THARU</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="home-footer" style="padding: 55px 0;background: #F5F8FC;color:#333;margin-top:35px;">
+        <div class="container" style="display: flex;justify-content:space-between;align-items:center;">
+            <div style="width: 57px;">
+                <img src="/img/gvnlogo.jpg" style="width: 57px;border-radius:0 50% 50% 50%;border:1px solid #ddd;">
+            </div>
+            <div style="margin-left:15px;">
+                <a href="https://www.facebook.com/gvnsecondaryschool"
+                    style="text-decoration: none;display:flex;align-items:center;">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Facebook_f_Logo_%28with_gradient%29.svg/1200px-Facebook_f_Logo_%28with_gradient%29.svg.png"
+                        style="width: 23px;">
+                    <span style="margin-left: 8px;font-size:13px;color:#222;font-weight:bold;">Visit us</span>
+                </a>
+                <div style="font-size: 14px;margin-top:8px;line-height:21px;">BP Chowk, Nepalgunj, Banke - <span
+                        style="text-decoration: underline;">081527570,
+                        9858057570</span>, <span style="text-decoration: underline;">admin@gvnschool.edu.np</span></div>
+                <div style="font-size: 13.5px;margin-top:12px;line-height:20px;">
+                    GVN has been getting excellent result in the +2 level in the Mid Western and Far Western Development
+                    Regions since its establishment. All this is because of the effort of experienced teaching faculties
+                    and well motivated promoters on the needs of the students.
+                </div>
+            </div>
+        </div>
+    </footer>
+    <div style="background: #303C42;color:#EFF0F0;padding:18px 0;font-size:12.2px;">
+        <div class="container">
+            © COPYRIGHT 2077 | GVN COLLEGE
+        </div>
+    </div>
+
+    <script src="/script/script.js"></script>
+    <script>
+        //check cookie w_auth
+        let w_auth = document.cookie.indexOf('w_auth');
+        if (w_auth != -1) {
+            document.getElementById("home-login-btn").setAttribute("href", "/dashboard");
+        } else {
+            document.getElementById("home-login-btn").setAttribute("href", "/login");
+        }
+
+        //lazyload initialize
+        var lazyLoadInstance = new LazyLoad({
+            elements_selector: ".verlok-lazy",
+            threshold: 100
+        });
+    </script>
+
+    <script>
+        let mq = window.matchMedia("(max-width: 800px)")
+
+        new Siema({
+            selector: '.siema2',
+            duration: 200,
+            easing: 'ease-out',
+            perPage: mq.matches ? 1.05 : 2.8,
+            draggable: true,
+            multipleDrag: true,
+            threshold: 20,
+            loop: false,
+            onInit: () => { },
+            onChange: () => { },
+        });
+    </script>
+</body>
+
+</html>

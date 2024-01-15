@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0,user-scalable=0" />
+    <title>Gvn Ems</title>
+    <link rel="manifest" href="/manifest.json" />
+    <link rel="shortcut icon" href="/img/favicon.png" />
+    <script>
+        //check cookie w_auth
+        let w_auth = document.cookie.indexOf('w_auth');
+        if (w_auth != -1) {
+            if (localStorage.getItem('role') != 10 && localStorage.getItem('role') != 3) {
+                location.href = "/dashboard";
+            }
+        } else {
+            location.href = "/login";
+        }
+    </script>
+    <link rel="stylesheet" href="/css/main.min.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #1F2946;
+        }
+
+        input::placeholder {
+            color: #c2c6dc;
+        }
+
+        ::-webkit-calendar-picker-indicator {
+            filter: invert(1);
+        }
+    </style>
+</head>
+
+<body>
+    <section style="display: flex;justify-content:space-between;">
+        {{> _sidebar}}
+        <div id="main-content">
+            {{> _header}}
+
+            <div style="margin-top:29px;display:flex;align-items:center;justify-content:space-between;">
+                <div style="display:flex;align-items:center;">
+                    <div
+                        style="font-weight:600;color: #fff;font-size:23.5px;border-right:1px solid #fff;padding-right:15px;margin-right:15px;">
+                        Library</div>
+                    <a href="/dashboard">
+                        <svg width="19px" height="19px" style="stroke: #7367F0;margin-right:12px;">
+                            <use href="/img/sprite.svg#icon-home"></use>
+                        </svg>
+                    </a>
+                    <svg width="15px" height="15px" style="stroke: #fff;margin-right:12px;">
+                        <use href="/img/sprite.svg#icon-anglelefttwo"></use>
+                    </svg>
+                    <div style="color: #fff;font-size:14.5px;">Book</div>
+                </div>
+
+                <div style="background: #6a719c;width:35px;height:35px;padding:10px;border-radius:50%;">
+                    <svg width="16px" height="16px" style="stroke: #fff;margin-right:12px;">
+                        <use href="/img/sprite.svg#icon-cog"></use>
+                    </svg>
+                </div>
+            </div>
+
+            <div style="margin-top: 25px;display:flex;">
+                <button type="button" id="topbtn-library"
+                    style="font-size:12px;background:none;color:#1A76CA;border:1px solid #4d8af0;padding:10px 33px;border-radius:7px;display:flex;margin-right:15px;">
+                    In Library
+                </button>
+                <button type="button" id="topbtn-booked"
+                    style="font-size:12px;background:none;color:#1A76CA;border:1px solid #1A76CA;padding:10px 33px;border-radius:7px;display:flex;">
+                    Booked
+                </button>
+            </div>
+
+            <div style="display:flex;flex-wrap:wrap;justify-content:space-between;">
+                <form id="library-form" class="newuser-col"
+                    style="background: #121729;box-shadow: 0 0 10px 0 rgba(4,2,2,.2);border-radius:8px;">
+                    <div style="font-size:19px;color: #ebeefd;font-weight:600;">Book Info</div>
+                    <div
+                        style="display: flex;flex-wrap:wrap;align-items:center;justify-content:space-between;margin-top:10px;font-size:14px;color: #c2c6dc;">
+                        <div style="width:48%;margin-top: 21px;">
+                            <div>Title</div>
+                            <input type="text" id="title" required
+                                style="background: #1D2542;border:none;color:#fff;padding:10px;border-radius:2px;border-top:1px solid #10163A;width:100%;">
+                        </div>
+                        <div style="width:48%;margin-top: 21px;">
+                            <div>Author</div>
+                            <input type="text" id="author"
+                                style="background: #1D2542;border:none;color:#fff;padding:10px;border-radius:2px;border-top:1px solid #10163A;width:100%;">
+                        </div>
+                        <div style="width:48%;margin-top: 21px;">
+                            <div>Standard</div>
+                            <div class="dropdown">
+                                <input type="hidden" id="maininput-myDropdown2">
+                                <button type="button" onclick="myFunction('myDropdown2')" class="dropbtn input-err"
+                                    id="btn-standard">
+                                    <div id="chosen-myDropdown2"></div>
+                                    <svg width="15px" height="15px" style="stroke: #fff;margin-left:auto;">
+                                        <use href="/img/sprite.svg#icon-anglelefttwo"></use>
+                                    </svg>
+                                </button>
+                                <div class="myDropdown dropdown-content hidescrollbar" data-dropdown="myDropdown2"
+                                    id="myDropdown2">
+                                    <div style="display: flex;align-items:center;padding-left:10px;background:#10163A;">
+                                        <svg width="16px" height="16px" style="stroke: #fff;margin-right:5px;">
+                                            <use href="/img/sprite.svg#icon-search"></use>
+                                        </svg>
+                                        <input type="text" class="myInput" id="myInput-myDropdown2"
+                                            onkeyup="filterFunction('myDropdown2')">
+                                    </div>
+                                    <a onclick="dropdownChosen('11 Science', 'myDropdown2')">11 Science</a>
+                                    <a onclick="dropdownChosen('11 Management', 'myDropdown2')">11 Management</a>
+                                    <a onclick="dropdownChosen('11 Law', 'myDropdown2')">11 Law</a>
+                                    <a onclick="dropdownChosen('11 Education', 'myDropdown2')">11 Education</a>
+                                    <a onclick="dropdownChosen('12 Science', 'myDropdown2')">12 Science</a>
+                                    <a onclick="dropdownChosen('12 Management', 'myDropdown2')">12 Management</a>
+                                    <a onclick="dropdownChosen('12 Law', 'myDropdown2')">12 Law</a>
+                                    <a onclick="dropdownChosen('12 Education', 'myDropdown2')">12 Education</a>
+                                    <a onclick="dropdownChosen('Other Books', 'myDropdown2')">Other Books</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="width:48%;margin-top: 21px;">
+                            <div>Quantity</div>
+                            <input type="text" id="quantity"
+                                style="background: #1D2542;border:none;color:#fff;padding:10px;border-radius:2px;border-top:1px solid #10163A;width:100%;">
+                        </div>
+                    </div>
+
+                    <button id="library-btn"
+                        style="margin-top:30px;margin-left:auto;box-shadow: 0 1px 20px 1px #d32733;background:#fb434f;color:#fff;border:none;padding:11px 34px;border-radius:7px;display:flex;display:flex;align-items:center;font-size:12px;">
+                        <svg width="17px" height="17px" style="stroke: #fff;margin-right:5px;">
+                            <use href="/img/sprite.svg#icon-edit"></use>
+                        </svg>
+                        <span id="library-btn-text">Edit Book</span>
+                    </button>
+                </form>
+                <form id="issue-form" class="newuser-col" style="background: #121729;border-radius:8px;">
+                    <div style="font-size:19px;color: #ebeefd;font-weight:600;">Issue Info</div>
+                    <div style="margin-top: 21px;color:#c2c6dc;font-size:14px;">
+                        <div id="mobile-input-err">Mobile</div>
+                        <input type="number" id="mobile-input" required
+                            oninput="javascript: if (this.value.length > 10) this.value = this.value.slice(0, 10);"
+                            style="background: #1D2542;border:none;color:#fff;padding:10px;border-radius:2px;border-top:1px solid #10163A;width:100%;">
+
+                        <button id="issue-btn"
+                            style="margin-top:30px;margin-left:auto;box-shadow: 0 1px 20px 1px #07a76f;background:#05a36c;color:#fff;border:none;padding:11px 30px;border-radius:7px;display:flex;display:flex;align-items:center;font-size:12px;">
+                            <svg width="17px" height="17px" style="stroke: #fff;margin-right:5px;">
+                                <use href="/img/sprite.svg#icon-edit"></use>
+                            </svg>
+                            <span id="issue-btn-text">Hand Book</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="newuser-fullcol"
+                style="background: #121729;box-shadow: 0 0 10px 0 rgba(4,2,2,.2);border-radius:8px;margin:25px 0;color:#ebeefd;">
+                <div
+                    style="font-size:19px;color: #ebeefd;font-weight:600;border-bottom:1px solid #00e0923d;padding-bottom:10px;">
+                    User List</div>
+                <div id="user-list">
+
+                </div>
+            </div>
+
+            <div class="footer-dashboard"
+                style="background: #121729;box-shadow: 0 0 10px 0 rgba(4,2,2,.2);border-radius:8px;margin:25px 0;color:#ebeefd;font-size:12px;">
+                © COPYRIGHT 2077 | XTREME EMS
+            </div>
+        </div>
+    </section>
+
+    <script src="/script/script.js"></script>
+
+    <div id="edit-loader"
+        style="position: fixed;top:0;left:0;width:100%;height:100%;z-index:100;background:rgba(22, 23, 32, 0.75);">
+        <div class="spinner" style="height:35px;position:fixed;top:50%;left:50%;transform:translate(-50%, -50%);">
+            <div class="rect1"></div>
+            <div class="rect2"></div>
+            <div class="rect3"></div>
+            <div class="rect4"></div>
+            <div class="rect5"></div>
+        </div>
+    </div>
+    <script>
+        // query params from the url
+        const urlParams = new URLSearchParams(window.location.search);
+        const idParam = urlParams.get('id');
+
+        axios.get(`/api/editbook?_id=${idParam}`)
+            .then(function (resp) {
+                document.getElementById("edit-loader").style.display = "none";
+
+                document.getElementById("title").value = resp.data.book.title;
+                document.getElementById("author").value = resp.data.book.author;
+                document.getElementById("maininput-myDropdown2").value = resp.data.book.standard;
+                document.getElementById("chosen-myDropdown2").innerHTML = resp.data.book.standard;
+                document.getElementById("quantity").value = resp.data.book.quantity;
+                if (resp.data.book.bookedBy.length != 0) {
+                    document.getElementById("topbtn-booked").style.background = "#4d8af0";
+                    document.getElementById("topbtn-booked").style.color = "#fff";
+                    document.getElementById("topbtn-booked").style.boxShadow = "0 0 10px 1px rgba(97, 173, 223, 0.7)";
+
+                    document.getElementById("mobile-input").value = resp.data.book.bookedBy;
+                    resp.data.book.bookedBy.forEach(user => {
+                        let userDate = new Date(user.date).toLocaleDateString('default', { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' });
+                        document.getElementById("user-list").insertAdjacentHTML("beforeend", `
+                            <div style="margin-top:13px;background:#262C49;padding:8px 10px;display:inline-block;border-radius:3px;">
+                                <button onclick="takeBook('${user.mobile}')" style="background:rgb(250, 67, 79,0.2);border:none;border-radius:50%;padding:5px 7px;">
+                                    <svg width="16px" height="16px" style="stroke: #fff;">
+                                        <use href="/img/sprite.svg#icon-del"></use>
+                                    </svg>
+                                </button>
+                                <div style="margin-top:8px;font-size:14px;">${userDate}</div>
+                                <div style="margin-top:4px;font-size:13.4px;">${user.mobile}</div>
+                            </div>
+                        `);
+                    })
+                } else {
+                    document.getElementById("topbtn-library").style.background = "#4d8af0";
+                    document.getElementById("topbtn-library").style.color = "#fff";
+                    document.getElementById("topbtn-library").style.boxShadow = "0 0 10px 1px rgba(97, 173, 223, 0.7)";
+                }
+            })
+    </script>
+
+    <script>
+        const editBook = (e) => {
+            e.preventDefault();
+
+            document.getElementById("library-btn").disabled = true;
+            document.getElementById("library-btn-text").innerHTML = `
+                    <div class="spinner" style="height:7px;">
+                        <div class="rect1"></div>
+                        <div class="rect2"></div>
+                        <div class="rect3"></div>
+                        <div class="rect4"></div>
+                        <div class="rect5"></div>
+                    </div>
+                `
+
+            axios.post(`/api/edit-book?_id=${idParam}`, {
+                title: document.getElementById("title").value,
+                author: document.getElementById("author").value,
+                standard: document.getElementById("maininput-myDropdown2").value,
+                quantity: document.getElementById("quantity").value,
+            })
+                .then(function (resp) {
+                    document.getElementById("library-btn").disabled = false;
+                    document.getElementById("library-btn-text").innerHTML = "Edit Book";
+                })
+        }
+        document.getElementById("library-form").addEventListener("submit", editBook);
+
+        const issueBook = (e) => {
+            e.preventDefault();
+
+            document.getElementById("mobile-input").style.border = "none";
+            document.getElementById("mobile-input-err").innerHTML = "Mobile";
+            if (document.getElementById("mobile-input").value.length != 10) {
+                document.getElementById("mobile-input").style.border = "1px solid red";
+                document.getElementById("mobile-input-err").innerHTML = "Error: Not 10 digit";
+            } else {
+                document.getElementById("issue-btn").disabled = true;
+                document.getElementById("issue-btn-text").innerHTML = `
+                    <div class="spinner" style="height:7px;">
+                        <div class="rect1"></div>
+                        <div class="rect2"></div>
+                        <div class="rect3"></div>
+                        <div class="rect4"></div>
+                        <div class="rect5"></div>
+                    </div>
+                `
+
+                axios.post(`/api/issue-book?_id=${idParam}`, {
+                    mobile: document.getElementById("mobile-input").value
+                })
+                    .then(function (resp) {
+                        document.getElementById("issue-btn").disabled = false;
+                        document.getElementById("issue-btn-text").innerHTML = "Hand Book";
+
+                        if (resp.data.success == "invalid") {
+                            document.getElementById("mobile-input").style.border = "1px solid red";
+                            document.getElementById("mobile-input-err").innerHTML = "Err: No User Found";
+                        } else if (resp.data.success == "limit") {
+                            document.getElementById("mobile-input").style.border = "1px solid red";
+                            document.getElementById("mobile-input-err").innerHTML = "Max: Limit Reached";
+                        } else if (resp.data.success == "quantity") {
+                            document.getElementById("mobile-input").style.border = "1px solid red";
+                            document.getElementById("mobile-input-err").innerHTML = "No Book In Stock";
+                        } else {
+                            location.reload();
+                        }
+                    })
+            }
+        }
+        document.getElementById("issue-form").addEventListener("submit", issueBook);
+    </script>
+
+    <script>
+        const takeBook = (mobile) => {
+            var person = prompt('Please Enter "Yes" To Remove');
+
+            if (person.toUpperCase() == "YES") {
+                document.getElementById("edit-loader").style.display = "block";
+
+                axios.get(`/api/delete-issue?_id=${idParam}&mobile=${mobile}`)
+                    .then(function (resp) {
+                        location.reload();
+                    })
+            }
+        }
+    </script>
+</body>
+
+</html>

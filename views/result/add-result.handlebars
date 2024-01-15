@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0,user-scalable=0" />
+    <title>Gvn Ems</title>
+    <link rel="manifest" href="/manifest.json" />
+    <link rel="shortcut icon" href="/img/favicon.png" />
+    <script>
+        //check cookie w_auth
+        let w_auth = document.cookie.indexOf('w_auth');
+        if (w_auth != -1) {
+            if (localStorage.getItem('role') != 10 && localStorage.getItem('role') != 1 && localStorage.getItem('role') != 3 && localStorage.getItem('role') != 2) {
+                location.href = "/dashboard";
+            }
+        } else {
+            location.href = "/login";
+        }
+    </script>
+    <link rel="stylesheet" href="/css/main.min.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #1F2946;
+        }
+
+        input::placeholder {
+            color: #c2c6dc;
+        }
+    </style>
+</head>
+
+<body>
+    <section style="display: flex;justify-content:space-between;">
+        {{> _sidebar}}
+        <div id="main-content">
+            <form id="newuser-form">
+                {{> _header}}
+
+                <div style="margin-top:29px;display:flex;align-items:center;justify-content:space-between;">
+                    <div style="display:flex;align-items:center;">
+                        <div
+                            style="font-weight:600;color: #fff;font-size:23.5px;border-right:1px solid #fff;padding-right:15px;margin-right:15px;">
+                            Result</div>
+                        <a href="/dashboard">
+                            <svg width="19px" height="19px" style="stroke: #7367F0;margin-right:12px;">
+                                <use href="/img/sprite.svg#icon-home"></use>
+                            </svg>
+                        </a>
+                        <svg width="15px" height="15px" style="stroke: #fff;margin-right:12px;">
+                            <use href="/img/sprite.svg#icon-anglelefttwo"></use>
+                        </svg>
+                        <div style="color: #fff;font-size:14.5px;">Add New</div>
+                    </div>
+
+                    <div style="background: #6a719c;width:35px;height:35px;padding:10px;border-radius:50%;">
+                        <svg width="16px" height="16px" style="stroke: #fff;margin-right:12px;">
+                            <use href="/img/sprite.svg#icon-cog"></use>
+                        </svg>
+                    </div>
+                </div>
+
+                <div style="margin-top: 25px;">
+                    <input type="file" id="image" name="image" onchange="readUrl(this)" required
+                        style="width:195px;zoom:1.13;background:#4D8AF0;color:#fff;padding:8px;border-radius:5px;">
+                </div>
+
+                <div class="newuser-col"
+                    style="background: #121729;box-shadow: 0 0 10px 0 rgba(4,2,2,.2);border-radius:8px;">
+                    <div style="font-size:19px;color: #ebeefd;font-weight:600;">Student Mobile</div>
+                    <div
+                        style="display: flex;flex-wrap:wrap;align-items:center;justify-content:space-between;margin-top:10px;font-size:14px;color: #c2c6dc;">
+                        <div style="width:48%;margin-top: 21px;">
+                            <div id="user-err">Mobile</div>
+                            <input type="number" name="mobile" required
+                                style="background: #1D2542;border:none;color:#fff;padding:10px;border-radius:2px;border-top:1px solid #10163A;width:100%;">
+                        </div>
+                        <div style="width:48%;margin-top: 21px;">
+                            <div>Note</div>
+                            <input type="text" name="note" required
+                                style="background: #1D2542;border:none;color:#fff;padding:10px;border-radius:2px;border-top:1px solid #10163A;width:100%;">
+                        </div>
+                    </div>
+                </div>
+
+                <button id="newuser-btn"
+                    style="position:fixed;bottom:50px;right:50px;box-shadow: 0 1px 20px 1px #fb434f;background:#fb434f;color:#fff;border:none;padding:11px 34px;border-radius:7px;display:flex;display:flex;align-items:center;font-size:12px;">
+                    <svg width="17px" height="17px" style="stroke: #fff;margin-right:5px;">
+                        <use href="/img/sprite.svg#icon-add"></use>
+                    </svg>
+                    <span id="newuser-btn-text">Add Result</span>
+                </button>
+
+                <div class="footer-dashboard"
+                    style="background: #121729;box-shadow: 0 0 10px 0 rgba(4,2,2,.2);border-radius:8px;margin:25px 0;color:#ebeefd;font-size:12px;">
+                    © COPYRIGHT 2077 | XTREME EMS
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <script src="/script/script.js"></script>
+
+    <script>
+        const createBlog = (e) => {
+            e.preventDefault();
+
+            document.getElementById("newuser-btn").disabled = true;
+            document.getElementById("newuser-btn-text").innerHTML = `
+                    <div class="spinner" style="height:7px;">
+                        <div class="rect1"></div>
+                        <div class="rect2"></div>
+                        <div class="rect3"></div>
+                        <div class="rect4"></div>
+                        <div class="rect5"></div>
+                    </div>
+                `
+
+            var myform = document.getElementById("newuser-form");
+            let formData = new FormData(myform);
+
+            axios.post('/add-result', formData)
+                .then(function (resp) {
+                    document.getElementById("newuser-btn").disabled = false;
+                    document.getElementById("newuser-btn-text").innerHTML = "Add Result";
+
+                    if (resp.data.success == true) {
+                        location.reload();
+                    } else if (resp.data.success == "nouser") {
+                        document.getElementById("user-err").innerHTML = `<span style="color:red;">No user found</span>`;
+                    } else if (resp.data.success == "notstudent") {
+                        document.getElementById("user-err").innerHTML = `<span style="color:red;">User not student</span>`;
+                    }
+                })
+        }
+        document.getElementById("newuser-form").addEventListener("submit", createBlog);
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0,user-scalable=0" />
+    <title>Gvn Ems</title>
+    <link rel="manifest" href="/manifest.json" />
+    <link rel="shortcut icon" href="/img/favicon.png" />
+    <script>
+        //check cookie w_auth
+        let w_auth = document.cookie.indexOf('w_auth');
+        if (w_auth != -1) {
+            if (localStorage.getItem('role') != 10 && localStorage.getItem('role') != 2) {
+                location.href = "/dashboard";
+            }
+        } else {
+            location.href = "/login";
+        }
+    </script>
+    <link rel="stylesheet" href="/css/main.min.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #1F2946;
+        }
+
+        .user-container {
+            padding: 20px;
+        }
+
+        .user-col {
+            width: 23%;
+        }
+
+        @media only screen and (max-width: 600px) {
+            .user-container {
+                padding: 15px;
+            }
+
+            .user-col {
+                width: 48%;
+            }
+        }
+
+        .dropbtn {
+            border-radius: 5px;
+            margin-top: 5px;
+        }
+
+        input::placeholder {
+            color: #c2c6dc;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            color: #c2c6dc;
+            font-size: 13px;
+            white-space: nowrap;
+            margin-bottom: 22px;
+        }
+
+        th {
+            color: #fff;
+            font-weight: 600;
+            background: #262C49;
+        }
+
+        th,
+        td {
+            padding: 13px;
+            border: 1px solid #414561;
+        }
+
+        tr:hover {
+            background: #262C49;
+        }
+
+        .bottomscrollbar::-webkit-scrollbar {
+            /* Hide scrollbar for Chrome, Safari and Opera */
+            height: 9px;
+            background: #262C49;
+        }
+
+        .bottomscrollbar::-webkit-scrollbar-thumb {
+            background: #4D8AF0;
+            border-radius: 25px;
+        }
+
+        /*print css*/
+        .user-container {
+            background: #121729;
+        }
+
+        .user-info-color {
+            color: #fff;
+        }
+
+        .user-info-color span {
+            color: #aaa;
+        }
+
+        .fee-ledger-title {
+            color: #4D8AEF;
+        }
+
+        .print-particular {
+            color: #4D8AEF;
+        }
+
+        @media print {
+            .user-container {
+                background: #fff;
+                color: #000;
+            }
+
+            .user-info-color {
+                color: #555;
+            }
+
+            .user-info-color span {
+                color: #000;
+            }
+
+            table {
+                color: #555;
+            }
+
+            th {
+                color: #000;
+                background: #fff;
+            }
+
+            th,
+            td {
+                border: 1px solid #4145618e;
+            }
+
+            .fee-ledger-title {
+                color: #000;
+            }
+
+            .print-particular {
+                color: #000;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <section style="display: flex;justify-content:space-between;">
+        {{> _sidebar}}
+        <section id="main-content">
+            {{> _header}}
+
+            <div style="margin-top:29px;display:flex;align-items:center;justify-content:space-between;">
+                <div style="display:flex;align-items:center;">
+                    <div
+                        style="font-weight:600;color: #fff;font-size:23.5px;border-right:1px solid #fff;padding-right:15px;margin-right:15px;">
+                        Collect</div>
+                    <a href="/dashboard">
+                        <svg width="19px" height="19px" style="stroke: #7367F0;margin-right:12px;">
+                            <use href="/img/sprite.svg#icon-home"></use>
+                        </svg>
+                    </a>
+                    <svg width="15px" height="15px" style="stroke: #fff;margin-right:12px;">
+                        <use href="/img/sprite.svg#icon-anglelefttwo"></use>
+                    </svg>
+                    <div style="color: #fff;font-size:14.5px;">Fees</div>
+                </div>
+
+                <div style="background: #6A719C;width:40px;height:40px;padding:12px;border-radius:50%;">
+                    <svg width="17px" height="17px" style="stroke: #fff;margin-right:12px;">
+                        <use href="/img/sprite.svg#icon-cog"></use>
+                    </svg>
+                </div>
+            </div>
+
+            <div class="user-container" id="hiden-mobile"
+                style="box-shadow: 0 0 10px 0 rgba(4,2,2,.2);margin-top:29px;border-radius:8px;">
+                <div style="display: flex;align-items:center;">
+                    <form action="/collectfees" style="width:340px;display: flex;align-items:center;">
+                        <input name="mobile" type="number" placeholder="Mobile Number..." id="search-input" required
+                            style="background: #1D2542;border:none;padding:10px;width:100%;color:#fff;border-radius:5px 0 0 5px;">
+
+                        <button class="dropbtn"
+                            style="margin-top:0;margin-left:5px;border-radius:0 5px 5px 0;width:100px;">
+                            <div>Search</div>
+                            <svg width="15px" height="15px" style="stroke: #fff;margin-left:auto;">
+                                <use href="/img/sprite.svg#icon-anglelefttwo"></use>
+                            </svg>
+                        </button>
+                    </form>
+
+                    <div style="margin-left:auto;display:flex;">
+                        <button onclick="printPage()"
+                            style="display:flex;align-items:center;background:#4D8AEF;color:#fff;padding:8px;border:none;border-radius:4px;">
+                            <svg width="16px" height="16px" style="fill: #fff;margin-right:7px;">
+                                <use href="/img/sprite.svg#icon-print"></use>
+                            </svg>
+                            Print Detail</button>
+                        {{!-- <button
+                            style="display:flex;align-items:center;background:#6939ED;color:#fff;padding:8px;border:none;border-radius:4px;margin-left:8px;">
+                            <svg width="16px" height="16px" style="fill: #fff;margin-right:7px;">
+                                <use href="/img/sprite.svg#icon-download"></use>
+                            </svg>
+                            Export to excel</button> --}}
+                    </div>
+                </div>
+
+                <div id="user-check" style="visibility:hidden;">
+                    <div class="user-info-color" style="font-size:14.5px;margin-top:35px;">
+                        <div>Name = <span id="dis-name">####### ########</span></div>
+                        <div style="margin-top: 12px;">Mobile = <span id="dis-mobile">##########</span></div>
+                        <div style="margin-top: 12px;">Standard = <span id="dis-standard">## (##)
+                                #########</span>
+                        </div>
+                        <div style="margin-top: 12px;">Shift = <span id="dis-shift">###</span>
+                        </div>
+                        <div style="margin-top: 12px;">Address = <span id="dis-address">####
+                                ######</span></div>
+                        <div style="margin-top: 12px;">Admission Date = <span id="dis-admit">########</span></div>
+                    </div>
+
+                    <div class="fee-ledger-title" style="margin-top: 30px;text-decoration:underline;">Fee Ledger</div>
+
+                    <div class="bottomscrollbar" style="margin-top:30px;overflow-x:auto;">
+                        <table>
+                            <tr style="text-align: left;">
+                                <th>Date</th>
+                                <th>Month</th>
+                                <th>Particular</th>
+                                <th>Dr Amount</th>
+                                <th>Cr Amount</th>
+                                <th>Balance (NPR)</th>
+                            </tr>
+                            <tbody id="receipt-wrapper">
+
+                            </tbody>
+                            <tr style="text-align: left;">
+                                <th colspan="3" style="text-align: center;">Total</th>
+                                <th id="ledger-dr-total"></th>
+                                <th id="ledger-cr-total"></th>
+                                <th id="ledger-bl-total"></th>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+                <button id="fees-btn" onclick="openRecievePaymentModal()"
+                    style="position:fixed;bottom:50px;right:50px;box-shadow: 0 1px 20px 1px #fb434f;background:#fb434f;color:#fff;border:none;padding:11px 34px;border-radius:7px;display:flex;display:flex;align-items:center;font-size:12px;">
+                    <svg width="17px" height="17px" style="stroke: #fff;margin-right:5px;">
+                        <use href="/img/sprite.svg#icon-add"></use>
+                    </svg>
+                    <span id="fees-btn-text">RECIEVE PAYMENT</span>
+                </button>
+            </div>
+
+            <div id="only-mobile"></div>
+
+            <div class="footer-dashboard"
+                style="background: #121729;box-shadow: 0 0 10px 0 rgba(4,2,2,.2);border-radius:8px;margin:25px 0;color:#ebeefd;font-size:12px;">
+                © COPYRIGHT 2077 | XTREME EMS
+            </div>
+        </section>
+    </section>
+
+    <section id="recieve-payment-modal"
+        style="position: fixed;width:100%;bottom:-110%;left:0;z-index:100;height:100%;transition:0.3s;">
+        <div style="display: flex;">
+            <form id="bill-payment-form" style="width: 50%;background:#1F2946;height:100vh;color:#fff;padding:20px;">
+                <div
+                    style="display: flex;justify-content:space-between;align-items:center;border-bottom: 1px solid rgba(255, 255, 255, 0.274);padding-bottom:10px;">
+                    <div>Bill Details</div>
+                    <div style="display: flex;align-items:center;">
+                        <input type="checkbox" id="sms" style="zoom: 1.5;">
+                        <label for="sms"
+                            style="font-size: 13px;margin-left:5px;position:relative;top:2px;margin-left:8px;">SMS</label>
+
+                        <button
+                            style="padding: 6px 8px;border-radius:2px;background:#FF300B;color:#fff;border:none;margin-left:20px;font-size:12px;">RECEIVE</button>
+                    </div>
+                </div>
+                <div style="width:48.5%;margin-top: 10px;">
+                    <div style="font-size:14px;">Month</div>
+                    <select id="month-form-select" required
+                        style="border-radius:3px;border:none;width:100%;padding:8px;">
+                        <option value=""></option>
+                        <option value="January">January</option>
+                        <option value="February">February</option>
+                        <option value="March">March</option>
+                        <option value="April">April</option>
+                        <option value="May">May</option>
+                        <option value="June">June</option>
+                        <option value="July">July</option>
+                        <option value="August">August</option>
+                        <option value="September">September</option>
+                        <option value="October">October</option>
+                        <option value="Novemeber">Novemeber</option>
+                        <option value="December">December</option>
+                    </select>
+                </div>
+
+                <div class="bottomscrollbar" style="overflow-x:auto;">
+                    <table style="margin-top: 30px;">
+                        <tr style="text-align: left;">
+                            <th>SNO.</th>
+                            <th style="min-width: 200px;">Particular</th>
+                            <th>Qty</th>
+                            <th>Amount</th>
+                            <th>Action</th>
+                        </tr>
+                        <tbody id="bill-detail-data">
+
+                        </tbody>
+                        <tr style="text-align: left;">
+                            <th colspan="3">Total Amount :</th>
+                            <th style="display: flex;align-items:center;min-width:150px;">
+                                Rs.
+                                <input readonly type="text" id="bill-total" style="width: 100%;margin-left:5px;"
+                                    value="0">
+                            </th>
+                        </tr>
+                    </table>
+                </div>
+            </form>
+            <div style="width: 70px ;height:100vh;background:rgba(0, 0, 0, 0.445);display:flex;">
+                <button onclick="closeRecievePaymentModal()"
+                    style="margin:auto;background:rgb(255, 48, 11);color:#fff;padding:8px 12px;border-radius:50%;font-weight:bold;border:none;">X</button>
+            </div>
+            <div style="width: 50%;background:#1F2946;height:100vh;color:#fff;padding:20px;">
+                <div style="border-bottom: 1px solid rgba(255, 255, 255, 0.274);padding-bottom:10px;">Fee Heads</div>
+
+                <div style="margin-top: 29px;">
+                    <button id="regular-fee-head-top" onclick="changeFeeHeadTop('regular')"
+                        style="color:#fff;background:#4D8AEF;border:none;padding:5px 8px;border-radius:2px;margin-right:10px;font-size:12px;">REGULAR
+                        FEE</button>
+                    <button id="other-fee-head-top" onclick="changeFeeHeadTop('other')"
+                        style="background#fff;border:none;padding:5px 8px;border-radius:2px;font-size:12px;">OTHER
+                        FEE</button>
+                </div>
+                <div class="bottomscrollbar" style="overflow-x:auto;">
+                    <table style="margin-top: 15px;">
+                        <tr style="text-align: left;">
+                            <th>SNO.</th>
+                            <th>Particular</th>
+                            <th>Amount</th>
+                            <th>Due</th>
+                        </tr>
+                        <tbody id="fee-head-data">
+
+                        </tbody>
+                        <tr>
+                            <td colspan="4">
+                                <div id="fee-head-loader" class="spinner" style="height:28px;">
+                                    <div class="rect1"></div>
+                                    <div class="rect2"></div>
+                                    <div class="rect3"></div>
+                                    <div class="rect4"></div>
+                                    <div class="rect5"></div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tbody>
+                            <form id="new-feehead-form">
+                                <tr>
+                                    <td style="font-size:17px;">🡆</td>
+                                    <td><input type="text" id="new-feehead-particular" style="width: 100%;" required>
+                                    </td>
+                                    <td><input type="number" id="new-feehead-amount" style="width: 100%;" required></td>
+                                    <td><input type="number" id="new-feehead-due" style="width: 100%;" required></td>
+                                    <td>
+                                        <button style="background:none;border:none;">
+                                            <svg width="20px" height="20px"
+                                                style="stroke: #4D8AEF;margin-left:auto;cursor: pointer;">
+                                                <use href="/img/sprite.svg#icon-add"></use>
+                                            </svg>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </form>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div id="fees-loader"
+        style="position: fixed;top:0;left:0;width:100%;height:100%;z-index:100;background:rgba(22, 23, 32, 0.75);">
+        <div class="spinner" style="height:35px;position:fixed;top:50%;left:50%;transform:translate(-50%, -50%);">
+            <div class="rect1"></div>
+            <div class="rect2"></div>
+            <div class="rect3"></div>
+            <div class="rect4"></div>
+            <div class="rect5"></div>
+        </div>
+    </div>
+
+    <script src="/script/script.js"></script>
+
+    <script>
+        //media query
+        var mq = window.matchMedia("(max-width: 800px)")
+        if (mq.matches) {
+            document.getElementById("hiden-mobile").style.display = "none";
+            document.getElementById("only-mobile").innerHTML = `
+                <div style="margin:30px 0;text-align:center;">
+                   <button style="background:#FB434F;border:none;color:#fff;font-size:17px;padding:8px;">Open in pc</button>
+                </div>
+            `;
+        }
+
+        // query params from the url
+        const urlParams = new URLSearchParams(window.location.search);
+        const mobileParam = urlParams.get('mobile');
+        //global variables for this page
+        let feeHeadType = 1;
+        let balancedValue = 0;
+        let ledgerCrValue = 0;
+        let ledgerDrValue = 0;
+
+        //get ledger detail
+        const fetchLedgerDetails = () => {
+            axios.get(`/api/reciept?mobile=${mobileParam}`).then(function (resp) {
+                document.getElementById("fees-loader").style.display = "none";
+
+                if (resp.data.message == "no user") {
+                    document.getElementById("user-check").innerHTML = `
+                        <div style="color:#fff;margin-top:50px;font-size:24px;font-weight:bold;">0 User was Found,</div>
+                        <div style="color:#fff;margin:5px 0 30px;">Please Check the Number and Try Once More</div>
+                    `
+                    document.getElementById("user-check").style.visibility = "visible";
+                } else {
+                    document.getElementById("user-check").style.visibility = "visible";
+                    document.getElementById("dis-name").innerHTML = resp.data.user.firstname + resp.data.user.lastname;
+                    document.getElementById("dis-mobile").innerHTML = resp.data.user.mobile;
+                    document.getElementById("dis-standard").innerHTML = resp.data.user.standard;
+                    document.getElementById("dis-shift").innerHTML = resp.data.user.shift;
+                    document.getElementById("dis-address").innerHTML = resp.data.user.address;
+                    document.getElementById("dis-admit").innerHTML = new Date(resp.data.user.admit).toLocaleDateString('default', { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' });
+
+                    resp.data.receipts.forEach(data => {
+                        balancedValue = balancedValue - data.amount;
+                        ledgerCrValue = ledgerCrValue + data.amount;
+
+                        document.getElementById("ledger-cr-total").innerHTML = ledgerCrValue;
+                        document.getElementById("ledger-dr-total").innerHTML = ledgerDrValue;
+                        document.getElementById("ledger-bl-total").innerHTML = balancedValue;
+
+                        let recDate = new Date(data.date).toLocaleDateString('default', { year: 'numeric', month: 'short', day: 'numeric' });
+                        document.getElementById("receipt-wrapper").insertAdjacentHTML("beforeend", `
+                            <tr>
+                                <td>${recDate}</td>
+                                <td>${data.month}</td>
+                                <td><a class="print-particular" href="/fees-invoice?id=${data._id}">${data.particular}</a></td>
+                                <td></td>
+                                <td>${data.amount}</td>
+                                <td>${balancedValue}</td>
+                            </tr>
+                        `)
+                    })
+                }
+            })
+        }
+
+        //fetch feehead
+        const fetchLedgerFeeHead = () => {
+            balancedValue = 0;
+            ledgerCrValue = 0;
+            ledgerDrValue = 0;
+
+            axios.get(`/api/feehead?type=none&mobile=${mobileParam}`)
+                .then(function (resp) {
+                    document.getElementById("receipt-wrapper").innerHTML = "";
+
+                    //dr data display in the ledger
+                    resp.data.forEach(data => {
+                        ledgerDrValue = ledgerDrValue + data.amount;
+                        balancedValue = balancedValue + data.amount;
+                        document.getElementById("receipt-wrapper").insertAdjacentHTML("beforeend", `
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td>${data.particular}</td>
+                                <td>${data.amount}</td>
+                                <td></td>
+                                <td>${balancedValue}</td>
+                            </tr>
+                        `)
+                    })
+
+                    //run the ledger ajax
+                    fetchLedgerDetails()
+                })
+        }
+        fetchLedgerFeeHead()
+    </script>
+
+    <script>
+        const changeFeeHeadTop = (val) => {
+            if (val == "other") {
+                feeHeadType = 2;
+                document.getElementById("regular-fee-head-top").style.background = "#EFEFEF";
+                document.getElementById("regular-fee-head-top").style.color = "#000";
+                document.getElementById("other-fee-head-top").style.background = "#4D8AEF";
+                document.getElementById("other-fee-head-top").style.color = "#fff";
+
+                getFeeHeads();
+            } else {
+                feeHeadType = 1;
+                document.getElementById("regular-fee-head-top").style.background = "#4D8AEF";
+                document.getElementById("regular-fee-head-top").style.color = "#fff";
+                document.getElementById("other-fee-head-top").style.background = "#EFEFEF";
+                document.getElementById("other-fee-head-top").style.color = "#000";
+
+                getFeeHeads();
+            }
+        }
+
+        //open and close payment modal
+        const openRecievePaymentModal = () => {
+            document.getElementById("recieve-payment-modal").style.bottom = "0";
+        }
+        const closeRecievePaymentModal = () => {
+            document.getElementById("recieve-payment-modal").style.bottom = "-110%";
+        }
+
+        //display billing data
+        let total = 0;
+        let billDataArrObj = [];
+        const iterateBillData = () => {
+            total = 0;
+
+            document.getElementById("bill-detail-data").innerHTML = "";
+            billDataArrObj.forEach(val => {
+                document.getElementById("bill-detail-data").insertAdjacentHTML("beforeend", `
+                    <tr>
+                        <td style="font-size:17px;">🡆</td>
+                        <td>${val.particular}
+                            <input class="bill-data-class" type="hidden" value="${val.particular}" >
+                        </td>
+                        <td>${val.qty}</td>
+                        <td>
+                            <input required class="bill-data-class" onkeyup="changeTotalValue(this)" data-part="${val.particular}" type="text" style="width: 100%;" value="${val.amount * val.qty}">
+                        </td>
+                        <td>
+                            <button onclick="increaseBillRow('${val.particular}')"
+                                style="font-size:11px;background:#4D8AEF;color:#fff;padding:3px 5px;border-radius:5px;font-weight:bold;border:none;">+</button>
+                            <button onclick="removeBillRow('${val.particular}')"
+                                style="font-size:11px;background:rgb(255, 48, 11);color:#fff;padding:3px 5px;border-radius:5px;font-weight:bold;border:none;margin:0 5px;">X</button>
+                            <button onclick="decreaseBillRow('${val.particular}')"
+                                style="font-size:11px;background:#4D8AEF;color:#fff;padding:3px 5px;border-radius:5px;font-weight:bold;border:none;">-</button>
+                        </td>
+                    </tr>
+                `);
+
+                total = total + (val.amount * val.qty);
+            })
+
+            document.getElementById("bill-total").value = total;
+        }
+
+        const changeTotalValue = (e) => {
+            billDataArrObj.forEach(function (obj) {
+                if (obj.particular == e.getAttribute("data-part")) {
+                    obj.amount = parseInt(e.value);
+                }
+            });
+
+            total = 0;
+            billDataArrObj.forEach(val => {
+                total = total + (val.amount * val.qty);
+            })
+            document.getElementById("bill-total").value = total;
+        }
+
+        const onclickFeeHead = (particular, amount) => {
+            let duplicate = false;
+            billDataArrObj.forEach(data => {
+                if (data.particular == particular) {
+                    duplicate = true
+                }
+            })
+
+            if (duplicate == false) {
+                billDataArrObj.push({
+                    particular: particular,
+                    amount: amount,
+                    qty: 1
+                })
+
+                iterateBillData();
+            }
+        }
+
+        const removeBillRow = (particular) => {
+            billDataArrObj.forEach((val, i) => {
+                if (val.particular == particular) {
+                    billDataArrObj.splice(i, 1);
+                }
+            })
+
+            iterateBillData();
+        }
+
+        const increaseBillRow = (particular) => {
+            billDataArrObj.forEach(function (obj) {
+                if (obj.particular == particular) {
+                    obj.qty = parseInt(obj.qty) + 1;
+                }
+            });
+
+            iterateBillData();
+        }
+        const decreaseBillRow = (particular) => {
+            billDataArrObj.forEach(function (obj) {
+                if (obj.particular == particular && obj.qty > 1) {
+                    obj.qty = parseInt(obj.qty) - 1;
+                }
+            });
+
+            iterateBillData();
+        }
+
+
+        //get feehead
+        const getFeeHeads = () => {
+            document.getElementById("fee-head-loader").style.display = "block";
+
+            axios.get(`/api/feehead?type=${feeHeadType}&mobile=${mobileParam}`)
+                .then(function (resp) {
+                    document.getElementById("fee-head-loader").style.display = "none";
+                    document.getElementById("fee-head-data").innerHTML = "";
+
+                    resp.data.forEach(data => {
+                        document.getElementById("fee-head-data").insertAdjacentHTML("beforeend", `
+                            <tr>
+                                <td style="font-size:17px;">🡆</td>
+                                <td onclick="onclickFeeHead('${data.particular}', '${data.amount}')" style="cursor: pointer;">${data.particular}</td>
+                                <td><input id="${data._id}-famount" type="number" value="${data.amount}" style="background:#121729;color:#fff;border:2px solid #121729;"></td>
+                                <td><input id="${data._id}-fdue" type="number" value="${data.due}" style="background:#121729;color:#fff;border:2px solid #121729;"></td>
+                                <td>
+                                    <svg onclick="editFeeHead('${data._id}')" width="15px" height="15px" style="stroke: #fff;margin-right:12px;cursor: pointer;">
+                                        <use href="/img/sprite.svg#icon-edit"></use>
+                                    </svg>
+                                    <svg onclick="deleteFeeHead('${data._id}')" width="15px" height="15px" style="stroke: #fff;margin-right:12px;cursor: pointer;">
+                                        <use href="/img/sprite.svg#icon-del"></use>
+                                    </svg>
+                                </td>
+                            </tr>
+                        `)
+                    })
+                })
+        }
+        getFeeHeads();
+        //create new feehead
+        const createNewFeeHeads = (e) => {
+            e.preventDefault();
+            document.getElementById("fees-loader").style.display = "block";
+
+            axios.post("/api/feehead", {
+                particular: document.getElementById("new-feehead-particular").value,
+                amount: document.getElementById("new-feehead-amount").value,
+                due: document.getElementById("new-feehead-due").value,
+                type: feeHeadType,
+                mobile: mobileParam
+            })
+                .then(function (resp) {
+                    document.getElementById("fees-loader").style.display = "none";
+                    document.getElementById("new-feehead-form").reset();
+                    if (resp.data.success == true) {
+                        getFeeHeads();
+                        fetchLedgerFeeHead();
+                    } else {
+                        alert("Duplicate Error! Fee Head Already Exist")
+                    }
+                })
+        }
+        document.getElementById("new-feehead-form").addEventListener("submit", createNewFeeHeads);
+
+        const editFeeHead = (id) => {
+            let check = confirm("Are You Sure, You Want To Edit?");
+            if (check) {
+                document.getElementById("fees-loader").style.display = "block";
+
+                axios.post(`/api/edit/feehead?_id=${id}`, {
+                    amount: document.getElementById(`${id}-famount`).value,
+                    due: document.getElementById(`${id}-fdue`).value
+                }).then(function (resp) {
+                    document.getElementById("fees-loader").style.display = "none";
+                    getFeeHeads();
+                })
+            }
+        }
+
+        const deleteFeeHead = (id) => {
+            let result = confirm("Are You Sure, You Want To Delete?");
+            if (result) {
+                document.getElementById("fees-loader").style.display = "block";
+                axios.get(`/api/feehead/delete?_id=${id}`).then(function (resp) {
+                    document.getElementById("fees-loader").style.display = "none";
+                    getFeeHeads();
+                    fetchLedgerFeeHead();
+                })
+            }
+        }
+
+        //bill payment
+        const newBillPayment = (e) => {
+            e.preventDefault();
+            document.getElementById("fees-loader").style.display = "block";
+
+            let billDataClass = document.getElementsByClassName("bill-data-class");
+            let billDataArr = [];
+            for (let i = 0; i < billDataClass.length; i += 2) {
+                billDataArr.push({
+                    particular: billDataClass[i].value,
+                    amount: billDataClass[i + 1].value
+                })
+            }
+
+            axios.post(`/api/reciept`, {
+                particular: "CASH IN HAND A/C",
+                amount: document.getElementById("bill-total").value,
+                month: document.getElementById("month-form-select").value,
+                mobile: mobileParam,
+                data: billDataArr
+            }).then(function (resp) {
+                location.reload()
+            })
+        }
+        document.getElementById("bill-payment-form").addEventListener("submit", newBillPayment);
+    </script>
+
+    <script>
+        const printPage = () => {
+            let printContents = document.getElementById("user-check").innerHTML;
+            let originalContents = document.body.innerHTML;
+            document.body.innerHTML = printContents;
+            window.print();
+            document.body.innerHTML = originalContents;
+        }
+    </script>
+</body>
+
+</html>

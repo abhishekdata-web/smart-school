@@ -1,0 +1,186 @@
+@font-face {
+    font-family: "roboto";
+    src: url("/css/roboto.woff2") format("woff2");
+    font-weight: 400;
+    font-display: block;
+}
+
+@font-face {
+    font-family: "roboto";
+    src: url("/css/robotobold.woff2") format("woff2");
+    font-weight: 800;
+    font-display: block;
+}
+
+body{
+    font-family: 'roboto';
+    font-weight: 400;
+}
+
+#mainsidebarwrap{
+    width: 255px;
+}
+#mainsidebar{
+    width: 255px;
+    transition: 0.1s;
+}
+#main-content{
+    width: 83%;
+    padding: 0 30px 0;
+}
+
+/* animation spinner */
+.spinner {
+    margin: 5px auto;
+    width: 50px;
+    height: 40px;
+    text-align: center;
+    font-size: 10px;
+}
+  
+.spinner > div {
+    background-color: #fff;
+    height: 100%;
+    width: 6px;
+    display: inline-block;
+    
+    animation: sk-stretchdelay 1.2s infinite ease-in-out;
+}
+  
+.spinner .rect2 {
+    animation-delay: -1.1s;
+}
+  
+.spinner .rect3 {
+    animation-delay: -1.0s;
+}
+  
+.spinner .rect4 {
+    animation-delay: -0.9s;
+}
+  
+.spinner .rect5 {
+    animation-delay: -0.8s;
+}
+  
+@keyframes sk-stretchdelay {
+    0%, 40%, 100% { 
+      transform: scaleY(0.4);
+    }  20% { 
+      transform: scaleY(1.0);
+    }
+} 
+
+/* three dot animation */
+.lineone {
+    animation: growshrink 4s infinite;
+}
+
+.linethree {
+    animation: growshrinkthree 4s infinite;
+}
+
+@keyframes growshrink {
+    0% {
+        width: 50px;
+    }
+
+    50% {
+        width: 80px;
+    }
+
+    100% {
+        width: 50px;
+    }
+}
+
+@keyframes growshrinkthree {
+    0% {
+        width: 80px;
+    }
+
+    50% {
+        width: 50px;
+    }
+
+    100% {
+        width: 80px;
+    }
+}
+
+button{
+    outline: none;
+}
+button:not(:disabled),
+[type="button"]:not(:disabled),
+[type="reset"]:not(:disabled),
+[type="submit"]:not(:disabled) {
+  cursor: pointer;
+}
+
+.dashbord-row1 .col1{
+    width: 41%;
+}
+.dashbord-row1 .col2{
+    width: 27%;
+}
+.dashbord-row2 .col1{
+    width: 55.7%;
+}
+.dashbord-row2 .col2{
+    width: 41.7%;
+}
+
+.classes-row .col{
+    width:23.9%;
+}
+
+@media only screen and (max-width: 1200px) {
+    #mainsidebarwrap{
+        width: 0;
+    }
+    #mainsidebar{
+        left: -100%;
+    }
+    #main-content{
+        width: 100%;
+    }
+
+    .classes-row .col{
+        width:31.6%;
+    }
+}
+
+@media only screen and (max-width: 800px) {
+    #main-content{
+        padding: 0 130px 0;
+    }
+
+    .dashbord-row1 .col1{
+        width: 100%;
+    }
+    .dashbord-row1 .col2{
+        width: 100%;
+        margin-top: 20px;
+    }
+    .dashbord-row2 .col1{
+        width: 100%;
+    }
+    .dashbord-row2 .col2{
+        width: 100%;
+        margin-top: 20px;
+    }
+
+    .classes-row .col{
+        width:100%;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    #main-content{
+        padding: 0 15px 0;
+    }
+    .header-big-part{
+        display: none;
+    }
+}

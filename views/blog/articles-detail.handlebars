@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0,user-scalable=0" />
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="GVN College News & Notice" />
+    <meta property="og:description" content="GVN College News & Notice" />
+    <meta property="og:image" content="https://gvnschool.edu.np/img/manifest/icon-384x384.png">
+
+    <title>Gvn College Articles</title>
+    <link rel="manifest" href="/manifest.json" />
+    <link rel="shortcut icon" href="/img/favicon.png" />
+    <link rel="stylesheet" href="/css/main.min.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .container {
+            width: calc(100% - 260px);
+            margin: 0 auto;
+        }
+
+        #home-header {
+            padding: 11px 0;
+            position: fixed;
+            background: #fff;
+            box-shadow: 0 2px 4px 2px rgba(0, 0, 0, .05);
+            transition: 0.2s;
+            width: 100%;
+            top: 0;
+            z-index: 99;
+        }
+
+        #home-header nav a {
+            font-weight: bold;
+            text-decoration: none;
+            color: #666;
+            margin-right: 55px;
+            font-size: 13.8px;
+        }
+
+        .blog-title {
+            font-size: 34px;
+        }
+
+        .blog-name {
+            font-size: 22px;
+        }
+
+        #imgPreview {
+            width: 50%;
+            height: 250px;
+        }
+
+        /*hide in pc*/
+        .display-mobile {
+            display: none;
+        }
+
+        @media only screen and (max-width: 1200px) {
+            .container {
+                width: calc(100% - 70px);
+                margin: 0 auto;
+            }
+
+            #home-header nav a {
+                margin-right: 45px;
+                font-size: 12.8px;
+            }
+        }
+
+        @media only screen and (max-width: 800px) {
+            .container {
+                width: calc(100% - 180px);
+                margin: 0 auto;
+            }
+
+            .display-pc {
+                display: none;
+            }
+
+            .display-mobile {
+                display: block;
+            }
+
+            .blog-title {
+                font-size: 28px;
+            }
+
+            .blog-name {
+                font-size: 17px;
+            }
+
+            #imgPreview {
+                width: 100%;
+                height: auto;
+            }
+        }
+
+        @media only screen and (max-width: 600px) {
+            .container {
+                width: calc(100% - 25px);
+                margin: 0 auto;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header style="padding-bottom: 77px;">
+        <div id="home-header">
+            <div class="container" style="display: flex;align-items:center;justify-content:space-between;">
+                <div style="display: flex;align-items:center;">
+                    <img src="/img/gvnlogo.jpg" style="width: 53px;height:53px;">
+                    <a href="/" style="font-weight: 800;color:#0E8EF2;font-size:16px;margin-left:10px;">
+                        GVN COLLEGE
+                        <div
+                            style="font-size:13px;color:#fff;background:#0E8EF2;padding:0 2px;border-radius:10px 0 10px 0;">
+                            Step Towards Success</div>
+                    </a>
+                </div>
+                <nav class="display-pc" style="margin-left: auto;">
+                    <a href="/">Home</a>
+                    <a href="/articles?q=all" style="border-bottom:2px solid #0E8EF2;">News & Notice</a>
+                    <a href="/gallery">Gallery</a>
+                    <a href="/about">About Us</a>
+                </nav>
+                <div>
+                    <a id="home-login-btn" href="#"
+                        style="display:flex;align-items:center;font-size: 12.5px; background: linear-gradient(to right, #52A0FD 0%, #00e2fa 80%, #00e2fa 100%);color:#fff;padding:10px 12px;border-radius:25px;text-decoration: none;">
+                        <svg width="16px" height="16px" style="stroke: #fff;margin-right:5px;">
+                            <use href="/img/sprite.svg#icon-user"></use>
+                        </svg>
+                        Login
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section style="background: url('/img/gallery/6.JPG');background-position:center;">
+        <div style="background: rgba(0, 0, 0, 0.5);padding:45px 0;">
+            <div class="container">
+                <div class="display-mobile" style="margin-bottom: 40px;">
+                    <a href="/" style="border:1px solid #fff;color:#fff;font-size:13px;padding:5px 8px;">Home</a>
+                    <a href="/articles?q=all"
+                        style="border:1px solid #fff;color:#fff;font-size:13px;padding:5px 8px;">News &
+                        Notice</a>
+                    <a href="/gallery"
+                        style="border:1px solid #fff;color:#fff;font-size:13px;padding:5px 8px;">Gallery</a>
+                    <a href="/about" style="border:1px solid #fff;color:#fff;font-size:13px;padding:5px 8px;">About</a>
+                </div>
+                <div class="blog-title" style="color: #fff;font-weight:600;">
+                    Our latest news & updates.
+                </div>
+                <div style="margin-top: 30px;">
+                    <span class="lineone"
+                        style="background: #fff;height:14px;width:50px;display: inline-block;border-radius: 25px;"></span>
+                    <span
+                        style="background: #fff;height:14px;width:50px;display: inline-block;margin-left:8px;border-radius: 25px;"></span>
+                    <span class="linethree"
+                        style="background: #fff;height:14px;width:50px;display: inline-block;margin-left:8px;border-radius: 25px;"></span>
+                </div>
+                <div style="color: #eee;font-size:15px;margin-top:20px;line-height:28px;">
+                    Read through our latest blog posts and learn more about us and get the latest news and updates.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <form action="/articles" class="container" style="margin-top:30px;">
+        <input type="text" placeholder="Search" name="q"
+            style="padding:11px 13px;width:250px;max-width:100%;border-radius:25px;border:2px dashed #0E8EF2;">
+    </form>
+
+    <center class="container" style="margin-top:30px;">
+        <img src="https://getuikit.com/v2/docs/images/placeholder_600x400.svg" id="imgPreview"
+            style="object-fit:contain;border-radius:25px;background:#F4F5FA;">
+    </center>
+
+    <div class="container" style="margin-top:15px;">
+        <img onclick="shareOnFB()" src="https://www.flaticon.com/svg/static/icons/svg/145/145802.svg"
+            style="width: 26px;cursor:pointer;">
+        <img onclick="shareOntwitter()" src="https://cdn.iconscout.com/icon/free/png-512/twitter-1865886-1581902.png"
+            style="width: 26px;margin-left:15px;cursor:pointer;">
+    </div>
+
+    <div id="blog-name" class="blog-name container"
+        style="color: #092054;margin-top:10px;font-weight:600;line-height:26px;">
+        loading..
+    </div>
+    <div class="container" id="admin-only" style="display: flex;align-items:center;margin-top:10px;">
+        <button id="blog-date"
+            style="font-size:11px;font-weight:600;background: #FF9F43;color:#fff;border:none;padding:6px 12px;border-radius:5px;">loading..</button>
+    </div>
+    <div class="container" style="margin-top: 30px;">
+        <span class="lineone"
+            style="background: #0E8EF2;height:14px;width:50px;display: inline-block;border-radius: 25px;"></span>
+        <span
+            style="background: #0E8EF2;height:14px;width:50px;display: inline-block;margin-left:8px;border-radius: 25px;"></span>
+        <span class="linethree"
+            style="background: #0E8EF2;height:14px;width:50px;display: inline-block;margin-left:8px;border-radius: 25px;"></span>
+    </div>
+    <div class="container" id="blog-body"
+        style="color: #092054;font-size:13.5px;margin-top:20px;margin-bottom:30px;line-height:26px;letter-spacing:1px;">
+        loading..
+    </div>
+
+    <center id="ajaxload-img" style="height:350px;margin-top:30px;">
+        <img src="/img/preloader.gif" style="width: 220px;">
+    </center>
+
+    <div style="background: #F4F5FA;padding:15px 0;font-weight:bold;">
+        <div class="container">
+            <a href="/" style="color: #092054;font-size:13.5px;text-decoration:underline;">Gvn Home</a>
+            <a href="/articles?q=all"
+                style="color: #092054;font-size:13.5px;text-decoration:underline;margin-left:15px;">News & Notice</a>
+        </div>
+    </div>
+
+    <section id="blogmodal-back" onclick="closeBlog()"
+        style="position: fixed;z-index:150;top:0;left:0;width:0;height:0;background:rgba(0,0,0,.4);">
+    </section>
+    <section id="blog-modal"
+        style="transition:0.2s;border-radius:10px;padding:20px;width:290px;position: fixed;z-index:155;top:-200%;left:50%;transform: translate(-50%, -50%);box-shadow: 0 1px 15px 1px #fb434f;background:#fb434f;color:#fff;font-size:14px;">
+        <div style="font-weight:600;">Are You Sure You Want To Delete?</div>
+        <div style="margin-top:13px;display:flex;justify-content:space-between;">
+            <button onclick="closeBlog()"
+                style="width: 48%;background:#fff;border:none;padding:9px 0;border-radius:4px;color:#fb434f;font-weight:600;">No</button>
+            <button onclick="deleteBlog()" id="blogdelete-btn"
+                style="width: 48%;background:#fff;border:none;padding:9px 0;border-radius:4px;color:#fb434f;font-weight:600;">Yes</button>
+        </div>
+    </section>
+
+    <script src="/script/script.js"></script>
+
+    <script>
+        //check cookie w_auth
+        let w_auth = document.cookie.indexOf('w_auth');
+        if (w_auth != -1) {
+            document.getElementById("home-login-btn").setAttribute("href", "/dashboard");
+        } else {
+            document.getElementById("home-login-btn").setAttribute("href", "/login");
+        }
+
+        // query params from the url
+        const urlParams = new URLSearchParams(window.location.search);
+        const idParam = urlParams.get('id');
+    </script>
+
+    <script>
+        axios.get(`/api/articles-detail?id=${idParam}`)
+            .then(function (resp) {
+                document.getElementById("ajaxload-img").style.display = "none";
+
+                let blogDetail = resp.data.docs;
+
+                document.getElementById("blog-name").innerHTML = blogDetail.title;
+                document.getElementById("blog-body").innerHTML = blogDetail.detail;
+                let blogDate = new Date(blogDetail.date).toLocaleDateString('default', { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' });
+                document.getElementById("blog-date").innerHTML = blogDate;
+                document.getElementById("imgPreview").setAttribute("src", `/blog_images/${blogDetail._id}/${blogDetail.image}`);
+            })
+
+        if (localStorage.getItem("role") == 10 || localStorage.getItem("role") == 3) {
+            document.getElementById("admin-only").insertAdjacentHTML("beforeend", `
+                <svg width="17px" height="17px" style="stroke: #b2c6dc;margin-left:20px;">
+                    <use href="/img/sprite.svg#icon-edit"></use>
+                </svg>
+                <svg onclick="openBlog()" width="17px" height="17px" style="stroke: #555;margin-left:20px;cursor:pointer;">
+                    <use href="/img/sprite.svg#icon-del"></use>
+                </svg>
+            `);
+        }
+    </script>
+
+    <script>
+        const openBlog = (blogId) => {
+            document.getElementById('blog-modal').style.top = "50%";
+            document.getElementById('blogmodal-back').style.width = "100%";
+            document.getElementById('blogmodal-back').style.height = "100%";
+        }
+        const closeBlog = () => {
+            document.getElementById('blog-modal').style.top = "-200%";
+            document.getElementById('blogmodal-back').style.width = "0";
+            document.getElementById('blogmodal-back').style.height = "0";
+        }
+
+        const deleteBlog = () => {
+            document.getElementById("blogdelete-btn").disabled = true;
+            document.getElementById("blogdelete-btn").style.background = "none";
+            document.getElementById("blogdelete-btn").style.border = "2px solid #fff";
+            document.getElementById("blogdelete-btn").innerHTML = `
+                <div class="spinner" style="height:8px;">
+                    <div class="rect1"></div>
+                    <div class="rect2"></div>
+                    <div class="rect3"></div>
+                    <div class="rect4"></div>
+                    <div class="rect5"></div>
+                </div>
+            `
+            axios.get(`/api/delete/blog?_id=${idParam}`)
+                .then(function (resp) {
+                    location.replace("/articles?q=all");
+                })
+        }
+    </script>
+
+    <script>
+        function shareOnFB() {
+            var url = `https://www.facebook.com/sharer/sharer.php?u=${window.location.href}&t=Facebook Share`;
+            window.open(url, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');
+            return false;
+        }
+
+
+        function shareOntwitter() {
+            var url = `https://twitter.com/intent/tweet?url=${window.location.href}&text=Twitter Share`;
+            TwitterWindow = window.open(url, 'TwitterWindow', width = 600, height = 300);
+            return false;
+        }
+    </script>
+</body>
+
+</html>

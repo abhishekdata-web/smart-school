@@ -1,0 +1,22 @@
+.newuser-col{
+    width:49%;
+    margin-top:29px;
+    padding:20px;
+}
+.newuser-fullcol{
+    padding:20px;
+}
+
+@media only screen and (max-width: 800px) {
+    .newuser-col{
+        width:100%;
+    }
+}
+@media only screen and (max-width: 600px) {
+    .newuser-col{
+        padding:14px;
+    }
+    .newuser-fullcol{
+        padding:14px;
+    }
+}

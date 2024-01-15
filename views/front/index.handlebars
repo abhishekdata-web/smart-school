@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0,user-scalable=0" />
+    <title>Gvn College</title>
+    <link rel="manifest" href="/manifest.json" />
+    <link rel="shortcut icon" href="/img/favicon.png" />
+    <link rel="stylesheet" href="/css/main.min.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        .container {
+            width: calc(100% - 460px);
+            margin: 0 auto;
+        }
+
+        #home-header {
+            padding: 14px 0;
+            position: fixed;
+            background-image: linear-gradient(225deg, #2ec2ff, #0063ff);
+            transition: 0.2s;
+            width: 100%;
+            top: 0;
+            z-index: 99;
+        }
+
+        #home-header nav a {
+            text-decoration: none;
+            color: #ffffffb3;
+            margin-right: 50px;
+            font-size: 13px;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        #home-main .first-col {
+            width: 50%;
+            z-index: 20;
+        }
+
+        #home-main .title {
+            font-size: 43px;
+        }
+
+        #home-main .second-col {
+            width: 48%;
+            z-index: 20;
+        }
+
+        #college-life .first-col {
+            width: 48.5%;
+        }
+
+        #college-life .second-col {
+            width: 48.5%;
+        }
+
+        #home-courses .cols {
+            width: 31.2%;
+            margin-top: 38px;
+            box-shadow: 0 0 5px 5px rgba(0, 0, 0, .05);
+            border-radius: 8px;
+            background: #fff;
+        }
+
+        #home-enroll {
+            padding-top: 30px;
+        }
+
+        #home-enroll .col1 {
+            width: 45%;
+        }
+
+        #home-enroll .col2 {
+            width: 55%;
+        }
+
+        input {
+            outline: none;
+            border: none;
+        }
+
+        textarea {
+            outline: none;
+        }
+
+        input::placeholder {
+            color: #4e4e4e;
+        }
+
+        /*hide in pc*/
+        .display-mobile {
+            display: none;
+        }
+
+        @media only screen and (max-width: 1200px) {
+            .container {
+                width: calc(100% - 100px);
+            }
+
+            #home-header nav a {
+                margin-right: 45px;
+                font-size: 12.8px;
+            }
+
+            #home-enroll .col1 {
+                width: 60%;
+            }
+
+            #home-enroll .col2 {
+                width: 40%;
+            }
+
+        }
+
+        @media only screen and (max-width: 800px) {
+            .container {
+                width: calc(100% - 260px);
+            }
+
+            .display-mobile {
+                display: block;
+            }
+
+            .display-pc {
+                display: none;
+            }
+
+            #home-main .first-col {
+                width: 100%;
+            }
+
+            #home-main .second-col {
+                width: 100%;
+                margin-top: 60px;
+            }
+
+            #college-life .first-col {
+                width: 100%;
+            }
+
+            #college-life .second-col {
+                width: 100%;
+                margin-top: 15px;
+            }
+
+            #home-courses .cols {
+                width: 100%;
+                margin-top: 30px;
+            }
+
+            #home-enroll {
+                padding-top: 20px;
+            }
+
+            #home-enroll .col1 {
+                width: 100%;
+            }
+
+            #home-enroll .col2 {
+                width: 100%;
+                margin-top: 40px;
+            }
+
+        }
+
+        @media only screen and (max-width: 600px) {
+            .container {
+                width: calc(100% - 29px);
+            }
+
+            #home-main .title {
+                font-size: 33px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header style="padding-bottom: 58px;">
+        <div id="home-header" style="border-bottom:1px solid rgba(255, 255, 255, 0.432);">
+            <div class="container" style="display: flex;align-items:center;justify-content:space-between;">
+                <div style="display: flex;align-items:center;">
+                    <a href="/articles?q=all"
+                        style="background:#fff;padding:6px 8px;border-radius:50%;margin-right:10px;">
+                        <svg viewBox="0 0 512.00095 512" style="fill:#333;width:21px;height:21px;">
+                            <path
+                                d="m255 202c11.046875 0 20 8.953125 20 20s-8.953125 20-20 20-20-8.953125-20-20 8.953125-20 20-20zm70 20c0 11.046875 8.953125 20 20 20s20-8.953125 20-20-8.953125-20-20-20-20 8.953125-20 20zm-180 0c0 11.046875 8.953125 20 20 20s20-8.953125 20-20-8.953125-20-20-20-20 8.953125-20 20zm349.414062 187.5625c23.40625 23.40625 23.40625 61.46875.011719 84.863281-11.695312 11.695313-27.0625 17.546875-42.425781 17.546875s-30.730469-5.851562-42.425781-17.546875l-109.789063-109.542969c-2.332031-2.328124-4.050781-5.191406-5.007812-8.347656l-23.914063-78.722656c-2.121093-6.980469-.273437-14.558594 4.820313-19.78125 5.09375-5.21875 12.625-7.25 19.65625-5.304688l80.722656 22.359376c3.324219.921874 6.351562 2.683593 8.792969 5.121093zm-162.824218-49.453125 74.089844 73.925781 28.289062-28.289062-73.652344-73.511719-40.609375-11.25zm134.550781 77.75-3.859375-3.855469-28.285156 28.285156 3.847656 3.835938c7.8125 7.816406 20.5 7.816406 28.296875.015625 7.800781-7.796875 7.800781-20.484375 0-28.28125zm-199.015625-23.40625c-3.695312.160156-7.4375.242187-11.125.242187-32.160156 0-63.121094-5.988281-92.019531-17.796874-4.921875-2.007813-10.445313-1.976563-15.34375.089843l-91.066407 38.441407 30.683594-72.683594c3-7.105469 1.644532-15.308594-3.488281-21.074219-29.285156-32.898437-44.765625-72.261719-44.765625-113.824219 0-103.578125 96.898438-187.847656 216-187.847656s216 84.269531 216 187.847656c0 24.5625-6.03125 49.222656-17.929688 73.289063-4.894531 9.902343-.835937 21.898437 9.066407 26.792969 9.902343 4.894531 21.898437.835937 26.792969-9.066407 14.644531-29.628906 22.070312-60.25 22.070312-91.015625 0-125.636718-114.839844-227.847656-256-227.847656-141.15625 0-256 102.210938-256 227.847656 0 47.421875 16.078125 92.332032 46.636719 130.632813l-45.0625 106.742187c-3.164063 7.496094-1.46875 16.164063 4.285156 21.917969 3.828125 3.828125 8.941406 5.859375 14.144531 5.859375 2.621094 0 5.265625-.515625 7.773438-1.574219l128.929687-54.425781c31.445313 11.746094 64.808594 17.695312 99.292969 17.695312 4.265625 0 8.597656-.097656 12.875-.28125 11.035156-.484374 19.589844-9.820312 19.105469-20.855468-.480469-11.035156-9.835938-19.617188-20.855469-19.105469zm0 0" />
+                        </svg>
+                    </a>
+                    <a href="/" style="color:#fff;font-weight: bold;font-size:18.5px;">
+                        Gvn-College
+                    </a>
+                </div>
+                <nav class="display-pc" style="margin-left: auto;">
+                    <a href="/" style="color:#fff;border-bottom:2px solid #fff;padding-bottom:22px;">Home</a>
+
+                    <a href="/about">About Us</a>
+                    <a href="/gallery">Album</a>
+                    <a href="/articles?q=all">News & Notice</a>
+                </nav>
+                <div>
+                    <a id="home-login-btn" href="#"
+                        style="display:flex;align-items:center;font-size: 12.5px; background:#FFFFFF;color:#343434;padding:10px 12px;border-radius:5px;text-decoration: none;font-weight:bold;">
+                        <svg width="16px" height="16px" style="stroke: #333;margin-right:8px;">
+                            <use href="/img/sprite.svg#icon-cog"></use>
+                        </svg>
+                        Login
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section
+        style="background:url('https://i.pinimg.com/474x/02/4b/a8/024ba86c5dcd46eabd4575ff0979a06a.jpg');">
+        <section style="background-image: linear-gradient(225deg,#2ec0fff5,#0063fff5);">
+            <div class="container" id="home-main"
+                style="text-align:center;padding:110px 0 250px;color:#fff;display:flex;flex-wrap:wrap;justify-content:space-between;position:relative;">
+                <div class="first-col">
+                    <div class="title" style="font-weight:bold;">A <span id="typewriter-title"
+                            style="border-right:1px solid rgba(230, 226, 226, 0.726);border-bottom:2px solid #f3f3f3c5;"></span>
+                    </div>
+                    <script>
+                        var i = 0;
+                        var txt = 'Better Career'; /* The text */
+                        var speed = 280; /* The speed/duration of the effect in milliseconds */
+
+                        function typeWriter() {
+                            if (i < txt.length) {
+                                document.getElementById("typewriter-title").innerHTML += txt.charAt(i);
+                                i++;
+                                setTimeout(typeWriter, speed);
+                            } else {
+                                if (txt == "Better Career") {
+                                    txt = "Bright Future";
+                                } else {
+                                    txt = "Better Career";
+                                }
+                                document.getElementById("typewriter-title").innerHTML = "";
+                                i = 0;
+                                setTimeout(typeWriter, speed);
+                            }
+                        }
+                        typeWriter();
+                    </script>
+                    <div style="margin-top: 35px;">
+                        <span class="lineone"
+                            style="background:#fff;height:14px;width:50px;display: inline-block;border-radius: 25px;"></span>
+                        <span
+                            style="background:#fff;height:14px;width:50px;display: inline-block;margin-left:8px;border-radius: 25px;"></span>
+                        <span class="linethree"
+                            style="background:#fff;height:14px;width:50px;display: inline-block;margin-left:8px;border-radius: 25px;"></span>
+                    </div>
+                    <div style="margin-top: 25px;line-height:28px;font-size:18px;color:#fff;">
+                        Join with us and be a part of the Success. We belive that
+                        student
+                        with quality education can help the
+                        Nation get stronger.
+                    </div>
+                    <a href="#home-enroll"
+                        style="display:inline-block;text-decoration:none;font-size:12px;background:#fff;color:#343434;padding:14px 21px;margin-top:35px;border-radius:4px;font-size:17px;font-weight:bold;">
+                        <div style="display:flex;align-items:center;">
+                            Get Started
+                            <svg width="22px" height="22px" style="stroke: #333;margin-left:7px;">
+                                <use href="/img/sprite.svg#icon-angleleft"></use>
+                            </svg>
+                        </div>
+                    </a>
+                </div>
+                <img class="second-col" src="/img/homebanner.png"
+                    style="object-fit:contain;position:relative;z-index:12;">
+            </div>
+        </section>
+    </section>
+
+    <div class="ocean">
+        <div class="wave" style="background: url(/img/wave3.svg) repeat-x;"></div>
+        <div class="wave" style="background: url(/img/wave3.svg) repeat-x;"></div>
+    </div>
+
+    <section style="background:#F5F8FC;padding:20px 0 85px;position:relative;z-index:50;">
+        <section id="home-college-life" class="container" style="text-align:center;">
+            <div style="text-align:left;display:flex;align-items:center;">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Facebook_f_Logo_%28with_gradient%29.svg/1200px-Facebook_f_Logo_%28with_gradient%29.svg.png"
+                    style="width: 35px;">
+                <div style="color:#313131;margin-left:10px;">
+                    <div style="font-size:25px;font-weight:bold;">College life</div>
+                    <div style="font-size: 14px;">Explore our college culture</div>
+                </div>
+            </div>
+            <div class="siema" style="margin-top:20px;">
+                <div
+                    style="position:relative;margin-right:30px;border:1px solid #ddd;border-radius:15px;background:#fff;">
+                    <img class="verlok-lazy" data-src="/img/featured/6.jpg"
+                        style="width: 100%;height:175px;object-fit:cover;border-radius:15px;">
+                    <div style="padding:0 15px;color:#019AFF;font-size:18px;font-weight:bold;margin-top:14px;">College
+                        Event
+                        & Lectures
+                    </div>
+                    <div style="padding:0 15px 15px;margin-top: 12px;font-size:14px;line-height:22px;color:#4a4a4a;">
+                        Gvn's
+                        The aim of the college, for the
+                        individual student, is to eliminate the need in his life for the college; the task is to
+                        help him become a self-educating man.
+                    </div>
+                </div>
+                <div
+                    style="position:relative;margin-right:30px;border:1px solid #ddd;border-radius:15px;background:#fff;">
+                    <img class="verlok-lazy" data-src="/img/featured/4.JPG"
+                        style="width: 100%;height:175px;object-fit:cover;border-radius:15px;">
+                    <div style="padding:0 15px;color:#019AFF;font-size:18px;font-weight:bold;margin-top:14px;">College
+                        Event
+                        & Lectures
+                    </div>
+                    <div style="padding:0 15px 15px;margin-top: 12px;font-size:14px;line-height:22px;color:#4a4a4a;">
+                        Gvn's
+                        Journey towards the vision
+                        of a quiality educational institute, effective teaching & Learning is instrumental in bringing
+                        out the best in student.
+                    </div>
+                </div>
+                <div
+                    style="position:relative;margin-right:30px;border:1px solid #ddd;border-radius:15px;background:#fff;">
+                    <img class="verlok-lazy" data-src="/img/gallery/2.JPG"
+                        style="width: 100%;height:175px;object-fit:cover;border-radius:15px;">
+                    <div style="padding:0 15px;color:#019AFF;font-size:18px;font-weight:bold;margin-top:14px;">Our
+                        College
+                        Life</div>
+                    <div style="padding:0 15px 15px;margin-top: 12px;font-size:14px;line-height:22px;color:#4a4a4a;">
+                        Gvn's
+                        The things taught in schools and
+                        colleges are not an education, but the means to an education.
+                    </div>
+                </div>
+                <div
+                    style="position:relative;margin-right:30px;border:1px solid #ddd;border-radius:15px;background:#fff;">
+                    <img class="verlok-lazy" data-src="/img/featured/5.jpg"
+                        style="width: 100%;height:175px;object-fit:cover;border-radius:15px;">
+                    <div style="padding:0 15px;color:#019AFF;font-size:18px;font-weight:bold;margin-top:14px;">Extra
+                        Curriculum</div>
+                    <div style="padding:0 15px 15px;margin-top: 12px;font-size:14px;line-height:22px;color:#4a4a4a;">
+                        Some people get an education
+                        without going to college. The rest get it after they get out. We help the students to become an
+                        self
+                        learning & independent person.
+                    </div>
+                </div>
+                <div
+                    style="position:relative;margin-right:30px;border:1px solid #ddd;border-radius:15px;background:#fff;">
+                    <img class="verlok-lazy" data-src="/img/featured/7.jpg"
+                        style="width: 100%;height:175px;object-fit:cover;border-radius:15px;">
+                    <div style="padding:0 15px;color:#019AFF;font-size:18px;font-weight:bold;margin-top:14px;">Our
+                        Sports
+                        Life</div>
+                    <div style="padding:0 15px 15px;margin-top: 12px;font-size:14px;line-height:22px;color:#4a4a4a;">
+                        The function of education is to
+                        teach one to think intensively, inteliigently and to think critically. Intelligence plus
+                        character––that is
+                        the goal of true education.
+                    </div>
+                </div>
+            </div>
+            <a href="/gallery"
+                style="display:inline-block;text-decoration:none;background:#1089F9;color:#fff;padding:12px 15px;margin-top:35px;border-radius:4px;font-size:15px;font-weight:bold;">
+                <div style="display:flex;align-items:center;">
+                    Open Gallery
+                    <svg width="21px" height="21px" style="stroke: #fff;margin-left:7px;">
+                        <use href="/img/sprite.svg#icon-angleleft"></use>
+                    </svg>
+                </div>
+            </a>
+        </section>
+    </section>
+
+    <section style="padding-bottom:90px;">
+        <div id="home-courses" class="container" style="display:flex;justify-content:space-between;flex-wrap:wrap;">
+            <div
+                style="width: 100%;font-weight: bold;font-size:32px;margin:70px 0 10px;text-align:center;color:#3a3a3a;">
+                Study with us
+            </div>
+            <div class="subheader" style="width:100%;text-align: center;font-size:14px;color:#343434;">
+                Failure is simply the opportunity to begin again. This time more intelligently.
+            </div>
+            <div class="cols">
+                <img class="verlok-lazy"
+                    data-src="https://ichef.bbci.co.uk/childrens-responsive-ichef-live/r/640/1x/cbbc/science-onward-journey_v3.png"
+                    style="width: 100%;height:200px;object-fit:cover;border-radius:8px;">
+                <div style="padding: 20px;">
+                    <div style="font-weight: 600;font-size:17px;color:#3a3a3a;">SCIENCE STUDIES</div>
+                    <div style="margin-top:10px;font-size:13px;line-height:20px;color:#777;">Science is a systematic
+                        enterprise
+                        that builds knowledge in the form of testable explanations and predictions about
+                        the
+                        universe.</div>
+                    <a href="#home-enroll"
+                        style="display:inline-block;font-size:12px;font-weight:bold;background:#158FFF;color:#fff;padding:13px 25px;margin-top:15px;border-radius:4px;">Enroll
+                        Now</a>
+                </div>
+            </div>
+            <div class="cols">
+                <img class="verlok-lazy"
+                    data-src="https://418331.smushcdn.com/1462574/wp-content/uploads/2016/08/portfolio-management.jpg?lossy=1&strip=1&webp=1"
+                    style="width: 100%;height:200px;object-fit:cover;border-radius:8px;">
+                <div style="padding:20px;">
+                    <div style="font-weight: 600;font-size:17px;color:#3a3a3a;">STUDY MANAGEMENT</div>
+                    <div style="margin-top:10px;font-size:13px;line-height:20px;color:#777;">Management is the act of
+                        getting people together to accomplish desired goals
+                        using
+                        available resources effectively.</div>
+                    <a href="#home-enroll"
+                        style="display:inline-block;font-size:12px;font-weight:bold;background:#158FFF;color:#fff;padding:13px 25px;margin-top:15px;border-radius:4px;">Enroll
+                        Now</a>
+                </div>
+            </div>
+            <div class="cols">
+                <img class="verlok-lazy"
+                    data-src="https://image.freepik.com/free-vector/justice-law-isometric-illustration-law-firm-isometric-illustration_7209-242.jpg"
+                    style="width: 100%;height:200px;object-fit:cover;border-radius:8px;">
+                <div style="padding:20px;">
+                    <div style="font-weight: 600;font-size:17px;color:#3a3a3a;">LAW STUDIES</div>
+                    <div style="margin-top:10px;font-size:13px;line-height:20px;color:#777;">Legal Studies is a subject
+                        that
+                        centres on the practice of law. From human rights to property and commercial law.</div>
+                    <a href="#home-enroll"
+                        style="display:inline-block;font-size:12px;font-weight:bold;background:#158FFF;color:#fff;padding:13px 25px;margin-top:15px;border-radius:4px;">Enroll
+                        Now</a>
+                </div>
+            </div>
+            <div class="cols">
+                <img class="verlok-lazy" data-src="https://i.ytimg.com/vi/YtSGzcD3DvU/maxresdefault.jpg"
+                    style="width: 100%;height:200px;object-fit:cover;border-radius:8px;">
+                <div style="padding:20px;">
+                    <div style="font-weight: 600;font-size:17px;color:#3a3a3a;">EDUCATION STUDIES</div>
+                    <div style="margin-top:10px;font-size:13px;line-height:20px;color:#777;">Educational Studies is a
+                        program
+                        to help you graduate with a major and a minor in education with a non-license teaching
+                        degree.
+                    </div>
+                    <a href="#home-enroll"
+                        style="display:inline-block;font-size:12px;font-weight:bold;background:#158FFF;color:#fff;padding:13px 25px;margin-top:15px;border-radius:4px;">Enroll
+                        Now</a>
+                </div>
+            </div>
+            <div class="cols">
+                <img class="verlok-lazy"
+                    data-src="https://i.pinimg.com/736x/44/07/68/440768260de737fa66aa0e9a1e752e05.jpg"
+                    style="width: 100%;height:100%;object-fit:cover;border-radius:8px;">
+            </div>
+            <div class="cols">
+                <img class="verlok-lazy"
+                    data-src="https://www.tibebemengistu.net/sites/default/files/2019-07/history.jpg"
+                    style="width: 100%;height:200px;object-fit:cover;border-radius:8px;">
+                <div style="padding:20px;">
+                    <div style="font-weight: 600;font-size:17px;color:#3a3a3a;">HUMANITIES STUDIES</div>
+                    <div style="margin-top:10px;font-size:13px;line-height:20px;color:#777;">The humanities include the
+                        study of ancient and
+                        modern
+                        languages, literature, philosophy, archaeology, politics,
+                        religion etc.</div>
+                    <a href="#home-enroll"
+                        style="display:inline-block;font-size:12px;font-weight:bold;background:#158FFF;color:#fff;padding:13px 25px;margin-top:15px;border-radius:4px;">Enroll
+                        Now</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <Section style="background:#F5F8FC;padding:25px 0 75px;margin-top:85px;">
+        <section id="home-enroll" class="container" style="display: flex;justify-content:space-between;flex-wrap:wrap;">
+            <div style="width: 100%;text-align:center;margin-bottom:25px;">
+                <div style="font-size:30px;color:#2b2b2b;font-weight:bold;">
+                    Send your query
+                </div>
+                <div style="font-size:15.5px;color:#4a4a4ae7;line-height:20px;margin:10px 0 7px;">
+                    <span style="text-decoration: underline;">admin@gvnschool.edu.np</span> or call us at <span
+                        style="text-decoration: underline;">081527570, 9858057570</span></div>
+            </div>
+            <div class="col1">
+                <div class="mapouter">
+                    <div class="gmap_canvas"><iframe class="gmap_iframe" width="100%" frameborder="0" scrolling="no"
+                            marginheight="0" marginwidth="0"
+                            src="https://maps.google.com/maps?width=580&amp;height=400&amp;hl=en&amp;q=Gvn College&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe><a
+                            href="https://embedgooglemap.xyz/">embed google map</a></div>
+                    <style>
+                        .mapouter {
+                            position: relative;
+                            text-align: right;
+                            width: 96.5%;
+                            height: 400px;
+                        }
+
+                        .gmap_canvas {
+                            overflow: hidden;
+                            background: none !important;
+                            width: 96.5%;
+                            height: 400px;
+                            border-radius: 6px;
+                        }
+
+                        .gmap_iframe {
+                            height: 400px !important;
+                        }
+
+                        @media only screen and (max-width: 800px) {
+                            .mapouter {
+                                width: 100%;
+                                height: 250px;
+                            }
+
+                            .gmap_canvas {
+                                width: 100%;
+                                height: 250px;
+                            }
+
+                            .gmap_iframe {
+                                height: 250px !important;
+                            }
+                        }
+                    </style>
+                </div>
+            </div>
+            <form id="enquiry-form" class="col2">
+                <div style="display: flex;justify-content:space-between;">
+                    <div style="width:47.5%;background:#fff;border:1px solid #d6dcdf;border-radius:6px;">
+                        <div style="font-size: 11.5px;color:#3a3a3a;padding:9px 11px 0;">Name</div>
+                        <input type="text" placeholder="Input text" id="name" required
+                            style="width: 100%;padding:3px 11px 9px;font-size:15.5px;background:transparent;">
+                    </div>
+                    <div style="width:47.5%;background:#fff;border:1px solid #d6dcdf;border-radius:6px;">
+                        <div style="font-size: 11.5px;color:#3a3a3a;padding:9px 11px 0;">Mobile</div>
+                        <input type="text" placeholder="Input text" id="mobile" required
+                            style="width: 100%;padding:3px 11px 9px;font-size:15.5px;background:transparent;">
+                    </div>
+                </div>
+                <div style="margin-top:25px;background:#fff;border:1px solid #d6dcdf;border-radius:6px;">
+                    <div style="font-size: 11.5px;color:#3a3a3a;padding:9px 11px 0;">Email</div>
+                    <input type="text" placeholder="Input text" id="email" required
+                        style="width: 100%;padding:3px 11px 9px;font-size:15.5px;background:transparent;">
+                </div>
+                <div class="dropdown">
+                    <input type="hidden" id="maininput-myDropdown2">
+                    <button type="button" onclick="myFunction('myDropdown2')" class="dropbtn-white" id="btn-myDropdown2"
+                        style="border:1px solid #d6dcdf;border-radius:6px;">
+                        <div id="chosen-myDropdown2" style="color:#000;"></div>
+                        <svg width="15px" height="15px" style="stroke: #190a32;margin-left:auto;">
+                            <use href="/img/sprite.svg#icon-anglelefttwo"></use>
+                        </svg>
+                    </button>
+                    <div class="myDropdown dropdown-content hidescrollbar" data-dropdown="myDropdown2" id="myDropdown2"
+                        style="border-radius: 10px;margin-top:10px;">
+                        <div style="display: flex;align-items:center;padding-left:10px;background:#10163A;">
+                            <svg width="16px" height="16px" style="stroke: #fff;margin-right:5px;">
+                                <use href="/img/sprite.svg#icon-search"></use>
+                            </svg>
+                            <input type="text" class="myInput" id="myInput-myDropdown2"
+                                onkeyup="filterFunction('myDropdown2')">
+                        </div>
+                        <a href="#about" onclick="dropdownChosen('Science', 'myDropdown2')">Science</a>
+                        <a href="#base" onclick="dropdownChosen('Management', 'myDropdown2')">Management</a>
+                        <a href="#base" onclick="dropdownChosen('Law', 'myDropdown2')">Law</a>
+                        <a href="#base" onclick="dropdownChosen('Education', 'myDropdown2')">Education</a>
+                        <a href="#base" onclick="dropdownChosen('Humanities', 'myDropdown2')">Humanities</a>
+                    </div>
+                </div>
+                <div id="err-myDropdown2" style="font-size:11px;color:red;font-weight:800;">
+
+                </div>
+                <div style="margin-top:25px;background:#fff;border:1px solid #d6dcdf;border-radius:6px;">
+                    <div style="font-size: 11.5px;color:#3a3a3a;padding:9px 11px 0;">Message</div>
+                    <textarea rows="8" id="message" placeholder="Input text" required
+                        style="width: 100%;padding:3px 11px 9px;font-size:15.5px;background:transparent;border:none;"></textarea>
+                </div>
+
+                <button id="enquiry-btn"
+                    style="font-size:15px;background: #1089F9;border:none;color:#fff;padding:13px 0;width:150px;margin-top:20px;border-radius:6px;">
+                    <div style="display: flex;align-items:center;justify-content:center;">
+                        <svg width="19px" height="19px" style="stroke: #fff;margin-right:7px;">
+                            <use href="/img/sprite.svg#icon-message"></use>
+                        </svg>
+                        Submit
+                    </div>
+                </button>
+            </form>
+        </section>
+    </Section>
+
+    <section id="home-testimonials" class="container" style="padding:75px 0 45px;">
+        <div style="font-size:30px;color:#313131;font-weight:bold;">
+            Testimonials
+        </div>
+        <div class="siema2" style="margin-top: 50px;">
+            <div style="padding: 10px;position:relative;">
+                <div
+                    style="border-radius:3px;text-align:center;margin-right:20px;background:#fff;box-shadow: 2px 4px 15px rgb(8 21 66 / 6%);padding:20px;">
+                    ⭐⭐⭐⭐⭐
+                    <div style="font-size: 14px;line-height:25px;margin-top:20px;color:#4a4a4ad0;">"You
+                        shall have
+                        great
+                        experience from
+                        Gvn
+                        college. You get a lot of opportunities. Work hard to get it. Be prepared for everything.
+                        Maintain attendance."</div>
+                    <img class="verlok-lazy" data-src="/img/students/ceo.jpg"
+                        style="width: 65px;height:65px;border-radius:50%;object-fit:cover;position:absolute;left:0;top:0;">
+                    <br>
+                    <div style="font-weight:bold;font-size: 17px;margin-top:5px;color:#4a4a4a;text-align:right;">
+                        # Ceo</div>
+                </div>
+            </div>
+            <div style="padding: 10px;position:relative;">
+                <div
+                    style="border-radius:3px;text-align:center;margin-right:20px;background:#fff;box-shadow: 2px 4px 15px rgb(8 21 66 / 6%);padding:20px;">
+                    ⭐⭐⭐⭐⭐
+                    <div style="font-size: 14px;line-height:25px;margin-top:20px;color:#4a4a4ad0;">
+                        "Since the moment I
+                        was
+                        in Gvn College I felt like part of a family. Staff here work together to make
+                        sure students are getting the best quality of educatioy"</div>
+                    <img class="verlok-lazy" data-src="/img/students/cordi.jpg"
+                        style="width: 65px;height:65px;border-radius:50%;object-fit:cover;position:absolute;left:0;top:0;">
+                    <br>
+                    <div style="font-weight:bold;font-size: 17px;margin-top:5px;color:#4a4a4a;text-align:right;">
+                        # Coordinator</div>
+                </div>
+            </div>
+            <div style="padding: 10px;position:relative;">
+                <div
+                    style="border-radius:3px;text-align:center;margin-right:20px;background:#fff;box-shadow: 2px 4px 15px rgb(8 21 66 / 6%);padding:20px;">
+                    ⭐⭐⭐⭐⭐
+                    <div style="font-size: 14px;line-height:25px;margin-top:20px;color:#4a4a4ad0;">"My experience at
+                        Gvn
+                        college is great and memorable. The teachers are really helpful and helped me to improve my
+                        academic & learning habits."</div>
+                    <img class="verlok-lazy" data-src="/img/students/Ashika Dhakal SCIENCE(18).JPG"
+                        style="width: 65px;height:65px;border-radius:50%;object-fit:cover;position:absolute;left:0;top:0;">
+                    <br>
+                    <div
+                        style="text-align:right;font-size: 14px;margin-top:5px;font-weight:bold;background:#fff;color:#4a4a4a;">
+                        SCIENCE STUDENT</div>
+                    <div style="font-size: 13px;margin-top:5px;color:#a8afb3;text-align:right;letter-spacing:0.5px;">
+                        ASHIKA DHAKAL</div>
+                </div>
+            </div>
+            <div style="padding: 10px;position:relative;">
+                <div
+                    style="border-radius:3px;text-align:center;margin-right:20px;background:#fff;box-shadow: 2px 4px 15px rgb(8 21 66 / 6%);padding:20px;">
+                    ⭐⭐⭐⭐⭐
+                    <div style="font-size: 14px;line-height:25px;margin-top:20px;color:#4a4a4ad0;">"It was my immense
+                        luck
+                        to
+                        be the part of Gvn college where I can grow & improve myself. The faculty leaves no stone
+                        unturned to shape
+                        one\'s future."</div>
+                    <img class="verlok-lazy" data-src="/img/students/Niraj Tharu(G) 13.JPG"
+                        style="width: 65px;height:65px;border-radius:50%;object-fit:cover;position:absolute;left:0;top:0;">
+                    <br>
+                    <div
+                        style="text-align:right;font-size: 14px;margin-top:5px;font-weight:bold;background:#fff;color:#4a4a4a;">
+                        STUDENT</div>
+                    <div style="font-size: 13px;margin-top:5px;color:#a8afb3;text-align:right;letter-spacing:0.5px;">
+                        NIRAJ THARU</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="home-footer" style="padding: 55px 0;background: #F5F8FC;color:#333;margin-top:35px;">
+        <div class="container" style="display: flex;justify-content:space-between;align-items:center;">
+            <div style="width: 57px;">
+                <img src="/img/gvnlogo.jpg" style="width: 57px;border-radius:0 50% 50% 50%;border:1px solid #ddd;">
+            </div>
+            <div style="margin-left:15px;">
+                <a href="https://www.facebook.com/gvnsecondaryschool"
+                    style="text-decoration: none;display:flex;align-items:center;">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Facebook_f_Logo_%28with_gradient%29.svg/1200px-Facebook_f_Logo_%28with_gradient%29.svg.png"
+                        style="width: 23px;">
+                    <span style="margin-left: 8px;font-size:13px;color:#222;font-weight:bold;">Visit us</span>
+                </a>
+                <div style="font-size: 14px;margin-top:8px;line-height:21px;">BP Chowk, Nepalgunj, Banke - <span
+                        style="text-decoration: underline;">081527570,
+                        9858057570</span>, <span style="text-decoration: underline;">admin@gvnschool.edu.np</span></div>
+                <div style="font-size: 13.5px;margin-top:12px;line-height:20px;">
+                    GVN has been getting excellent result in the +2 level in the Mid Western and Far Western Development
+                    Regions since its establishment. All this is because of the effort of experienced teaching faculties
+                    and well motivated promoters on the needs of the students.
+                </div>
+            </div>
+        </div>
+    </footer>
+    <div style="background: #303C42;color:#EFF0F0;padding:18px 0;font-size:12.2px;">
+        <div class="container">
+            © COPYRIGHT 2077 | GVN COLLEGE
+        </div>
+    </div>
+
+    <script src="/script/script.js"></script>
+    <script>
+        //check cookie w_auth
+        let w_auth = document.cookie.indexOf('w_auth');
+        if (w_auth != -1) {
+            document.getElementById("home-login-btn").setAttribute("href", "/dashboard");
+        } else {
+            document.getElementById("home-login-btn").setAttribute("href", "/login");
+        }
+
+        //lazyload initialize
+        var lazyLoadInstance = new LazyLoad({
+            elements_selector: ".verlok-lazy",
+            threshold: 100
+        });
+    </script>
+
+    <script>
+        const sendEnquiry = (e) => {
+            e.preventDefault();
+            document.getElementById("enquiry-btn").disabled = true;
+            document.getElementById("enquiry-btn").innerHTML = `
+                <div class="spinner" style="height:7px;">
+                    <div class="rect1"></div>
+                    <div class="rect2"></div>
+                    <div class="rect3"></div>
+                    <div class="rect4"></div>
+                    <div class="rect5"></div>
+                </div>
+            `
+
+            if (document.getElementById("maininput-myDropdown2").value == "") {
+                document.getElementById("btn-myDropdown2").style.border = "1px solid red";
+                document.getElementById("err-myDropdown2").innerHTML = `<div style="margin-top: 8px;">PLEASE CHOOSE A COURSE</div>`;
+                document.getElementById("enquiry-btn").disabled = false;
+                document.getElementById("enquiry-btn").innerHTML = 'Send Message';
+            } else {
+                axios.post("/api/send/enquiry", {
+                    name: document.getElementById("name").value,
+                    mobile: document.getElementById("mobile").value,
+                    message: document.getElementById("message").value,
+                    email: document.getElementById("email").value,
+                    course: document.getElementById("maininput-myDropdown2").value,
+                    who: 0
+                })
+                    .then(function (resp) {
+                        document.getElementById("enquiry-form").reset();
+                        document.getElementById("enquiry-btn").disabled = false;
+                        document.getElementById("enquiry-btn").innerHTML = 'Send Message';
+                        document.getElementById("btn-myDropdown2").style.border = "none";
+                        document.getElementById("err-myDropdown2").innerHTML = "";
+                    })
+            }
+        }
+        document.getElementById("enquiry-form").addEventListener("submit", sendEnquiry);
+    </script>
+
+    <script>
+        let mq = window.matchMedia("(max-width: 800px)")
+
+        new Siema({
+            selector: '.siema',
+            duration: 200,
+            easing: 'ease-out',
+            perPage: mq.matches ? 1.05 : 2.4,
+            draggable: true,
+            multipleDrag: true,
+            threshold: 20,
+            loop: false,
+            onInit: () => { },
+            onChange: () => { },
+        });
+
+        new Siema({
+            selector: '.siema2',
+            duration: 200,
+            easing: 'ease-out',
+            perPage: mq.matches ? 1.05 : 2.8,
+            draggable: true,
+            multipleDrag: true,
+            threshold: 20,
+            loop: false,
+            onInit: () => { },
+            onChange: () => { },
+        });
+    </script>
+</body>
+
+</html>

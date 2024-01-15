@@ -1,0 +1,14 @@
+// Vendor
+@import 'vendor/flatpickr';
+
+// 3 - BASE
+@import 'base/common';
+@import 'base/normalize';
+
+@import 'base/sidenav';
+@import 'base/form';
+@import 'base/animation';
+
+// 5 - PAGES
+@import 'pages/newuser';
+@import 'pages/enquiry';

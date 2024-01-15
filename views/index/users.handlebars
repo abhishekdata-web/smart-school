@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0,user-scalable=0" />
+    <title>Gvn Ems</title>
+    <link rel="manifest" href="/manifest.json" />
+    <link rel="shortcut icon" href="/img/favicon.png" />
+    <script>
+        //check cookie w_auth
+        let w_auth = document.cookie.indexOf('w_auth');
+        if (w_auth != -1) {
+            if (localStorage.getItem('role') != 10 && localStorage.getItem('role') != 3) {
+                location.href = "/dashboard";
+            }
+        } else {
+            location.href = "/login";
+        }
+    </script>
+    <link rel="stylesheet" href="/css/main.min.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #1F2946;
+        }
+
+        .user-container {
+            padding: 20px;
+        }
+
+        .user-col {
+            width: 23%;
+        }
+
+        @media only screen and (max-width: 600px) {
+            .user-container {
+                padding: 15px;
+            }
+
+            .user-col {
+                width: 48%;
+            }
+        }
+
+        .dropbtn {
+            border-radius: 5px;
+            margin-top: 5px;
+        }
+
+        input::placeholder {
+            color: #c2c6dc;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            color: #c2c6dc;
+            font-size: 13px;
+            white-space: nowrap;
+            margin-bottom: 22px;
+        }
+
+        th {
+            color: #fff;
+            font-weight: 600;
+        }
+
+        th,
+        td {
+            padding: 13px;
+        }
+
+        tr:hover {
+            background: #262C49;
+        }
+
+        tr {
+            border-bottom: 1px solid #414561;
+        }
+
+        .bottomscrollbar::-webkit-scrollbar {
+            /* Hide scrollbar for Chrome, Safari and Opera */
+            height: 9px;
+            background: #262C49;
+        }
+
+        .bottomscrollbar::-webkit-scrollbar-thumb {
+            background: #4D8AF0;
+            border-radius: 25px;
+        }
+    </style>
+</head>
+
+<body>
+    <section style="display: flex;justify-content:space-between;">
+        {{> _sidebar}}
+        <section id="main-content">
+            {{> _header}}
+
+            <div style="margin-top:29px;display:flex;align-items:center;justify-content:space-between;">
+                <div style="display:flex;align-items:center;">
+                    <div
+                        style="font-weight:600;color: #fff;font-size:23.5px;border-right:1px solid #fff;padding-right:15px;margin-right:15px;">
+                        Users</div>
+                    <a href="/dashboard">
+                        <svg width="19px" height="19px" style="stroke: #7367F0;margin-right:12px;">
+                            <use href="/img/sprite.svg#icon-home"></use>
+                        </svg>
+                    </a>
+                    <svg width="15px" height="15px" style="stroke: #fff;margin-right:12px;">
+                        <use href="/img/sprite.svg#icon-anglelefttwo"></use>
+                    </svg>
+                    <div style="color: #fff;font-size:14.5px;">Manage</div>
+                </div>
+
+                <div style="background: #6A719C;width:40px;height:40px;padding:12px;border-radius:50%;">
+                    <svg width="17px" height="17px" style="stroke: #fff;margin-right:12px;">
+                        <use href="/img/sprite.svg#icon-cog"></use>
+                    </svg>
+                </div>
+            </div>
+
+            <div class="user-container" style="background: #121729;box-shadow: 0 0 10px 0 rgba(4,2,2,.2);margin-top:29px;border-radius:8px;">
+                <div style="color: #fff;font-size:20px;">Filters</div>
+                <div style="display: flex;justify-content:space-between;flex-wrap:wrap;">
+                    <div class="user-col" style="margin-top:20px;">
+                        <span style="color: #c2c6dc;font-size:14px;">Role</span>
+                        <div class="dropdown">
+                            <button type="button" onclick="myFunction('myDropdown2')" class="dropbtn input-err"
+                                id="btn-role">
+                                <div id="chosen-myDropdown2"></div>
+                                <svg width="15px" height="15px" style="stroke: #fff;margin-left:auto;">
+                                    <use href="/img/sprite.svg#icon-anglelefttwo"></use>
+                                </svg>
+                            </button>
+                            <div class="myDropdown dropdown-content hidescrollbar" data-dropdown="myDropdown2"
+                                id="myDropdown2">
+                                <div style="display: flex;align-items:center;padding-left:10px;background:#10163A;">
+                                    <svg width="16px" height="16px" style="stroke: #fff;margin-right:5px;">
+                                        <use href="/img/sprite.svg#icon-search"></use>
+                                    </svg>
+                                    <input type="text" class="myInput" id="myInput-myDropdown2"
+                                        onkeyup="filterFunction('myDropdown2')">
+                                </div>
+                                <a href="#about" onclick="filterHandler('0', 'myDropdown2', 'role')">Student</a>
+                                <a href="#about" onclick="filterHandler('1', 'myDropdown2', 'role')">Teacher</a>
+                                <a href="#base" onclick="filterHandler('2', 'myDropdown2', 'role')">Accountant</a>
+                                <a href="#base" onclick="filterHandler('3', 'myDropdown2', 'role')">Receptionist</a>
+                                <a href="#about" onclick="filterHandler('10', 'myDropdown2', 'role')">Admin</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="user-col" style="margin-top:20px;">
+                        <span style="color: #c2c6dc;font-size:14px;">Status</span>
+                        <div class="dropdown">
+                            <button type="button" onclick="myFunction('myDropdown3')" class="dropbtn input-err"
+                                id="btn-role">
+                                <div id="chosen-myDropdown3"></div>
+                                <svg width="15px" height="15px" style="stroke: #fff;margin-left:auto;">
+                                    <use href="/img/sprite.svg#icon-anglelefttwo"></use>
+                                </svg>
+                            </button>
+                            <div class="myDropdown dropdown-content hidescrollbar" data-dropdown="myDropdown3"
+                                id="myDropdown3">
+                                <div style="display: flex;align-items:center;padding-left:10px;background:#10163A;">
+                                    <svg width="16px" height="16px" style="stroke: #fff;margin-right:5px;">
+                                        <use href="/img/sprite.svg#icon-search"></use>
+                                    </svg>
+                                    <input type="text" class="myInput" id="myInput-myDropdown3"
+                                        onkeyup="filterFunction('myDropdown3')">
+                                </div>
+                                <a href="#about" onclick="filterHandler('0', 'myDropdown3', 'status')">Normal</a>
+                                <a href="#about" onclick="filterHandler('1', 'myDropdown3', 'status')">Suspended</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="user-col" style="margin-top:20px;">
+                        <span style="color: #c2c6dc;font-size:14px;">Shift</span>
+                        <div class="dropdown">
+                            <button type="button" onclick="myFunction('myDropdown4')" class="dropbtn input-err"
+                                id="btn-shift">
+                                <div id="chosen-myDropdown4"></div>
+                                <svg width="15px" height="15px" style="stroke: #fff;margin-left:auto;">
+                                    <use href="/img/sprite.svg#icon-anglelefttwo"></use>
+                                </svg>
+                            </button>
+                            <div class="myDropdown dropdown-content hidescrollbar" data-dropdown="myDropdown4"
+                                id="myDropdown4">
+                                <div style="display: flex;align-items:center;padding-left:10px;background:#10163A;">
+                                    <svg width="16px" height="16px" style="stroke: #fff;margin-right:5px;">
+                                        <use href="/img/sprite.svg#icon-search"></use>
+                                    </svg>
+                                    <input type="text" class="myInput" id="myInput-myDropdown4"
+                                        onkeyup="filterFunction('myDropdown4')">
+                                </div>
+                                <a href="#about" onclick="filterHandler('None', 'myDropdown4', 'shift')">None</a>
+                                <a href="#about" onclick="filterHandler('Day', 'myDropdown4', 'shift')">Day</a>
+                                <a href="#about" onclick="filterHandler('Morning', 'myDropdown4', 'shift')">Morning</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="user-col" style="margin-top:20px;">
+                        <span style="color: #c2c6dc;font-size:14px;">Standard</span>
+                        <div class="dropdown">
+                            <button type="button" onclick="myFunction('myDropdown')" class="dropbtn input-err"
+                                id="btn-standard">
+                                <div id="chosen-myDropdown"></div>
+                                <svg width="15px" height="15px" style="stroke: #fff;margin-left:auto;">
+                                    <use href="/img/sprite.svg#icon-anglelefttwo"></use>
+                                </svg>
+                            </button>
+                            <div class="myDropdown dropdown-content hidescrollbar" data-dropdown="myDropdown"
+                                id="myDropdown">
+                                <div style="display: flex;align-items:center;padding-left:10px;background:#10163A;">
+                                    <svg width="16px" height="16px" style="stroke: #fff;margin-right:5px;">
+                                        <use href="/img/sprite.svg#icon-search"></use>
+                                    </svg>
+                                    <input type="text" class="myInput" id="myInput-myDropdown"
+                                        onkeyup="filterFunction('myDropdown')">
+                                </div>
+                                <a href="#about" onclick="filterHandler('11 (G1) Science', 'myDropdown', 'standard')">11
+                                    (G1)
+                                    Science
+                                </a>
+                                <a href="#base" onclick="filterHandler('11 (G2) Science', 'myDropdown', 'standard')">
+                                    11 (G2) Science
+                                </a>
+                                <a href="#custom"
+                                    onclick="filterHandler('11 (G1) Management', 'myDropdown', 'standard')">
+                                    11 (G1) Management
+                                </a>
+                                <a href="#support"
+                                    onclick="filterHandler('11 (G2) Management', 'myDropdown', 'standard')">
+                                    11 (G2) Management
+                                </a>
+                                <a href="#blog" onclick="filterHandler('11 (G3) Management', 'myDropdown', 'standard')">
+                                    11 (G3) Management
+                                </a>
+                                <a href="#contact"
+                                    onclick="filterHandler('11 (G4) Management', 'myDropdown', 'standard')">
+                                    11 (G4) Management
+                                </a>
+                                <a href="#custom"
+                                    onclick="filterHandler('11 (G5) Management', 'myDropdown', 'standard')">
+                                    11 (G5) Management
+                                </a>
+                                <a href="#support"
+                                    onclick="filterHandler('11 (G6) Management', 'myDropdown', 'standard')">
+                                    11 (G6) Management
+                                </a>
+                                <a href="#support"
+                                    onclick="filterHandler('11 (G7) Management', 'myDropdown', 'standard')">
+                                    11 (G7) Management
+                                </a>
+                                <a href="#support"
+                                    onclick="filterHandler('11 (G1) Education', 'myDropdown', 'standard')">
+                                    11 (G1) Education
+                                </a>
+                                <a href="#about" onclick="filterHandler('11 (G1) Law', 'myDropdown', 'standard')">11
+                                    (G1) Law
+                                </a>
+                                <a href="#about" onclick="filterHandler('12 (G1) Science', 'myDropdown', 'standard')">12
+                                    (G1)
+                                    Science
+                                </a>
+                                <a href="#base" onclick="filterHandler('12 (G2) Science', 'myDropdown', 'standard')">
+                                    12 (G2) Science
+                                </a>
+                                <a href="#custom"
+                                    onclick="filterHandler('12 (G1) Management', 'myDropdown', 'standard')">
+                                    12 (G1) Management
+                                </a>
+                                <a href="#support"
+                                    onclick="filterHandler('12 (G2) Management', 'myDropdown', 'standard')">
+                                    12 (G2) Management
+                                </a>
+                                <a href="#blog" onclick="filterHandler('12 (G3) Management', 'myDropdown', 'standard')">
+                                    12 (G3) Management
+                                </a>
+                                <a href="#contact"
+                                    onclick="filterHandler('12 (G4) Management', 'myDropdown', 'standard')">
+                                    12 (G4) Management
+                                </a>
+                                <a href="#custom"
+                                    onclick="filterHandler('12 (G5) Management', 'myDropdown', 'standard')">
+                                    12 (G5) Management
+                                </a>
+                                <a href="#support"
+                                    onclick="filterHandler('12 (G6) Management', 'myDropdown', 'standard')">
+                                    12 (G6) Management
+                                </a>
+                                <a href="#support"
+                                    onclick="filterHandler('12 (G7) Management', 'myDropdown', 'standard')">
+                                    12 (G7) Management
+                                </a>
+                                <a href="#support"
+                                    onclick="filterHandler('12 (G1) Education', 'myDropdown', 'standard')">
+                                    12 (G1) Education
+                                </a>
+                                <a href="#about" onclick="filterHandler('12 (G1) Law', 'myDropdown', 'standard')">12 (G1) Law
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="user-container" style="background: #121729;box-shadow: 0 0 10px 0 rgba(4,2,2,.2);margin-top:29px;border-radius:8px;">
+                <div style="display: flex;align-items:center;">
+                    <form id="search-form" style="width:240px;">
+                        <input type="text" placeholder="Search..." id="search-input"
+                            style="background: #1D2542;border:none;padding:10px;width:100%;color:#fff;border-radius:5px 0 0 5px;">
+                    </form>
+                    <div class="dropdown" style="width: 120px;margin-left:10px;">
+                        <button type="button" onclick="myFunction('myDropdown5')" class="dropbtn input-err"
+                            id="btn-searchtype" style="margin-top:0;border-radius:0 5px 5px 0;">
+                            <div id="chosen-myDropdown5">mobile</div>
+                            <svg width="15px" height="15px" style="stroke: #fff;margin-left:auto;">
+                                <use href="/img/sprite.svg#icon-anglelefttwo"></use>
+                            </svg>
+                        </button>
+                        <div class="myDropdown dropdown-content hidescrollbar" data-dropdown="myDropdown5"
+                            id="myDropdown5">
+                            <div style="display: flex;align-items:center;padding-left:10px;background:#10163A;">
+                                <svg width="16px" height="16px" style="stroke: #fff;margin-right:5px;">
+                                    <use href="/img/sprite.svg#icon-search"></use>
+                                </svg>
+                                <input type="text" class="myInput" id="myInput-myDropdown5"
+                                    onkeyup="filterFunction('myDropdown5')">
+                            </div>
+                            <a href="#about" onclick="searchTypeHandler('mobile', 'myDropdown5')">Mobile</a>
+                            <a href="#about" onclick="searchTypeHandler('firstname', 'myDropdown5')">Firstname</a>
+                            <a href="#about" onclick="searchTypeHandler('lastname', 'myDropdown5')">Lastname</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bottomscrollbar" style="margin-top:40px;overflow-x:auto;">
+                    <table id="users-wrapper">
+
+                    </table>
+                </div>
+
+                <center id="ajaxload-img">
+                    <img src="/img/preloader.gif" style="width: 220px;">
+                </center>
+
+                <div id="ajax-loadmore" style="display: flex;">
+
+                </div>
+            </div>
+
+            <div class="footer-dashboard"
+                style="background: #121729;box-shadow: 0 0 10px 0 rgba(4,2,2,.2);border-radius:8px;margin:25px 0;color:#ebeefd;font-size:12px;">
+                © COPYRIGHT 2077 | XTREME EMS
+            </div>
+        </section>
+    </section>
+
+    <script src="/script/script.js"></script>
+
+    <script>
+        // ajax settings
+        let limit = 20;
+        let skip = 0;
+        let standard = "";
+        let status = "";
+        let shift = "";
+        let role = "";
+        let searchtype = "mobile";
+        let search = "";
+
+        const loadUsers = () => {
+            axios.post('/api/allusers', {
+                limit: limit,
+                skip: skip,
+                standard,
+                role,
+                status,
+                shift,
+                search,
+                searchtype
+            }).then(function (resp) {
+                document.getElementById("ajaxload-img").style.display = "none";
+                document.body.style.pointerEvents = "auto";
+                if (resp.data.users.length >= limit) {
+                    document.getElementById('ajax-loadmore').innerHTML = ` <button id="btn-loadmore" onclick="loadMoreUser()"
+                        style="margin-left:auto;background: #6B61DF;color:#fff;width:110px;height:40px;border-radius:20px;border:none;margin-top:20px;">
+                        Load More
+                    </button>`
+                } else {
+                    document.getElementById('ajax-loadmore').innerHTML = '';
+                }
+
+                document.getElementById("users-wrapper").innerHTML = `
+                    <tr>
+                        <th style="text-align: left;">ID</th>
+                        <th>Name</th>
+                        <th>Mobile</th>
+                        <th>Role</th>
+                        <th>Gender</th>
+                        <th>Status</th>
+                        <th>Class</th>
+                        <th>Actions</th>
+                    </tr>
+                `
+
+                resp.data.users.forEach(user => {
+                    document.getElementById("users-wrapper").insertAdjacentHTML("beforeend", `
+                        <tr id="tr-${user._id}">
+                            <td><input type="checkbox" style="zoom: 1.2;"></td>
+                            <td style="display: flex;align-items:center;"><img
+                                src="/img/gvnlogo.jpg"
+                                style="width: 35px;height:35px;object-fit:cover;border:2px solid #fff;border-radius:50%;margin-right:14px;">${user.firstname}
+                                ${user.lastname}</td>
+                            <td>${user.mobile}</td>
+                            <td>${user.role == "0" ? "Student" : user.role == "1" ? "teacher" : user.role == "2" ? "Accountant" : user.role == "3" ? "Receptionist" : "Admin"}</td>
+                            <td><span
+                                    style="background: #${user.gender == "Male" ? "7367F0" : user.gender == "Female" ? "FF3494" : "FF9F43"};color:#fff;padding:6px 10px;border-radius:25px;">${user.gender != "" ? user.gender : "Not Specified"}</span>
+                            </td>
+                            <td><span
+                                    style="width: 14px;height:14px;border-radius:50%;background:#${user.status == "0" ? "1BA057" : "cf1931"};display:inline-block;"></span>
+                            </td>
+                            <td>${user.standard != undefined ? user.standard : ""}</td>
+                            <td>
+                                <a href="/${user.role == "0" ? "user" : "teacher"}-edit?id=${user._id}">
+                                    <svg width="17px" height="17px" style="stroke: #fff;">
+                                        <use href="/img/sprite.svg#icon-edit"></use>
+                                    </svg>
+                                </a>
+                                <svg onclick="deleteUser('${user._id}', '${user.role}')" width="17px" height="17px" style="stroke: #fff;margin-left:10px;cursor:pointer;">
+                                    <use href="/img/sprite.svg#icon-del"></use>
+                                </svg>
+                            </td>
+                        </tr>
+                    `);
+                })
+            })
+        }
+        loadUsers();
+
+        const loadMoreUser = () => {
+            document.getElementById("btn-loadmore").disabled = true;
+            document.getElementById("btn-loadmore").innerHTML = `
+                <div class="spinner" style="height:10px;">
+                    <div class="rect1"></div>
+                    <div class="rect2"></div>
+                    <div class="rect3"></div>
+                    <div class="rect4"></div>
+                    <div class="rect5"></div>
+                </div>
+            `
+
+            skip = skip + limit;
+            loadUsers();
+        }
+
+        const filterHandler = (value, dropdown, key) => {
+            let allDropDown = document.getElementsByClassName("myDropdown");
+            for (var i = 0; i < allDropDown.length; i++) {
+                if (document.getElementById(allDropDown.item(i).getAttribute('id')).classList.contains("show")) {
+                    document.getElementById(allDropDown.item(i).getAttribute('id')).classList.toggle("show");
+                }
+            }
+            document.getElementById("chosen-" + dropdown).innerHTML = value;
+
+            //handler
+            document.body.style.pointerEvents = "none";
+            document.getElementById("users-wrapper").innerHTML = "";
+            document.getElementById("ajaxload-img").style.display = "block";
+            skip = 0;
+            if (key == "role") {
+                role = value;
+            } else if (key == "status") {
+                status = value;
+            } else if (key == "shift") {
+                shift = value;
+            } else if (key == "standard") {
+                standard = value;
+            }
+            loadUsers();
+        }
+
+        const searchTypeHandler = (value, dropdown) => {
+            let allDropDown = document.getElementsByClassName("myDropdown");
+            for (var i = 0; i < allDropDown.length; i++) {
+                if (document.getElementById(allDropDown.item(i).getAttribute('id')).classList.contains("show")) {
+                    document.getElementById(allDropDown.item(i).getAttribute('id')).classList.toggle("show");
+                }
+            }
+            document.getElementById("chosen-" + dropdown).innerHTML = value;
+
+            //handler
+            searchtype = value;
+        }
+
+        const searchHandler = (e) => {
+            e.preventDefault();
+
+            document.body.style.pointerEvents = "none";
+            document.getElementById("users-wrapper").innerHTML = "";
+            document.getElementById("ajaxload-img").style.display = "block";
+            skip = 0;
+            search = document.getElementById("search-input").value;
+            loadUsers();
+        }
+        document.getElementById("search-form").addEventListener("submit", searchHandler);
+    </script>
+
+    <div id="delete-loader"
+        style="display:none;position: fixed;top:0;left:0;width:100%;height:100%;z-index:100;background:rgba(22, 23, 32, 0.75);">
+        <div class="spinner" style="height:35px;position:fixed;top:50%;left:50%;transform:translate(-50%, -50%);">
+            <div class="rect1"></div>
+            <div class="rect2"></div>
+            <div class="rect3"></div>
+            <div class="rect4"></div>
+            <div class="rect5"></div>
+        </div>
+    </div>
+    <script>
+        const deleteUser = (id, role) => {
+            var person = prompt('Please Enter "Confirm" To Delete');
+
+            if (person.toUpperCase() == "CONFIRM" && role != 10) {
+                document.getElementById("delete-loader").style.display = "block";
+
+                axios.get(`/api/user/delete?id=${id}`)
+                    .then(function (resp) {
+                        document.getElementById("tr-" + id).style.display = "none";
+                        document.getElementById("delete-loader").style.display = "none";
+                    })
+            }
+        }
+    </script>
+</body>
+
+</html>

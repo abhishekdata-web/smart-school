@@ -1,0 +1,27 @@
+.enquiry-col {
+    width: 48.5%;
+}
+#addenquiry-modal {
+    transition: 0.2s;
+    border-radius: 10px;
+    padding: 20px;
+    position: fixed;
+    z-index: 155;
+    top: -200%;
+    right: 20px;
+    background: #4D8AF0;
+    box-shadow: 0 0 10px 1px #4D8AF0;
+    font-size: 14px;
+}
+
+@media only screen and (max-width: 800px) {
+    .enquiry-col {
+        width: 100%;
+    }
+    #addenquiry-modal {
+        padding: 14px;
+        position: absolute;
+        margin: 0 0 20px 20px;
+        overflow: scroll;
+    }
+}

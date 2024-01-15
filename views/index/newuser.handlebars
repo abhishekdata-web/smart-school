@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0,user-scalable=0" />
+    <title>Gvn Ems</title>
+    <link rel="manifest" href="/manifest.json" />
+    <link rel="shortcut icon" href="/img/favicon.png" />
+    <script>
+        //check cookie w_auth
+        let w_auth = document.cookie.indexOf('w_auth');
+        if (w_auth != -1) {
+            if (localStorage.getItem('role') != 10 && localStorage.getItem('role') != 3) {
+                location.href = "/dashboard";
+            }
+        } else {
+            location.href = "/login";
+        }
+    </script>
+    <link rel="stylesheet" href="/css/main.min.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #1F2946;
+        }
+
+        input::placeholder {
+            color: #c2c6dc;
+        }
+
+        .bottomscrollbar {
+            -ms-overflow-style: none;
+            /* IE and Edge */
+            scrollbar-width: none;
+            /* Firefox */
+        }
+
+        .bottomscrollbar::-webkit-scrollbar {
+            /* Hide scrollbar for Chrome, Safari and Opera */
+            height: 5px;
+            width: 3px;
+            background: #262C49;
+        }
+
+        .bottomscrollbar::-webkit-scrollbar-thumb {
+            background: #4D8AF0;
+            border-radius: 25px;
+        }
+
+        ::-webkit-calendar-picker-indicator {
+            filter: invert(1);
+        }
+    </style>
+</head>
+
+<body>
+    <section style="display: flex;justify-content:space-between;">
+        {{> _sidebar}}
+        <div id="main-content">
+            <form id="newuser-form">
+                {{> _header}}
+
+                <div style="margin-top:29px;display:flex;align-items:center;justify-content:space-between;">
+                    <div style="display:flex;align-items:center;">
+                        <div
+                            style="font-weight:600;color: #fff;font-size:23.5px;border-right:1px solid #fff;padding-right:15px;margin-right:15px;">
+                            User</div>
+                        <a href="/dashboard">
+                            <svg width="19px" height="19px" style="stroke: #7367F0;margin-right:12px;">
+                                <use href="/img/sprite.svg#icon-home"></use>
+                            </svg>
+                        </a>
+                        <svg width="15px" height="15px" style="stroke: #fff;margin-right:12px;">
+                            <use href="/img/sprite.svg#icon-anglelefttwo"></use>
+                        </svg>
+                        <div style="color: #fff;font-size:14.5px;">Sign Up</div>
+                    </div>
+
+                    <div style="background: #6a719c;width:35px;height:35px;padding:10px;border-radius:50%;">
+                        <svg width="16px" height="16px" style="stroke: #fff;margin-right:12px;">
+                            <use href="/img/sprite.svg#icon-cog"></use>
+                        </svg>
+                    </div>
+                </div>
+
+                <div class="bottomscrollbar newuser-fullcol"
+                    style="overflow-x:scroll;color: #c2c6dc;background: #121729;box-shadow: 0 0 10px 0 rgba(4,2,2,.2);margin-top:25px;border-radius:8px;">
+                    <div style="font-size:19px;color: #ebeefd;font-weight:600;border-bottom:1px solid #00e0923d;padding-bottom:10px;">Admission Info
+                    </div>
+                    <div style="width:950px;display: flex;align-items:center;padding-right:15px;">
+                        <div style="width: 120px;;margin-right:35px;">
+                            <img id="imgPreview" src="https://www.rapidnovor.com/wp-content/uploads/2019/10/signup-icon-13.png"
+                                style="width: 140px;height:140px;object-fit:cover;">
+                        </div>
+                        <div
+                            style="display: flex;align-items:center;justify-content:space-between;flex-wrap:wrap;font-size:14px;">
+                            <div style="width: 31.8%;">
+                                <div id="mobile-err" style="margin-top: 21px;">Mobile Number</div>
+                                <div id="mobile-wrap" class="input-err"
+                                    style="background: #1D2542;display:flex;align-items:center;padding:10px;border-top:1px solid #10163A;">
+                                    <svg width="20px" height="20px" style="stroke: #c2c6dc;">
+                                        <use href="/img/sprite.svg#icon-user"></use>
+                                    </svg>
+                                    <input type="number" id="mobile" name="mobile" required
+                                        oninput="javascript: if (this.value.length > 10) this.value = this.value.slice(0, 10);"
+                                        style=";color:#fff;background: #1D2542;width:100%;border:none;margin-left:13px;">
+                                </div>
+                            </div>
+                            <div style="width: 31.8%;">
+                                <div style="margin-top: 21px;">Standard</div>
+                                <div class="dropdown">
+                                    <input type="hidden" id="maininput-myDropdown" name="standard">
+                                    <button type="button" onclick="myFunction('myDropdown')" class="dropbtn input-err"
+                                        id="btn-standard">
+                                        <div id="chosen-myDropdown"></div>
+                                        <svg width="15px" height="15px" style="stroke: #fff;margin-left:auto;">
+                                            <use href="/img/sprite.svg#icon-anglelefttwo"></use>
+                                        </svg>
+                                    </button>
+                                    <div class="myDropdown dropdown-content hidescrollbar" data-dropdown="myDropdown"
+                                        id="myDropdown">
+                                        <div
+                                            style="display: flex;align-items:center;padding-left:10px;background:#10163A;">
+                                            <svg width="16px" height="16px" style="stroke: #fff;margin-right:5px;">
+                                                <use href="/img/sprite.svg#icon-search"></use>
+                                            </svg>
+                                            <input type="text" class="myInput" id="myInput-myDropdown"
+                                                onkeyup="filterFunction('myDropdown')">
+                                        </div>
+                                        <a href="#about" onclick="dropdownChosen('11 (G1) Science', 'myDropdown')">11
+                                            (G1) Science
+                                        </a>
+                                        <a href="#base" onclick="dropdownChosen('11 (G2) Science', 'myDropdown')">
+                                            11 (G2) Science
+                                        </a>
+                                        <a href="#custom" onclick="dropdownChosen('11 (G1) Management', 'myDropdown')">
+                                            11 (G1) Management
+                                        </a>
+                                        <a href="#support" onclick="dropdownChosen('11 (G2) Management', 'myDropdown')">
+                                            11 (G2) Management
+                                        </a>
+                                        <a href="#blog" onclick="dropdownChosen('11 (G3) Management', 'myDropdown')">
+                                            11 (G3) Management
+                                        </a>
+                                        <a href="#contact" onclick="dropdownChosen('11 (G4) Management', 'myDropdown')">
+                                            11 (G4) Management
+                                        </a>
+                                        <a href="#custom" onclick="dropdownChosen('11 (G5) Management', 'myDropdown')">
+                                            11 (G5) Management
+                                        </a>
+                                        <a href="#support" onclick="dropdownChosen('11 (G6) Management', 'myDropdown')">
+                                            11 (G6) Management
+                                        </a>
+                                        <a href="#support" onclick="dropdownChosen('11 (G7) Management', 'myDropdown')">
+                                            11 (G7) Management
+                                        </a>
+                                        <a href="#support" onclick="dropdownChosen('11 (G1) Education', 'myDropdown')">
+                                            11 (G1) Education
+                                        </a>
+                                        <a href="#about" onclick="dropdownChosen('11 (G1) Law', 'myDropdown')">11 (G1)
+                                            Law
+                                        </a>
+                                        <a href="#about" onclick="dropdownChosen('12 (G1) Science', 'myDropdown')">12
+                                            (G1) Science
+                                        </a>
+                                        <a href="#base" onclick="dropdownChosen('12 (G2) Science', 'myDropdown')">
+                                            12 (G2) Science
+                                        </a>
+                                        <a href="#custom" onclick="dropdownChosen('12 (G1) Management', 'myDropdown')">
+                                            12 (G1) Management
+                                        </a>
+                                        <a href="#support" onclick="dropdownChosen('12 (G2) Management', 'myDropdown')">
+                                            12 (G2) Management
+                                        </a>
+                                        <a href="#blog" onclick="dropdownChosen('12 (G3) Management', 'myDropdown')">
+                                            12 (G3) Management
+                                        </a>
+                                        <a href="#contact" onclick="dropdownChosen('12 (G4) Management', 'myDropdown')">
+                                            12 (G4) Management
+                                        </a>
+                                        <a href="#custom" onclick="dropdownChosen('12 (G5) Management', 'myDropdown')">
+                                            12 (G5) Management
+                                        </a>
+                                        <a href="#support" onclick="dropdownChosen('12 (G6) Management', 'myDropdown')">
+                                            12 (G6) Management
+                                        </a>
+                                        <a href="#support" onclick="dropdownChosen('12 (G7) Management', 'myDropdown')">
+                                            12 (G7) Management
+                                        </a>
+                                        <a href="#support" onclick="dropdownChosen('12 (G1) Education', 'myDropdown')">
+                                            12 (G1) Education
+                                        </a>
+                                        <a href="#about" onclick="dropdownChosen('12 (G1) Law', 'myDropdown')">12 (G1)
+                                            Law
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="width: 31.8%;">
+                                <div style="margin-top: 21px;">Shift</div>
+                                <div class="dropdown">
+                                    <input type="hidden" id="maininput-myDropdown2" name="shift">
+                                    <button type="button" onclick="myFunction('myDropdown2')" class="dropbtn input-err"
+                                        id="btn-shift">
+                                        <div id="chosen-myDropdown2"></div>
+                                        <svg width="15px" height="15px" style="stroke: #fff;margin-left:auto;">
+                                            <use href="/img/sprite.svg#icon-anglelefttwo"></use>
+                                        </svg>
+                                    </button>
+                                    <div class="myDropdown dropdown-content hidescrollbar" data-dropdown="myDropdown2"
+                                        id="myDropdown2">
+                                        <div
+                                            style="display: flex;align-items:center;padding-left:10px;background:#10163A;">
+                                            <svg width="16px" height="16px" style="stroke: #fff;margin-right:5px;">
+                                                <use href="/img/sprite.svg#icon-search"></use>
+                                            </svg>
+                                            <input type="text" class="myInput" id="myInput-myDropdown2"
+                                                onkeyup="filterFunction('myDropdown2')">
+                                        </div>
+                                        <a href="#about" onclick="dropdownChosen('None', 'myDropdown2')">None</a>
+                                        <a href="#about" onclick="dropdownChosen('Morning', 'myDropdown2')">Morning</a>
+                                        <a href="#base" onclick="dropdownChosen('Day', 'myDropdown2')">Day</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="width: 31.8%;">
+                                <div style="margin-top: 21px;">Password</div>
+                                <input class="input-err" type="password" id="password" name="password" required
+                                    style="background: #1D2542;border:none;color:#fff;padding:10px;border-radius:2px;border-top:1px solid #10163A;width:100%;">
+                            </div>
+                            <div style="width: 31.8%;">
+                                <div style="margin-top: 21px;">Confirm Password</div>
+                                <input class="input-err" type="password" id="password2" required
+                                    style="background: #1D2542;border:none;color:#fff;padding:10px;border-radius:2px;border-top:1px solid #10163A;width:100%;">
+                            </div>
+                            <div style="width: 31.8%;">
+                                <div style="margin-top: 21px;">Admit Date</div>
+                                <input type="date" name="admit"
+                                    style="background: #1D2542;border:none;color:#fff;padding:10px 6px 10px;border-radius:2px;border-top:1px solid #10163A;width:100%;">
+                            </div>
+                            <div style="width: 31.8%;">
+                                <div style="margin-top: 10px;">Uni Reg</div>
+                                <input type="text" name="unireg"
+                                    style="background: #1D2542;border:none;border-top:1px solid #10163A;color:#fff;padding:10px;border-radius:2px;width:100%;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="display:flex;flex-wrap:wrap;justify-content:space-between;">
+                    <div class="newuser-col"
+                        style="background: #121729;box-shadow: 0 0 10px 0 rgba(4,2,2,.2);border-radius:8px;">
+                        <div style="font-size:19px;color: #ebeefd;font-weight:600;border-bottom:1px solid #00e0923d;padding-bottom:10px;">Student Info</div>
+                        <div
+                            style="display: flex;flex-wrap:wrap;align-items:center;justify-content:space-between;margin-top:10px;font-size:14px;color: #c2c6dc;">
+                            <div style="width:48%;margin-top: 21px;">
+                                <div>First Name</div>
+                                <input type="text" name="firstname" required
+                                    style="background: #1D2542;border:none;color:#fff;padding:10px;border-radius:2px;border-top:1px solid #10163A;width:100%;">
+                            </div>
+                            <div style="width:48%;margin-top: 21px;">
+                                <div>Middle Name</div>
+                                <input type="text" name="middlename"
+                                    style="background: #1D2542;border:none;color:#fff;padding:10px;border-radius:2px;border-top:1px solid #10163A;width:100%;">
+                            </div>
+                            <div style="width:48%;margin-top: 21px;">
+                                <div>Last Name</div>
+                                <input type="text" name="lastname" required
+                                    style="background: #1D2542;border:none;color:#fff;padding:10px;border-radius:2px;border-top:1px solid #10163A;width:100%;">
+                            </div>
+                            <div style="width:48%;margin-top: 21px;">
+                                <div>Gender</div>
+                                <div class="dropdown">
+                                    <input type="hidden" id="maininput-myDropdown3" name="gender">
+                                    <button type="button" onclick="myFunction('myDropdown3')" class="dropbtn input-err"
+                                        id="btn-gender">
+                                        <div id="chosen-myDropdown3"></div>
+                                        <svg width="15px" height="15px" style="stroke: #fff;margin-left:auto;">
+                                            <use href="/img/sprite.svg#icon-anglelefttwo"></use>
+                                        </svg>
+                                    </button>
+                                    <div class="myDropdown dropdown-content hidescrollbar" data-dropdown="myDropdown3"
+                                        id="myDropdown3">
+                                        <div
+                                            style="display: flex;align-items:center;padding-left:10px;background:#10163A;">
+                                            <svg width="16px" height="16px" style="stroke: #fff;margin-right:5px;">
+                                                <use href="/img/sprite.svg#icon-search"></use>
+                                            </svg>
+                                            <input type="text" class="myInput" id="myInput-myDropdown3"
+                                                onkeyup="filterFunction('myDropdown3')">
+                                        </div>
+                                        <a href="#about" onclick="dropdownChosen('Male', 'myDropdown3')">Male</a>
+                                        <a href="#base" onclick="dropdownChosen('Female', 'myDropdown3')">Female</a>
+                                        <a href="#base" onclick="dropdownChosen('Other', 'myDropdown3')">Other</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="width:48%;margin-top: 21px;">
+                                <div>Blood Group</div>
+                                <div class="dropdown">
+                                    <input type="hidden" id="maininput-myDropdown4" name="bg">
+                                    <button type="button" onclick="myFunction('myDropdown4')" class="dropbtn input-err"
+                                        id="btn-bg">
+                                        <div id="chosen-myDropdown4"></div>
+                                        <svg width="15px" height="15px" style="stroke: #fff;margin-left:auto;">
+                                            <use href="/img/sprite.svg#icon-anglelefttwo"></use>
+                                        </svg>
+                                    </button>
+                                    <div class="myDropdown dropdown-content hidescrollbar" data-dropdown="myDropdown4"
+                                        id="myDropdown4">
+                                        <div
+                                            style="display: flex;align-items:center;padding-left:10px;background:#10163A;">
+                                            <svg width="16px" height="16px" style="stroke: #fff;margin-right:5px;">
+                                                <use href="/img/sprite.svg#icon-search"></use>
+                                            </svg>
+                                            <input type="text" class="myInput" id="myInput-myDropdown4"
+                                                onkeyup="filterFunction('myDropdown4')">
+                                        </div>
+                                        <a href="#about" onclick="dropdownChosen('Unknown', 'myDropdown4')">Unknown</a>
+                                        <a href="#base" onclick="dropdownChosen('O +', 'myDropdown4')">O +</a>
+                                        <a href="#base" onclick="dropdownChosen('O -', 'myDropdown4')">O -</a>
+                                        <a href="#base" onclick="dropdownChosen('A +', 'myDropdown4')">A +</a>
+                                        <a href="#base" onclick="dropdownChosen('A -', 'myDropdown4')">A -</a>
+                                        <a href="#base" onclick="dropdownChosen('B +', 'myDropdown4')">B +</a>
+                                        <a href="#base" onclick="dropdownChosen('B -', 'myDropdown4')">B -</a>
+                                        <a href="#base" onclick="dropdownChosen('AB +', 'myDropdown4')">AB +</a>
+                                        <a href="#base" onclick="dropdownChosen('AB -', 'myDropdown4')">AB -</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="width:48%;margin-top: 21px;">
+                                <div>Date Of Birth</div>
+                                <input type="date" name="dob"
+                                    style="background: #1D2542;border:none;color:#fff;padding:10px 6px 10px;border-radius:2px;border-top:1px solid #10163A;width:100%;">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="newuser-col"
+                        style="background: #121729;box-shadow: 0 0 10px 0 rgba(4,2,2,.2);border-radius:8px;">
+                        <div style="font-size:19px;color: #ebeefd;font-weight:600;border-bottom:1px solid #00e0923d;padding-bottom:10px;">Other Info</div>
+                        <div
+                            style="display: flex;flex-wrap:wrap;align-items:center;justify-content:space-between;margin-top:10px;color: #c2c6dc;font-size:14px;">
+                            <div style="width: 48%;margin-top: 21px;">
+                                <div>District</div>
+                                <div class="dropdown">
+                                    <input type="hidden" id="maininput-myDropdown5" name="district">
+                                    <button type="button" onclick="myFunction('myDropdown5')" class="dropbtn input-err"
+                                        id="btn-district">
+                                        <div id="chosen-myDropdown5"></div>
+                                        <svg width="15px" height="15px" style="stroke: #fff;margin-left:auto;">
+                                            <use href="/img/sprite.svg#icon-anglelefttwo"></use>
+                                        </svg>
+                                    </button>
+                                    <div class="myDropdown dropdown-content hidescrollbar" data-dropdown="myDropdown5"
+                                        id="myDropdown5">
+                                        <div
+                                            style="display: flex;align-items:center;padding-left:10px;background:#10163A;">
+                                            <svg width="16px" height="16px" style="stroke: #fff;margin-right:5px;">
+                                                <use href="/img/sprite.svg#icon-search"></use>
+                                            </svg>
+                                            <input type="text" class="myInput" id="myInput-myDropdown5"
+                                                onkeyup="filterFunction('myDropdown5')">
+                                        </div>
+                                        <a href="#about" onclick="dropdownChosen('Achham', 'myDropdown5')">Achham</a>
+                                        <a href="#about"
+                                            onclick="dropdownChosen('Arghakhanchi', 'myDropdown5')">Arghakhanchi</a>
+                                        <a href="#about" onclick="dropdownChosen('Baglung', 'myDropdown5')">Baglung</a>
+                                        <a href="#about" onclick="dropdownChosen('Baitadi', 'myDropdown5')">Baitadi</a>
+                                        <a href="#about" onclick="dropdownChosen('Bajhang', 'myDropdown5')">Bajhang</a>
+                                        <a href="#about" onclick="dropdownChosen('Bajura', 'myDropdown5')">Bajura</a>
+                                        <a href="#about" onclick="dropdownChosen('Banke', 'myDropdown5')">Banke</a>
+                                        <a href="#about" onclick="dropdownChosen('Bara', 'myDropdown5')">Bara</a>
+                                        <a href="#about" onclick="dropdownChosen('Bardiya', 'myDropdown5')">Bardiya</a>
+                                        <a href="#about"
+                                            onclick="dropdownChosen('Bhaktapur', 'myDropdown5')">Bhaktapur</a>
+                                        <a href="#about" onclick="dropdownChosen('Bhojpur', 'myDropdown5')">Bhojpur</a>
+                                        <a href="#about" onclick="dropdownChosen('Chitwan', 'myDropdown5')">Chitwan</a>
+                                        <a href="#about"
+                                            onclick="dropdownChosen('Dadeldhura', 'myDropdown5')">Dadeldhura</a>
+                                        <a href="#about" onclick="dropdownChosen('Dailekh', 'myDropdown5')">Dailekh</a>
+                                        <a href="#about" onclick="dropdownChosen('Dang', 'myDropdown5')">Dang</a>
+                                        <a href="#about"
+                                            onclick="dropdownChosen('Darchula', 'myDropdown5')">Darchula</a>
+                                        <a href="#about" onclick="dropdownChosen('Dhading', 'myDropdown5')">Dhading</a>
+                                        <a href="#about"
+                                            onclick="dropdownChosen('Dhankuta', 'myDropdown5')">Dhankuta</a>
+                                        <a href="#about" onclick="dropdownChosen('Dhanusa', 'myDropdown5')">Dhanusa</a>
+                                        <a href="#about" onclick="dropdownChosen('Dolakha', 'myDropdown5')">Dolakha</a>
+                                        <a href="#about" onclick="dropdownChosen('Dolpa', 'myDropdown5')">Dolpa</a>
+                                        <a href="#about" onclick="dropdownChosen('Doti', 'myDropdown5')">Doti</a>
+                                        <a href="#about" onclick="dropdownChosen('Gorkha', 'myDropdown5')">Gorkha</a>
+                                        <a href="#about" onclick="dropdownChosen('Gulmi', 'myDropdown5')">Gulmi</a>
+                                        <a href="#about" onclick="dropdownChosen('Humla', 'myDropdown5')">Humla</a>
+                                        <a href="#about" onclick="dropdownChosen('Ilam', 'myDropdown5')">Ilam</a>
+                                        <a href="#about"
+                                            onclick="dropdownChosen('Jajarkot', 'myDropdown5')">Jajarkot</a>
+                                        <a href="#about" onclick="dropdownChosen('Jhapa', 'myDropdown5')">Jhapa</a>
+                                        <a href="#about" onclick="dropdownChosen('Jumla', 'myDropdown5')">Jumla</a>
+                                        <a href="#about" onclick="dropdownChosen('Kailali', 'myDropdown5')">Kailali</a>
+                                        <a href="#about" onclick="dropdownChosen('Kalikot', 'myDropdown5')">Kalikot</a>
+                                        <a href="#about"
+                                            onclick="dropdownChosen('Kanchanpur', 'myDropdown5')">Kanchanpur</a>
+                                        <a href="#about"
+                                            onclick="dropdownChosen('Kapilvastu', 'myDropdown5')">Kapilvastu</a>
+                                        <a href="#about" onclick="dropdownChosen('Kaski', 'myDropdown5')">Kaski</a>
+                                        <a href="#about"
+                                            onclick="dropdownChosen('Kathmandu', 'myDropdown5')">Kathmandu</a>
+                                        <a href="#about"
+                                            onclick="dropdownChosen('Kavrepalanchok', 'myDropdown5')">Kavrepalanchok</a>
+                                        <a href="#about" onclick="dropdownChosen('Khotang', 'myDropdown5')">Khotang</a>
+                                        <a href="#about"
+                                            onclick="dropdownChosen('Lalitpur', 'myDropdown5')">Lalitpur</a>
+                                        <a href="#about" onclick="dropdownChosen('Lamjung', 'myDropdown5')">Lamjung</a>
+                                        <a href="#about"
+                                            onclick="dropdownChosen('Mahottari', 'myDropdown5')">Mahottari</a>
+                                        <a href="#about"
+                                            onclick="dropdownChosen('Makwanpur', 'myDropdown5')">Makwanpur</a>
+                                        <a href="#about" onclick="dropdownChosen('Manang', 'myDropdown5')">Manang</a>
+                                        <a href="#about" onclick="dropdownChosen('Morang', 'myDropdown5')">Morang</a>
+                                        <a href="#about" onclick="dropdownChosen('Mugu', 'myDropdown5')">Mugu</a>
+                                        <a href="#about" onclick="dropdownChosen('Mustang', 'myDropdown5')">Mustang</a>
+                                        <a href="#about" onclick="dropdownChosen('Myagdi', 'myDropdown5')">Myagdi</a>
+                                        <a href="#about"
+                                            onclick="dropdownChosen('Nawalparasi', 'myDropdown5')">Nawalparasi</a>
+                                        <a href="#about" onclick="dropdownChosen('Nuwakot', 'myDropdown5')">Nuwakot</a>
+                                        <a href="#about"
+                                            onclick="dropdownChosen('Okhaldhunga', 'myDropdown5')">Okhaldhunga</a>
+                                        <a href="#about" onclick="dropdownChosen('Palpa', 'myDropdown5')">Palpa</a>
+                                        <a href="#about"
+                                            onclick="dropdownChosen('Panchthar', 'myDropdown5')">Panchthar</a>
+                                        <a href="#about" onclick="dropdownChosen('Parbat', 'myDropdown5')">Parbat</a>
+                                        <a href="#about" onclick="dropdownChosen('Parsa', 'myDropdown5')">Parsa</a>
+                                        <a href="#about" onclick="dropdownChosen('Pyuthan', 'myDropdown5')">Pyuthan</a>
+                                        <a href="#about"
+                                            onclick="dropdownChosen('Ramechhap', 'myDropdown5')">Ramechhap</a>
+                                        <a href="#about" onclick="dropdownChosen('Rasuwa', 'myDropdown5')">Rasuwa</a>
+                                        <a href="#about"
+                                            onclick="dropdownChosen('Rautahat', 'myDropdown5')">Rautahat</a>
+                                        <a href="#about" onclick="dropdownChosen('Rolpa', 'myDropdown5')">Rolpa</a>
+                                        <a href="#about" onclick="dropdownChosen('Rukum', 'myDropdown5')">Rukum</a>
+                                        <a href="#about"
+                                            onclick="dropdownChosen('Rupandehi', 'myDropdown5')">Rupandehi</a>
+                                        <a href="#about" onclick="dropdownChosen('Salyan', 'myDropdown5')">Salyan</a>
+                                        <a href="#about"
+                                            onclick="dropdownChosen('Sankhuwasabha', 'myDropdown5')">Sankhuwasabha</a>
+                                        <a href="#about" onclick="dropdownChosen('Saptari', 'myDropdown5')">Saptari</a>
+                                        <a href="#about" onclick="dropdownChosen('Sarlahi', 'myDropdown5')">Sarlahi</a>
+                                        <a href="#about"
+                                            onclick="dropdownChosen('Sindhuli', 'myDropdown5')">Sindhuli</a>
+                                        <a href="#about"
+                                            onclick="dropdownChosen('Sindhupalchok', 'myDropdown5')">Sindhupalchok</a>
+                                        <a href="#about" onclick="dropdownChosen('Siraha', 'myDropdown5')">Siraha</a>
+                                        <a href="#about"
+                                            onclick="dropdownChosen('Solukhumbu', 'myDropdown5')">Solukhumbu</a>
+                                        <a href="#about" onclick="dropdownChosen('Sunsari', 'myDropdown5')">Sunsari</a>
+                                        <a href="#about" onclick="dropdownChosen('Surkhet', 'myDropdown5')">Surkhet</a>
+                                        <a href="#about" onclick="dropdownChosen('Syangja', 'myDropdown5')">Syangja</a>
+                                        <a href="#about" onclick="dropdownChosen('Tanahu', 'myDropdown5')">Tanahu</a>
+                                        <a href="#about"
+                                            onclick="dropdownChosen('Taplejung', 'myDropdown5')">Taplejung</a>
+                                        <a href="#about"
+                                            onclick="dropdownChosen('Terhathum', 'myDropdown5')">Terhathum</a>
+                                        <a href="#about"
+                                            onclick="dropdownChosen('Udayapur', 'myDropdown5')">Udayapur</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="width:48%;margin-top: 21px;">
+                                <div>Full Address</div>
+                                <input type="text" name="address"
+                                    style="background: #1D2542;border:none;color:#fff;padding:10px;border-radius:2px;border-top:1px solid #10163A;width:100%;">
+                            </div>
+                            <div style="width: 48%;margin-top: 21px;">
+                                <div>Nationality</div>
+                                <div class="dropdown">
+                                    <input type="hidden" id="maininput-myDropdown6" name="nationality">
+                                    <button type="button" onclick="myFunction('myDropdown6')" class="dropbtn input-err"
+                                        id="btn-nationality">
+                                        <div id="chosen-myDropdown6"></div>
+                                        <svg width="15px" height="15px" style="stroke: #fff;margin-left:auto;">
+                                            <use href="/img/sprite.svg#icon-anglelefttwo"></use>
+                                        </svg>
+                                    </button>
+                                    <div class="myDropdown dropdown-content hidescrollbar" data-dropdown="myDropdown6"
+                                        id="myDropdown6">
+                                        <div
+                                            style="display: flex;align-items:center;padding-left:10px;background:#10163A;">
+                                            <svg width="16px" height="16px" style="stroke: #fff;margin-right:5px;">
+                                                <use href="/img/sprite.svg#icon-search"></use>
+                                            </svg>
+                                            <input type="text" class="myInput" id="myInput-myDropdown6"
+                                                onkeyup="filterFunction('myDropdown6')">
+                                        </div>
+                                        <a href="#about" onclick="dropdownChosen('Nepali', 'myDropdown6')">Nepali</a>
+                                        <a href="#base" onclick="dropdownChosen('Indian', 'myDropdown6')">Indian</a>
+                                        <a href="#base" onclick="dropdownChosen('Other', 'myDropdown6')">Other</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="width: 48%;margin-top: 21px;">
+                                <div>Religion</div>
+                                <div class="dropdown">
+                                    <input type="hidden" id="maininput-myDropdown8" name="religion">
+                                    <button type="button" onclick="myFunction('myDropdown8')" class="dropbtn input-err"
+                                        id="btn-religion">
+                                        <div id="chosen-myDropdown8"></div>
+                                        <svg width="15px" height="15px" style="stroke: #fff;margin-left:auto;">
+                                            <use href="/img/sprite.svg#icon-anglelefttwo"></use>
+                                        </svg>
+                                    </button>
+                                    <div class="myDropdown dropdown-content hidescrollbar" data-dropdown="myDropdown8"
+                                        id="myDropdown8">
+                                        <div
+                                            style="display: flex;align-items:center;padding-left:10px;background:#10163A;">
+                                            <svg width="16px" height="16px" style="stroke: #fff;margin-right:5px;">
+                                                <use href="/img/sprite.svg#icon-search"></use>
+                                            </svg>
+                                            <input type="text" class="myInput" id="myInput-myDropdown8"
+                                                onkeyup="filterFunction('myDropdown8')">
+                                        </div>
+                                        <a href="#about" onclick="dropdownChosen('Hindu', 'myDropdown8')">Hindu</a>
+                                        <a href="#base" onclick="dropdownChosen('Muslims', 'myDropdown8')">Muslims</a>
+                                        <a href="#base"
+                                            onclick="dropdownChosen('Christians', 'myDropdown8')">Christians</a>
+                                        <a href="#base"
+                                            onclick="dropdownChosen('Buddhists', 'myDropdown8')">Buddhists</a>
+                                        <a href="#base" onclick="dropdownChosen('Sikhs', 'myDropdown8')">Sikhs</a>
+                                        <a href="#base" onclick="dropdownChosen('Jews', 'myDropdown8')">Jews</a>
+                                        <a href="#base" onclick="dropdownChosen('Other', 'myDropdown8')">Other</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="newuser-fullcol"
+                    style="background: #121729;box-shadow: 0 0 10px 0 rgba(4,2,2,.2);border-radius:8px;margin:25px 0;color:#ebeefd;font-size:12px;">
+                    <div style="font-size:19px;color: #ebeefd;font-weight:600;border-bottom:1px solid #00e0923d;padding-bottom:10px;">More Info</div>
+                    <div style="color: #c2c6dc;font-size:14px;margin:24px 0 2px;">Additional Details | Qualifications
+                    </div>
+                    <textarea name="detail" rows="10"
+                        style="width: 100%;background:#1D2542;color:#fff;outline:none;border:none;border-radius:2px;padding:10px;"></textarea>
+                </div>
+
+                <button id="newuser-btn"
+                    style="position:fixed;bottom:50px;right:50px;box-shadow: 0 1px 20px 1px #fb434f;background:#fb434f;color:#fff;border:none;padding:11px 34px;border-radius:7px;display:flex;display:flex;align-items:center;font-size:12px;">
+                    <svg width="17px" height="17px" style="stroke: #fff;margin-right:5px;">
+                        <use href="/img/sprite.svg#icon-add"></use>
+                    </svg>
+                    <span id="newuser-btn-text">Create User</span>
+                </button>
+
+                <div class="footer-dashboard"
+                    style="background: #121729;box-shadow: 0 0 10px 0 rgba(4,2,2,.2);border-radius:8px;margin:25px 0;color:#ebeefd;font-size:12px;">
+                    © COPYRIGHT 2077 | XTREME EMS
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <script src="/script/script.js"></script>
+
+    <script>
+        const createUser = (e) => {
+            e.preventDefault();
+
+            let allInputErr = document.getElementsByClassName("input-err");
+            for (var i = 0; i < allInputErr.length; i++) {
+                document.getElementById(allInputErr.item(i).getAttribute('id')).style.border = "none";
+                document.getElementById(allInputErr.item(i).getAttribute('id')).style.borderTop = "1px solid #10163A";
+            }
+
+            if (document.getElementById("mobile").value.length < 10) {
+                document.getElementById("mobile-wrap").style.border = "1px solid red";
+            } else if (document.getElementById("password").value != document.getElementById("password2").value) {
+                document.getElementById("password").style.border = "1px solid red";
+                document.getElementById("password2").style.border = "1px solid red";
+            } else if (document.getElementById("maininput-myDropdown2").value == "") {
+                document.getElementById("btn-shift").style.border = "1px solid red";
+            } else if (document.getElementById("maininput-myDropdown").value == "") {
+                document.getElementById("btn-standard").style.border = "1px solid red";
+            } else {
+                document.getElementById("newuser-btn").disabled = true;
+                document.getElementById("newuser-btn-text").innerHTML = `
+                    <div class="spinner" style="height:7px;">
+                        <div class="rect1"></div>
+                        <div class="rect2"></div>
+                        <div class="rect3"></div>
+                        <div class="rect4"></div>
+                        <div class="rect5"></div>
+                    </div>
+                `
+
+                var myform = document.getElementById("newuser-form");
+                let formData = new FormData(myform);
+
+                axios.post('/auth-register?role=0', formData)
+                    .then(function (resp) {
+                        document.getElementById("newuser-btn").disabled = false;
+                        document.getElementById("newuser-btn-text").innerHTML = "Create user";
+                        if (resp.data.success == true) {
+                            location.reload();
+                        } else {
+                            document.getElementById("mobile-wrap").style.border = "1px solid red";
+                            document.getElementById("mobile-err").style.color = "red";
+                            document.getElementById("mobile-err").innerHTML = "Duplicate Number";
+                        }
+                    })
+            }
+        }
+        document.getElementById("newuser-form").addEventListener("submit", createUser);
+    </script>
+</body>
+
+</html>
